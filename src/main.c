@@ -3,8 +3,8 @@
 #include "game.h"
 
 int main(void) {
-    Game_init();
-    Game_run();
+    Game *game = Game_init();
+    Game_run(game);
 
     return 0;
 }
