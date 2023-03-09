@@ -1,6 +1,9 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include "player.h"
+#include "scoreboard.h"
+
 ///
 ///
 ///
@@ -15,9 +18,9 @@ typedef enum GameState {
 ///
 ///
 typedef struct {
-    /* player_1: Player; */
-    /* player_2: Player; */
-    /* Scoreboard scoreboard; */
+    Player *player_1;
+    Player *player_2;
+    Scoreboard *scoreboard;
     /* Table table; */
     /* Ball ball; */
     GameState state;
@@ -26,7 +29,7 @@ typedef struct {
 ///
 ///
 ///
-Game *Game_init(void);
+Game *Game_init(const char *player_1_name, const char *player_2_name);
 
 ///
 ///
@@ -42,5 +45,10 @@ void Game_pause(Game *game);
 ///
 ///
 void Game_resume(Game *game);
+
+///
+///
+///
+void Game_print_debug_info(Game *game);
 
 #endif
