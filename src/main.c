@@ -1,3 +1,10 @@
 #include <stdio.h>
 
-int main(void) { printf("\n>>> ### Ping pong TRON-LEGECAY ###"); }
+#include "game.h"
+
+int main(void) {
+    Game_init();
+    Game_run();
+
+    return 0;
+}
