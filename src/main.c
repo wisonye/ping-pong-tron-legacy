@@ -36,6 +36,8 @@
 #define GAME_UI_BORDER_COLOR TRON_LIGHT_BLUE
 #define GAME_UI_BALL_COLOR TRON_LIGHT_BLUE
 #define GAME_UI_BALL_RADIUS 20.0f
+#define GAME_UI_BALL_SPEED_X 300.0f
+#define GAME_UI_BALL_SPEED_Y 300.0f
 #define GAME_UI_RACKET_COLOR TRON_ORANGE
 #define GAME_UI_BEFORE_START_BORDER_COLOR TRON_ORANGE
 #define GAME_UI_BEFORE_START_TEXT_COLOR TRON_ORANGE
@@ -77,6 +79,8 @@ int main(void) {
                 .center = (Vector2){.x = -1.0f, .y = -1.0f},
                 .radius = GAME_UI_BALL_RADIUS,
                 .color = GAME_UI_BALL_COLOR,
+                .speed_x = GAME_UI_BALL_SPEED_X,
+                .speed_y = GAME_UI_BALL_SPEED_Y,
             },
         .ui_settings =
             (UiSettings){

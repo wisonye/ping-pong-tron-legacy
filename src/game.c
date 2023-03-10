@@ -67,10 +67,53 @@ void Game_redraw(Game *game) {
 ///
 ///
 void Game_logic(Game *game) {
+    //
+    // Press 'space' to start game
+    //
     if (IsKeyPressed(KEY_SPACE) && game->state == GS_BEFORE_START) {
         game->state = GS_PLAYING;
         Ball_restart(&game->ball, &game->table_rect);
         Game_print_debug_info(game);
+    }
+
+    if (game->state == GS_PLAYING) {
+        Ball *ball = &game->ball;
+        Rectangle *table_rect = &game->table_rect;
+
+        //
+        // Ball bouncing in the container
+        //
+        ball->center.x += GetFrameTime() * ball->speed_x;
+        ball->center.y += GetFrameTime() * ball->speed_y;
+
+        // If `ball` hit the bottom of `table_rect`
+        if (ball->center.x - ball->radius <= table_rect->x) {
+            ball->center.x = table_rect->x + ball->radius;
+            ball->speed_x *= -1;  // Flip the speed_x direction
+        }
+        // If `ball` hit the top of `table_rect`
+        else if (ball->center.x + ball->radius >=
+                 table_rect->x + table_rect->width) {
+            ball->center.x = table_rect->x + table_rect->width - ball->radius;
+            ball->speed_x *= -1;  // Flip the speed_x direction
+        }
+
+        // If `ball` hit the left of `table_rect`
+        if (ball->center.y - ball->radius <= table_rect->y) {
+            ball->center.y = table_rect->y + ball->radius;
+            ball->speed_y *= -1;  // Flip the speed_y direction
+        }
+        // If `ball` hit the right of `table_rect`
+        else if (ball->center.y + ball->radius >=
+                 table_rect->y + table_rect->height) {
+            ball->center.y = table_rect->y + table_rect->height - ball->radius;
+            ball->speed_y *= -1;  // Flip the speed_y direction
+        }
+
+        /* TraceLog(LOG_DEBUG, */
+        /*          ">>> [ Game_logic ] - ball center: { x: %.2f, y: %.2f, " */
+        /*          "speed_x: %.2f, speed_Y: %.2f}", */
+        /*          ball->center.x, ball->center.y, ball->speed_x, ball->speed_y); */
     }
 }
 

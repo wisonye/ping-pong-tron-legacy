@@ -12,6 +12,8 @@ typedef struct Ball {
     Vector2 center;
     float radius;
     Color color;
+    float speed_x;
+    float speed_y;
 } Ball;
 
 ///
