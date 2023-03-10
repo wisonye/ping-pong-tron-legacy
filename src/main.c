@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "game.h"
 
@@ -13,18 +14,26 @@
 ///
 ///
 int main(void) {
+    const char *player_1_name = getenv("PLAYER_1_NAME") != NULL
+                                    ? getenv("PLAYER_1_NAME")
+                                    : PLAYER_1_NAME;
+
+    const char *player_2_name = getenv("PLAYER_2_NAME") != NULL
+                                    ? getenv("PLAYER_2_NAME")
+                                    : PLAYER_2_NAME;
+
     //
     // Create game instance
     //
     Game game = (Game){
-        .player_1 = (Player){.name = PLAYER_1_NAME, .score = 0},
-        .player_2 = (Player){.name = PLAYER_2_NAME, .score = 0},
+        .player_1 = (Player){.name = player_1_name, .score = 0},
+        .player_2 = (Player){.name = player_2_name, .score = 0},
         .scoreboard =
             (Scoreboard){
                 .player_1_score = 0,
                 .player_2_score = 0,
-                .player_1_name = PLAYER_1_NAME,
-                .player_2_name = PLAYER_2_NAME,
+                .player_1_name = player_1_name,
+                .player_2_name = player_2_name,
             },
         .ui_settings =
             (UiSettings){
