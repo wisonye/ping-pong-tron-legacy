@@ -3,6 +3,7 @@
 
 #include <raylib.h>
 
+#include "ball.h"
 #include "player.h"
 #include "scoreboard.h"
 
@@ -10,10 +11,11 @@
 ///
 ///
 typedef enum GameState {
-    GS_UNINIT = 0x00,
-    GS_INIT = 0x01,
-    GS_RUNNING = 0x02,
-    GS_PAUSE = 0x03,
+    GS_UNINIT = 0x01,
+    GS_INIT = 0x02,
+    GS_BEFORE_START = 0x03,
+    GS_PLAYING = 0x04,
+    GS_PAUSE = 0x05,
 } GameState;
 
 ///
@@ -27,6 +29,8 @@ typedef struct UiSettings {
     Color border_color;
     Color ball_color;
     Color racket_color;
+    Color before_start_border_color;
+    Color before_start_text_color;
 } UiSettings;
 
 ///
@@ -36,8 +40,8 @@ typedef struct {
     Player player_1;
     Player player_2;
     Scoreboard scoreboard;
-    /* Table table; */
-    /* Ball ball; */
+    Rectangle table_rect;
+    Ball ball;
     GameState state;
     UiSettings ui_settings;
 } Game;

@@ -2,7 +2,6 @@
 #define __SCOREBOARD_H__
 
 #include <raylib.h>
-#include <stdint.h>
 
 #include "data_types.h"
 

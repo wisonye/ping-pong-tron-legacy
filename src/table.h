@@ -2,9 +2,9 @@
 #define __TABLE_H__
 
 #include <raylib.h>
-#include <stdint.h>
 
 #include "data_types.h"
+#include "game.h"
 
 ///
 ///
@@ -19,7 +19,9 @@ typedef struct Table {
 ///
 ///
 ///
-void Table_redraw(const Rectangle *sb_rect, const float ui_padding,
-                  Color border_color);
+Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect,
+                       const float ui_padding, Color border_color,
+                       Color before_start_border_color,
+                       Color before_start_text_color);
 
 #endif

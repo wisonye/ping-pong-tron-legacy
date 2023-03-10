@@ -35,7 +35,10 @@
 #define GAME_UI_BACKGROUND_COLOR TRON_DARK
 #define GAME_UI_BORDER_COLOR TRON_LIGHT_BLUE
 #define GAME_UI_BALL_COLOR TRON_LIGHT_BLUE
+#define GAME_UI_BALL_RADIUS 20.0f
 #define GAME_UI_RACKET_COLOR TRON_ORANGE
+#define GAME_UI_BEFORE_START_BORDER_COLOR TRON_ORANGE
+#define GAME_UI_BEFORE_START_TEXT_COLOR TRON_ORANGE
 
 ///
 ///
@@ -62,6 +65,19 @@ int main(void) {
                 .player_1_name = player_1_name,
                 .player_2_name = player_2_name,
             },
+        .table_rect =
+            (Rectangle){
+                .x = -1,
+                .y = -1,
+                .width = -1,
+                .height = -1,
+            },
+        .ball =
+            (Ball){
+                .center = (Vector2){.x = -1.0f, .y = -1.0f},
+                .radius = GAME_UI_BALL_RADIUS,
+                .color = GAME_UI_BALL_COLOR,
+            },
         .ui_settings =
             (UiSettings){
                 .init_screen_width = GAME_UI_INIT_SCREEN_WIDTH,
@@ -71,6 +87,8 @@ int main(void) {
                 .border_color = GAME_UI_BORDER_COLOR,
                 .ball_color = GAME_UI_BALL_COLOR,
                 .racket_color = GAME_UI_RACKET_COLOR,
+                .before_start_border_color = GAME_UI_BEFORE_START_BORDER_COLOR,
+                .before_start_text_color = GAME_UI_BEFORE_START_TEXT_COLOR,
             },
         .state = GS_INIT,
     };

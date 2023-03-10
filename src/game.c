@@ -26,16 +26,52 @@ void Game_init(Game *game) {
     TraceLog(LOG_DEBUG, ">>> [ Game_init ] - Game initialization [ done ]");
 
     Game_print_debug_info(game);
+
+    // Set to `GS_BEFORE_START`
+    game->state = GS_BEFORE_START;
 }
+
 ///
 ///
 ///
 void Game_redraw(Game *game) {
+    //
+    // Scoreboard
+    //
     Rectangle sb_rect = SB_redraw(&game->scoreboard, game->ui_settings.padding,
                                   game->ui_settings.border_color);
 
-    Table_redraw(&sb_rect, game->ui_settings.padding,
-                 game->ui_settings.border_color);
+    //
+    // Table
+    //
+    Rectangle table_rect =
+        Table_redraw(game, &sb_rect, game->ui_settings.padding,
+                     game->ui_settings.border_color,
+                     game->ui_settings.before_start_border_color,
+                     game->ui_settings.before_start_text_color);
+
+    //
+    // Update `game->table_rect` if changed
+    //
+    if (table_rect.x != game->table_rect.x &&
+        table_rect.y != game->table_rect.y &&
+        table_rect.width != game->table_rect.width &&
+        table_rect.height != game->table_rect.height) {
+        game->table_rect = table_rect;
+
+        TraceLog(LOG_DEBUG, ">>> [ Game_redraw ] - Update 'game->table_rect'");
+    }
+}
+
+///
+///
+///
+void Game_logic(Game *game) {
+    if (IsKeyPressed(KEY_SPACE) && game->state == GS_BEFORE_START) {
+        game->state = GS_PLAYING;
+        Ball_restart(&game->ball, &game->table_rect);
+        Game_print_debug_info(game);
+    }
 }
 
 ///
@@ -43,7 +79,6 @@ void Game_redraw(Game *game) {
 ///
 void Game_run(Game *game) {
     TraceLog(LOG_DEBUG, ">>> [ Game_run ] - Game is running");
-    game->state = GS_RUNNING;
     Game_print_debug_info(game);
 
     while (!WindowShouldClose())  // Detect window close button or ESC key
@@ -54,6 +89,11 @@ void Game_run(Game *game) {
         // Clean last frame
         //
         ClearBackground(game->ui_settings.background_color);
+
+        //
+        // Game logic
+        //
+        Game_logic(game);
 
         //
         // Redraw the entire game
@@ -95,8 +135,11 @@ void Game_print_debug_info(Game *game) {
         case GS_INIT:
             strncpy(state_str, "GS_INIT", sizeof(state_str));
             break;
-        case GS_RUNNING:
-            strncpy(state_str, "GS_RUNNING", sizeof(state_str));
+        case GS_BEFORE_START:
+            strncpy(state_str, "GS_BEFORE_START", sizeof(state_str));
+            break;
+        case GS_PLAYING:
+            strncpy(state_str, "GS_PLAYING", sizeof(state_str));
             break;
         case GS_PAUSE:
             strncpy(state_str, "GS_PAUSE", sizeof(state_str));
@@ -122,10 +165,19 @@ void Game_print_debug_info(Game *game) {
              game->player_2.name, game->player_2.score);
 
     //
+    // Ball
+    //
+    char ball_str[200];
+    snprintf(
+        ball_str, sizeof(ball_str),
+        "\tball: {\n\t\tcenter: { x: %.2f, y: %.2f }\n\t\tradius: %.2f\n\t}",
+        game->ball.center.x, game->ball.center.y, game->ball.radius);
+
+    //
     // Debug info
     //
-    snprintf(debug_info, sizeof(debug_info), "\n{\n\tstate: %s\n%s\n%s\n}",
-             state_str, player_1_str, player_2_str);
+    snprintf(debug_info, sizeof(debug_info), "\n{\n\tstate: %s\n%s\n%s\n%s\n}",
+             state_str, player_1_str, player_2_str, ball_str);
 
     TraceLog(LOG_DEBUG, ">>> [ Game_Print_debug_info ] - %s", debug_info);
 }
