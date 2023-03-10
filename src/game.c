@@ -30,7 +30,8 @@ void Game_init(Game *game) {
 ///
 ///
 void Game_redraw(Game *game) {
-    SB_redraw(&game->scoreboard, game->ui_settings.padding);
+    SB_redraw(&game->scoreboard, game->ui_settings.padding,
+              game->ui_settings.border_color);
 }
 
 ///

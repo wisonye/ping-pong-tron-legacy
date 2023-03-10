@@ -24,6 +24,7 @@ typedef struct UiSettings {
     usize init_screen_height;
     float padding;
     Color background_color;
+    Color border_color;
     Color ball_color;
     Color racket_color;
 } UiSettings;

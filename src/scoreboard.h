@@ -1,6 +1,7 @@
 #ifndef __SCOREBOARD_H__
 #define __SCOREBOARD_H__
 
+#include <raylib.h>
 #include <stdint.h>
 
 #include "data_types.h"
@@ -18,7 +19,7 @@ typedef struct Scoreboard {
 ///
 ///
 ///
-void SB_redraw(Scoreboard *sb, const float ui_padding);
+void SB_redraw(Scoreboard *sb, const float ui_padding, Color background_color);
 
 ///
 ///

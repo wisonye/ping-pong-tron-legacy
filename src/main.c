@@ -16,6 +16,8 @@
     (Color) { .r = 0x23, .g = 0x21, .b = 0x1B, .a = 100 }
 #define TRON_LIGHT_BLUE \
     (Color) { .r = 0xAC, .g = 0xE6, .b = 0xFE, .a = 100 }
+#define TRON_BLUE \
+    (Color) { .r = 0x6F, .g = 0xC3, .b = 0xDF, .a = 100 }
 #define TRON_YELLOW \
     (Color) { .r = 0xFF, .g = 0xE6, .b = 0x4D, .a = 100 }
 #define TRON_ORANGE \
@@ -30,6 +32,7 @@
 #define GAME_UI_INIT_SCREEN_HEIGHT 768
 #define GAME_UI_PADDING 10.0f
 #define GAME_UI_BACKGROUND_COLOR TRON_DARK
+#define GAME_UI_BORDER_COLOR TRON_LIGHT_BLUE
 #define GAME_UI_BALL_COLOR TRON_LIGHT_BLUE
 #define GAME_UI_RACKET_COLOR TRON_ORANGE
 
@@ -64,6 +67,7 @@ int main(void) {
                 .init_screen_height = GAME_UI_INIT_SCREEN_HEIGHT,
                 .padding = GAME_UI_PADDING,
                 .background_color = GAME_UI_BACKGROUND_COLOR,
+                .border_color = GAME_UI_BORDER_COLOR,
                 .ball_color = GAME_UI_BALL_COLOR,
                 .racket_color = GAME_UI_RACKET_COLOR,
             },
