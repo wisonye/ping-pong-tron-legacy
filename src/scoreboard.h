@@ -19,16 +19,17 @@ typedef struct Scoreboard {
 ///
 ///
 ///
-void SB_redraw(Scoreboard *sb, const float ui_padding, Color background_color);
+Rectangle SB_redraw(const Scoreboard *sb, const float ui_padding,
+                    Color border_color);
 
 ///
 ///
 ///
-void update_player_1_score(Scoreboard *sb, usize score);
+void SB_update_player_1_score(Scoreboard *sb, usize score);
 
 ///
 ///
 ///
-void update_player_2_score(Scoreboard *sb, usize score);
+void SB_update_player_2_score(Scoreboard *sb, usize score);
 
 #endif

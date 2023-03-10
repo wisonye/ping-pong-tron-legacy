@@ -6,6 +6,7 @@
 
 #include "player.h"
 #include "scoreboard.h"
+#include "table.h"
 
 GameState game_state = GS_UNINIT;
 
@@ -30,8 +31,11 @@ void Game_init(Game *game) {
 ///
 ///
 void Game_redraw(Game *game) {
-    SB_redraw(&game->scoreboard, game->ui_settings.padding,
-              game->ui_settings.border_color);
+    Rectangle sb_rect = SB_redraw(&game->scoreboard, game->ui_settings.padding,
+                                  game->ui_settings.border_color);
+
+    Table_redraw(&sb_rect, game->ui_settings.padding,
+                 game->ui_settings.border_color);
 }
 
 ///

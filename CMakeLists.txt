@@ -28,7 +28,7 @@ add_executable("${PROJECT_NAME}"
     # "src/racket.c"
     "src/player.c"
     "src/scoreboard.c"
-    # "src/table.c"
+    "src/table.c"
     "src/game.c"
     "src/main.c")
 

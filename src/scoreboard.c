@@ -56,7 +56,8 @@ void draw_player_name_and_score(const char *name, usize score, bool is_player_1,
 ///
 ///
 ///
-void SB_redraw(Scoreboard *sb, const float ui_padding, Color border_color) {
+Rectangle SB_redraw(const Scoreboard *sb, const float ui_padding,
+                    Color border_color) {
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
 
@@ -102,14 +103,16 @@ void SB_redraw(Scoreboard *sb, const float ui_padding, Color border_color) {
                                &font, &rect, border_color);
     draw_player_name_and_score(sb->player_2_name, sb->player_2_score, false,
                                &font, &rect, border_color);
+
+    return rect;
 }
 
 ///
 ///
 ///
-void update_player_1_score(Scoreboard *sb, usize score);
+void SB_update_player_1_score(Scoreboard *sb, usize score);
 
 ///
 ///
 ///
-void update_player_2_score(Scoreboard *sb, usize score);
+void SB_update_player_2_score(Scoreboard *sb, usize score);
