@@ -16,15 +16,7 @@ GameState game_state = GS_UNINIT;
 ///
 ///
 ///
-Game *Game_init(const char *player_1_name, const char *player_2_name) {
-    Game *game = malloc(sizeof(Game));
-    *game = (Game){
-        .player_1 = Player_create(player_1_name, 0),
-        .player_2 = Player_create(player_2_name, 0),
-        .scoreboard = SB_create(0, 0, player_1_name, player_2_name),
-        .state = GS_INIT,
-    };
-
+void Game_init(Game *game) {
     InitWindow(INIT_SCREEN_WIDTH, INIT_SCREEN_HEIGHT, "Ping pong tron legacy");
 
     // Set our game FPS (frames-per-second)
@@ -36,8 +28,12 @@ Game *Game_init(const char *player_1_name, const char *player_2_name) {
     TraceLog(LOG_DEBUG, ">>> [ Game_init ] - Game initialization [ done ]");
 
     Game_print_debug_info(game);
-
-    return game;
+}
+///
+///
+///
+void Game_redraw(Game *game) {
+    SB_redraw(game->scoreboard, game->ui_settings.padding);
 }
 
 ///
@@ -56,6 +52,11 @@ void Game_run(Game *game) {
         // Clean last frame
         //
         ClearBackground(RAYWHITE);
+
+        //
+        // Redraw the entire game
+        //
+        Game_redraw(game);
 
         EndDrawing();
     }
@@ -84,7 +85,9 @@ void Game_resume(Game *game) {}
 void Game_print_debug_info(Game *game) {
     char debug_info[1024];
 
+    //
     // Game state
+    //
     char state_str[20] = {0};
     switch (game->state) {
         case GS_INIT:
@@ -100,19 +103,25 @@ void Game_print_debug_info(Game *game) {
             strncpy(state_str, "GS_UNINIT", sizeof(state_str));
     }
 
+    //
     // Player1
+    //
     char player_1_str[100];
     snprintf(player_1_str, sizeof(player_1_str),
              "\tplayer1: {\n\t\tname: %s\n\t\tscore: %u\n\t}",
              game->player_1->name, game->player_1->score);
 
+    //
     // Player2
+    //
     char player_2_str[100];
     snprintf(player_2_str, sizeof(player_2_str),
              "\tplayer2: {\n\t\tname: %s\n\t\tscore: %u\n\t}",
              game->player_2->name, game->player_2->score);
 
+    //
     // Debug info
+    //
     snprintf(debug_info, sizeof(debug_info), "\n{\n\tstate: %s\n%s\n%s\n}",
              state_str, player_1_str, player_2_str);
 

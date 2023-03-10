@@ -22,7 +22,9 @@ Scoreboard *SB_create(u8 player_1_score, u8 player_2_score,
 ///
 ///
 ///
-void SB_redraw(Scoreboard *sb);
+void SB_redraw(Scoreboard *sb, const float ui_padding) {
+
+}
 
 ///
 ///

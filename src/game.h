@@ -1,6 +1,8 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include <raylib.h>
+
 #include "player.h"
 #include "scoreboard.h"
 
@@ -17,6 +19,14 @@ typedef enum GameState {
 ///
 ///
 ///
+typedef struct UiSettings {
+    float padding;
+    Color background_color;
+} UiSettings;
+
+///
+///
+///
 typedef struct {
     Player *player_1;
     Player *player_2;
@@ -24,12 +34,18 @@ typedef struct {
     /* Table table; */
     /* Ball ball; */
     GameState state;
+    UiSettings ui_settings;
 } Game;
 
 ///
 ///
 ///
-Game *Game_init(const char *player_1_name, const char *player_2_name);
+void Game_init(Game *game);
+
+///
+///
+///
+void Game_redraw(Game *game);
 
 ///
 ///
