@@ -7,16 +7,14 @@
 #include "player.h"
 #include "scoreboard.h"
 
-#define INIT_SCREEN_WIDTH 1024
-#define INIT_SCREEN_HEIGHT 768
-
 GameState game_state = GS_UNINIT;
 
 ///
 ///
 ///
 void Game_init(Game *game) {
-    InitWindow(INIT_SCREEN_WIDTH, INIT_SCREEN_HEIGHT, "Ping pong tron legacy");
+    InitWindow(game->ui_settings.init_screen_width,
+               game->ui_settings.init_screen_height, "Ping pong tron legacy");
 
     // Set our game FPS (frames-per-second)
     SetTargetFPS(120);
@@ -50,7 +48,7 @@ void Game_run(Game *game) {
         //
         // Clean last frame
         //
-        ClearBackground(RAYWHITE);
+        ClearBackground(game->ui_settings.background_color);
 
         //
         // Redraw the entire game

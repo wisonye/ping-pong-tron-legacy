@@ -20,8 +20,12 @@ typedef enum GameState {
 ///
 ///
 typedef struct UiSettings {
+    usize init_screen_width;
+    usize init_screen_height;
     float padding;
     Color background_color;
+    Color ball_color;
+    Color racket_color;
 } UiSettings;
 
 ///
