@@ -14,11 +14,6 @@ typedef struct Player {
 ///
 ///
 ///
-Player *Player_create(const char *name, u8 score);
-
-///
-///
-///
 void Player_win(Player *player);
 
 ///

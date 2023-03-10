@@ -28,9 +28,9 @@ typedef struct UiSettings {
 ///
 ///
 typedef struct {
-    Player *player_1;
-    Player *player_2;
-    Scoreboard *scoreboard;
+    Player player_1;
+    Player player_2;
+    Scoreboard scoreboard;
     /* Table table; */
     /* Ball ball; */
     GameState state;

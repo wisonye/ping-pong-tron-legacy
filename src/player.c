@@ -1,15 +1,6 @@
 #include "player.h"
 
-#include "stdlib.h"
-
-///
-///
-///
-Player *Player_create(const char *name, u8 score) {
-    Player *player = malloc(sizeof(Player));
-    *player = (Player){.name = name, .score = score};
-    return player;
-}
+#include <stdlib.h>
 
 ///
 ///

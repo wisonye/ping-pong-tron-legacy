@@ -2,7 +2,6 @@
 
 #include <raylib.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "player.h"
@@ -33,7 +32,7 @@ void Game_init(Game *game) {
 ///
 ///
 void Game_redraw(Game *game) {
-    SB_redraw(game->scoreboard, game->ui_settings.padding);
+    SB_redraw(&game->scoreboard, game->ui_settings.padding);
 }
 
 ///
@@ -109,7 +108,7 @@ void Game_print_debug_info(Game *game) {
     char player_1_str[100];
     snprintf(player_1_str, sizeof(player_1_str),
              "\tplayer1: {\n\t\tname: %s\n\t\tscore: %u\n\t}",
-             game->player_1->name, game->player_1->score);
+             game->player_1.name, game->player_1.score);
 
     //
     // Player2
@@ -117,7 +116,7 @@ void Game_print_debug_info(Game *game) {
     char player_2_str[100];
     snprintf(player_2_str, sizeof(player_2_str),
              "\tplayer2: {\n\t\tname: %s\n\t\tscore: %u\n\t}",
-             game->player_2->name, game->player_2->score);
+             game->player_2.name, game->player_2.score);
 
     //
     // Debug info
