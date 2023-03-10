@@ -106,7 +106,7 @@ void Game_print_debug_info(Game *game) {
     //
     char player_1_str[100];
     snprintf(player_1_str, sizeof(player_1_str),
-             "\tplayer1: {\n\t\tname: %s\n\t\tscore: %u\n\t}",
+             "\tplayer1: {\n\t\tname: %s\n\t\tscore: %llu\n\t}",
              game->player_1.name, game->player_1.score);
 
     //
@@ -114,7 +114,7 @@ void Game_print_debug_info(Game *game) {
     //
     char player_2_str[100];
     snprintf(player_2_str, sizeof(player_2_str),
-             "\tplayer2: {\n\t\tname: %s\n\t\tscore: %u\n\t}",
+             "\tplayer2: {\n\t\tname: %s\n\t\tscore: %llu\n\t}",
              game->player_2.name, game->player_2.score);
 
     //

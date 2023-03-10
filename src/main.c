@@ -52,12 +52,12 @@ int main(void) {
     // Create game instance
     //
     Game game = (Game){
-        .player_1 = (Player){.name = player_1_name, .score = 0},
-        .player_2 = (Player){.name = player_2_name, .score = 0},
+        .player_1 = (Player){.name = player_1_name, .score = 188},
+        .player_2 = (Player){.name = player_2_name, .score = 288},
         .scoreboard =
             (Scoreboard){
-                .player_1_score = 0,
-                .player_2_score = 0,
+                .player_1_score = 188,
+                .player_2_score = 288,
                 .player_1_name = player_1_name,
                 .player_2_name = player_2_name,
             },

@@ -8,7 +8,7 @@
 ///
 typedef struct Player {
     const char *name;
-    u8 score;
+    usize score;
 } Player;
 
 ///
