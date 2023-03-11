@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "ball.h"
 #include "player.h"
 #include "scoreboard.h"
 #include "table.h"
@@ -27,8 +28,32 @@ void Game_init(Game *game) {
 
     Game_print_debug_info(game);
 
+    // Hide the cursor
+    HideCursor();
+
     // Set to `GS_BEFORE_START`
     game->state = GS_BEFORE_START;
+
+    //
+    // As I want to draw the ball with gradient visual effects (like a halo)
+    // and a lighting trail that follows the moving ball, that's why do I need
+    // to create an alpha mask image (with black and white color) as the
+    // blending mask.
+    //
+    // - The `density` affects the halo border length!!!
+    //
+    // - The size of the alpha mask must be the same size of the ball
+    //
+    // - The lighting tail is just a bunch of particle instances, each particle
+    //   has the init alpha value and size, and the size should be smaller than
+    //   the ball to make it looks nicer.
+    //
+    float density = 0.5f;
+    Image ball_alpha_mask_image = GenImageGradientRadial(
+        game->ball.radius * 2, game->ball.radius * 2, density, WHITE, BLACK);
+    Texture2D ball_texture = LoadTextureFromImage(ball_alpha_mask_image);
+    UnloadImage(ball_alpha_mask_image);
+    game->ball.alpha_mask = ball_texture;
 }
 
 ///
@@ -78,42 +103,17 @@ void Game_logic(Game *game) {
 
     if (game->state == GS_PLAYING) {
         Ball *ball = &game->ball;
-        Rectangle *table_rect = &game->table_rect;
+        // Update ball
+        Ball_update_ball(ball, &game->table_rect);
 
-        //
-        // Ball bouncing in the container
-        //
-        ball->center.x += GetFrameTime() * ball->speed_x;
-        ball->center.y += GetFrameTime() * ball->speed_y;
-
-        // If `ball` hit the bottom of `table_rect`
-        if (ball->center.x - ball->radius <= table_rect->x) {
-            ball->center.x = table_rect->x + ball->radius;
-            ball->speed_x *= -1;  // Flip the speed_x direction
-        }
-        // If `ball` hit the top of `table_rect`
-        else if (ball->center.x + ball->radius >=
-                 table_rect->x + table_rect->width) {
-            ball->center.x = table_rect->x + table_rect->width - ball->radius;
-            ball->speed_x *= -1;  // Flip the speed_x direction
-        }
-
-        // If `ball` hit the left of `table_rect`
-        if (ball->center.y - ball->radius <= table_rect->y) {
-            ball->center.y = table_rect->y + ball->radius;
-            ball->speed_y *= -1;  // Flip the speed_y direction
-        }
-        // If `ball` hit the right of `table_rect`
-        else if (ball->center.y + ball->radius >=
-                 table_rect->y + table_rect->height) {
-            ball->center.y = table_rect->y + table_rect->height - ball->radius;
-            ball->speed_y *= -1;  // Flip the speed_y direction
-        }
+        // Update lighting tail
+        Ball_update_lighting_tail(ball);
 
         /* TraceLog(LOG_DEBUG, */
         /*          ">>> [ Game_logic ] - ball center: { x: %.2f, y: %.2f, " */
         /*          "speed_x: %.2f, speed_Y: %.2f}", */
-        /*          ball->center.x, ball->center.y, ball->speed_x, ball->speed_y); */
+        /*          ball->center.x, ball->center.y, ball->speed_x,
+         * ball->speed_y); */
     }
 }
 
@@ -147,6 +147,8 @@ void Game_run(Game *game) {
     }
 
     TraceLog(LOG_DEBUG, ">>> [ Game_run ] - Exit the game loop");
+
+    UnloadTexture(game->ball.alpha_mask);
 
     //
     // Close window and OpenGL context
