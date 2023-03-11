@@ -72,6 +72,12 @@ void Game_redraw(Game *game) {
     Rectangle table_rect = Table_redraw(game, &sb_rect);
 
     //
+    // Ball
+    //
+    const Ball *ball = &game->ball;
+    Ball_redraw(ball);
+
+    //
     // Update `game->table_rect` if changed
     //
     if (table_rect.x != game->table_rect.x &&

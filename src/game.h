@@ -38,6 +38,7 @@ typedef struct {
 typedef struct {
     float margin;
     float border_thickness;
+    Color border_color;
     Color start_prompt_border_color;
     Color start_prompt_text_color;
     const char *start_prompt_text;
@@ -57,7 +58,7 @@ typedef struct {
     Color background_color;
     Color border_color;
     BallUiSettings ball_ui;
-    RacketUiSettings rack_ui;
+    RacketUiSettings racket_ui;
     TableUiSettings table_ui;
 } UiSettings;
 

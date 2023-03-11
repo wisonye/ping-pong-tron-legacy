@@ -7,8 +7,6 @@
 #include "game.h"
 #include "player.h"
 
-// Before start
-
 ///
 ///
 ///
@@ -31,7 +29,7 @@ Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect) {
     };
 
     DrawRectangleLinesEx(rect, table_ui->border_thickness,
-                         table_ui->start_prompt_border_color);
+                         table_ui->border_color);
 
     //
     // GS_BEFORE_START
@@ -73,12 +71,6 @@ Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect) {
                    table_ui->start_prompt_font_space,
                    table_ui->start_prompt_text_color);
     }
-
-    //
-    // Ball
-    //
-    const Ball *ball = &game->ball;
-    Ball_redraw(ball);
 
     return rect;
 }

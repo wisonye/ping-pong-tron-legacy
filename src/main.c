@@ -48,6 +48,7 @@
 //
 // Table UI settings
 //
+#define TABLE_UI_BORDER_COLOR TRON_LIGHT_BLUE
 #define TABLE_UI_BORDER_THICKNESS 2.0f
 #define TABLE_UI_BEFORE_START_BORDER_COLOR TRON_ORANGE
 #define TABLE_UI_BEFORE_START_TEXT_COLOR TRON_ORANGE
@@ -119,6 +120,7 @@ int main(void) {
                 .table_ui =
                     (TableUiSettings){
                         .margin = GAME_UI_PADDING,
+                        .border_color = TABLE_UI_BORDER_COLOR,
                         .border_thickness = TABLE_UI_BORDER_THICKNESS,
                         .start_prompt_border_color =
                             TABLE_UI_BEFORE_START_BORDER_COLOR,
@@ -134,9 +136,14 @@ int main(void) {
                         .start_prompt_container_vertical_padding =
                             TABLE_UI_START_PROMPT_CONTAINER_VERTICAL_PADDING,
                     },
-                .ball_color = GAME_UI_BALL_COLOR,
-                .racket_color = GAME_UI_RACKET_COLOR,
-            },
+                .ball_ui =
+                    (BallUiSettings){
+                        .ball_color = GAME_UI_BALL_COLOR,
+                    },
+                .racket_ui =
+                    (RacketUiSettings){
+                        .racket_color = GAME_UI_RACKET_COLOR,
+                    }},
         .misc_settings =
             (MiscSettings){
                 .game_fps = GAME_FPS,
