@@ -19,7 +19,7 @@ void Game_init(Game *game) {
                game->ui_settings.init_screen_height, "Ping pong tron legacy");
 
     // Set our game FPS (frames-per-second)
-    SetTargetFPS(120);
+    SetTargetFPS(game->misc_settings.game_fps);
 
     // Set tracing log level
     SetTraceLogLevel(LOG_DEBUG);
@@ -69,11 +69,7 @@ void Game_redraw(Game *game) {
     //
     // Table
     //
-    Rectangle table_rect =
-        Table_redraw(game, &sb_rect, game->ui_settings.padding,
-                     game->ui_settings.border_color,
-                     game->ui_settings.before_start_border_color,
-                     game->ui_settings.before_start_text_color);
+    Rectangle table_rect = Table_redraw(game, &sb_rect);
 
     //
     // Update `game->table_rect` if changed

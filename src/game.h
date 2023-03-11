@@ -10,7 +10,7 @@
 ///
 ///
 ///
-typedef enum GameState {
+typedef enum {
     GS_UNINIT = 0x01,
     GS_INIT = 0x02,
     GS_BEFORE_START = 0x03,
@@ -21,17 +21,52 @@ typedef enum GameState {
 ///
 ///
 ///
-typedef struct UiSettings {
+typedef struct {
+    Color ball_color;
+} BallUiSettings;
+
+///
+///
+///
+typedef struct {
+    Color racket_color;
+} RacketUiSettings;
+
+///
+///
+///
+typedef struct {
+    float margin;
+    float border_thickness;
+    Color start_prompt_border_color;
+    Color start_prompt_text_color;
+    const char *start_prompt_text;
+    float start_prompt_font_size;
+    float start_prompt_font_space;
+    float start_prompt_container_horizontal_padding;
+    float start_prompt_container_vertical_padding;
+} TableUiSettings;
+
+///
+///
+///
+typedef struct {
     usize init_screen_width;
     usize init_screen_height;
     float padding;
     Color background_color;
     Color border_color;
-    Color ball_color;
-    Color racket_color;
-    Color before_start_border_color;
-    Color before_start_text_color;
+    BallUiSettings ball_ui;
+    RacketUiSettings rack_ui;
+    TableUiSettings table_ui;
 } UiSettings;
+
+///
+///
+///
+typedef struct {
+    usize game_fps;
+} MiscSettings;
 
 ///
 ///
@@ -44,6 +79,7 @@ typedef struct {
     Ball ball;
     GameState state;
     UiSettings ui_settings;
+    MiscSettings misc_settings;
 } Game;
 
 ///

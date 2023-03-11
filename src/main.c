@@ -27,7 +27,12 @@
     (Color) { .r = 0xF4, .g = 0x47, .b = 0x47, .a = 0xFF }
 
 //
-// UI
+// Game misc settings
+//
+#define GAME_FPS 60
+
+//
+// Game UI settings
 //
 #define GAME_UI_INIT_SCREEN_WIDTH 1024
 #define GAME_UI_INIT_SCREEN_HEIGHT 768
@@ -39,8 +44,18 @@
 #define GAME_UI_BALL_SPEED_X 400.0f
 #define GAME_UI_BALL_SPEED_Y 400.0f
 #define GAME_UI_RACKET_COLOR TRON_ORANGE
-#define GAME_UI_BEFORE_START_BORDER_COLOR TRON_ORANGE
-#define GAME_UI_BEFORE_START_TEXT_COLOR TRON_ORANGE
+
+//
+// Table UI settings
+//
+#define TABLE_UI_BORDER_THICKNESS 2.0f
+#define TABLE_UI_BEFORE_START_BORDER_COLOR TRON_ORANGE
+#define TABLE_UI_BEFORE_START_TEXT_COLOR TRON_ORANGE
+#define TABLE_UI_START_PROMPT_TEXT "Press 'Space' to start the game"
+#define TABLE_UI_START_PROMPT_FONT_SIZE 40.0f
+#define TABLE_UI_START_PROMPT_FONT_SPACE 5.0f
+#define TABLE_UI_START_PROMPT_CONTAINER_HORIZONTAL_PADDING 20.0f
+#define TABLE_UI_START_PROMPT_CONTAINER_VERTICAL_PADDING 10.0f
 
 ///
 ///
@@ -101,10 +116,30 @@ int main(void) {
                 .padding = GAME_UI_PADDING,
                 .background_color = GAME_UI_BACKGROUND_COLOR,
                 .border_color = GAME_UI_BORDER_COLOR,
+                .table_ui =
+                    (TableUiSettings){
+                        .margin = GAME_UI_PADDING,
+                        .border_thickness = TABLE_UI_BORDER_THICKNESS,
+                        .start_prompt_border_color =
+                            TABLE_UI_BEFORE_START_BORDER_COLOR,
+                        .start_prompt_text_color =
+                            TABLE_UI_BEFORE_START_TEXT_COLOR,
+                        .start_prompt_text = TABLE_UI_START_PROMPT_TEXT,
+                        .start_prompt_font_size =
+                            TABLE_UI_START_PROMPT_FONT_SIZE,
+                        .start_prompt_font_space =
+                            TABLE_UI_START_PROMPT_FONT_SPACE,
+                        .start_prompt_container_horizontal_padding =
+                            TABLE_UI_START_PROMPT_CONTAINER_HORIZONTAL_PADDING,
+                        .start_prompt_container_vertical_padding =
+                            TABLE_UI_START_PROMPT_CONTAINER_VERTICAL_PADDING,
+                    },
                 .ball_color = GAME_UI_BALL_COLOR,
                 .racket_color = GAME_UI_RACKET_COLOR,
-                .before_start_border_color = GAME_UI_BEFORE_START_BORDER_COLOR,
-                .before_start_text_color = GAME_UI_BEFORE_START_TEXT_COLOR,
+            },
+        .misc_settings =
+            (MiscSettings){
+                .game_fps = GAME_FPS,
             },
         .state = GS_INIT,
     };

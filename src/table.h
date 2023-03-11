@@ -19,9 +19,6 @@ typedef struct Table {
 ///
 ///
 ///
-Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect,
-                       const float ui_padding, Color border_color,
-                       Color before_start_border_color,
-                       Color before_start_text_color);
+Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect);
 
 #endif
