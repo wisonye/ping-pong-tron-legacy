@@ -21,7 +21,7 @@ set(CMAKE_CXX_FLAGS "-pedantic-errors -Wc99-extensions -Wvla-extension -Wc11-ext
 find_package(raylib REQUIRED)
 
 #
-# Only one exectuable
+# Main exectuable
 #
 add_executable("${PROJECT_NAME}"
     "src/ball.c"
@@ -33,9 +33,15 @@ add_executable("${PROJECT_NAME}"
     "src/main.c")
 
 #
+# Temporary testing code purpose
+#
+add_executable("${PROJECT_NAME}_test" "src/main_test.c")
+
+#
 # Link to `raylib`
 #
 target_link_libraries("${PROJECT_NAME}" raylib)
+target_link_libraries("${PROJECT_NAME}_test" raylib)
 
 # target_compile_definitions("${PROJECT_NAME}" PRIVATE ENABLE_DEBUG_LOG)
 
