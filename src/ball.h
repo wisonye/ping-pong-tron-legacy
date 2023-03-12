@@ -45,6 +45,7 @@ typedef struct {
     bool enabled_fireball;
     Texture2D alpha_mask;
     Sound enable_fireball_sound_effect;
+    Sound hit_racket_sound_effect;
     BallLightingTail lighting_tail;
 } Ball;
 

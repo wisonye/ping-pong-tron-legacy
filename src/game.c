@@ -52,6 +52,7 @@ void Game_init(Game *game) {
     // Load sound effects
     game->ball.enable_fireball_sound_effect =
         LoadSound("resources/enable_fireball.wav");
+    game->ball.hit_racket_sound_effect = LoadSound("resources/hit_racket.wav");
 
     // Set tracing log level
     SetTraceLogLevel(LOG_DEBUG);
@@ -200,6 +201,7 @@ void Game_run(Game *game) {
 
     UnloadTexture(game->ball.alpha_mask);
     UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
+    UnloadSound(game->ball.hit_racket_sound_effect);       // Unload sound data
     CloseAudioDevice();
 
     //

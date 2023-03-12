@@ -163,6 +163,7 @@ void Ball_update(Ball *ball, Rectangle *table_rect) {
         ball->center.x = table_rect->x + ball->radius;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
+        PlaySound(ball->hit_racket_sound_effect);
     }
     // If `ball` hit the right player's racket
     else if (ball->center.x + ball->radius >=
@@ -170,6 +171,7 @@ void Ball_update(Ball *ball, Rectangle *table_rect) {
         ball->center.x = table_rect->x + table_rect->width - ball->radius;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
+        PlaySound(ball->hit_racket_sound_effect);
     }
 
     if (ball->current_hits >= ball->hits_before_increase_velocity) {
