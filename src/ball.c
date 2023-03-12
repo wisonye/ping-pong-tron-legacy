@@ -38,6 +38,12 @@ void Ball_redraw(const Ball *ball) {
     //
     const BallTailParticle *particles = ball->lighting_tail.particles;
 
+    Color ball_and_lighting_tail_color =
+        ball->current_velocities_increase >=
+                ball->velocities_increase_to_enable_fireball
+            ? ball->fireball_color
+            : ball->color;
+
     for (usize i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (ball->lighting_tail.particles[i].active)
             // TraceLog(LOG_DEBUG,
@@ -55,7 +61,9 @@ void Ball_redraw(const Ball *ball) {
                     (float)(ball->alpha_mask.width * particles[i].size / 2.0f),
                     (float)(ball->alpha_mask.height * particles[i].size /
                             2.0f)},
-                0.0f, Fade(particles[i].color, particles[i].alpha));
+                0.0f,
+
+                Fade(ball_and_lighting_tail_color, particles[i].alpha));
     }
     //
     // Draw solid circle
@@ -72,7 +80,7 @@ void Ball_redraw(const Ball *ball) {
                                ball->alpha_mask.width, ball->alpha_mask.height},
                    (Vector2){(float)(ball->alpha_mask.width / 2.0f),
                              (float)(ball->alpha_mask.height / 2.0f)},
-                   0.0f, ball->color);
+                   0.0f, ball_and_lighting_tail_color);
     EndBlendMode();
 }
 
@@ -86,12 +94,14 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
         .x = table_rect->x + ((table_rect->width - ball->radius) / 2),
         .y = table_rect->y + ((table_rect->height - ball->radius) / 2),
     };
+    ball->current_hits = 0;
+    ball->current_velocities_increase = 0;
 
     BallTailParticle *particles = ball->lighting_tail.particles;
 
     for (int i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         particles[i].position = (Vector2){0, 0};
-        particles[i].color = ball->color;
+        // particles[i].color = ball->color;
 
         // Init `alpha` value, it affects how light the particle at the
         // beginning
@@ -107,35 +117,84 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
 ///
 ///
 ///
-void Ball_update_ball(Ball *ball, Rectangle *table_rect) {
+void Ball_update(Ball *ball, Rectangle *table_rect) {
     //
-    // Ball bouncing in the container
+    // Next ball position
     //
-    ball->center.x += GetFrameTime() * ball->speed_x;
-    ball->center.y += GetFrameTime() * ball->speed_y;
+    ball->center.x += GetFrameTime() * ball->velocity_x;
+    ball->center.y += GetFrameTime() * ball->velocity_y;
 
-    // If `ball` hit the bottom of `table_rect`
-    if (ball->center.x - ball->radius <= table_rect->x) {
-        ball->center.x = table_rect->x + ball->radius;
-        ball->speed_x *= -1;  // Flip the speed_x direction
-    }
+    //
+    // Ball bouncing in table
+    //
+
     // If `ball` hit the top of `table_rect`
-    else if (ball->center.x + ball->radius >=
-             table_rect->x + table_rect->width) {
-        ball->center.x = table_rect->x + table_rect->width - ball->radius;
-        ball->speed_x *= -1;  // Flip the speed_x direction
-    }
-
-    // If `ball` hit the left of `table_rect`
     if (ball->center.y - ball->radius <= table_rect->y) {
         ball->center.y = table_rect->y + ball->radius;
-        ball->speed_y *= -1;  // Flip the speed_y direction
+        ball->velocity_y *= -1;  // Flip the velocity_y direction
     }
-    // If `ball` hit the right of `table_rect`
+    // If `ball` hit the bottom of `table_rect`
     else if (ball->center.y + ball->radius >=
              table_rect->y + table_rect->height) {
         ball->center.y = table_rect->y + table_rect->height - ball->radius;
-        ball->speed_y *= -1;  // Flip the speed_y direction
+        ball->velocity_y *= -1;  // Flip the velocity_y direction
+    }
+
+    //
+    // Win or lose
+    //
+
+    // If `ball` hit the left of `table_rect`
+    // if (ball->center.x - ball->radius <= table_rect->x) {
+    //     ball->center.x = table_rect->x + ball->radius;
+    //     ball->velocity_x *= -1;  // Flip the velocity_x direction
+    // }
+    // // If `ball` hit the right of `table_rect`
+    // else if (ball->center.x + ball->radius >=
+    //          table_rect->x + table_rect->width) {
+    //     ball->center.x = table_rect->x + table_rect->width - ball->radius;
+    //     ball->velocity_x *= -1;  // Flip the velocity_x direction
+    // }
+
+    //
+    // Hit player's racket to increase the velocity
+    //
+
+    // If `ball` hit the left player's racket
+    if (ball->center.x - ball->radius <= table_rect->x) {
+        ball->center.x = table_rect->x + ball->radius;
+        ball->velocity_x *= -1;  // Flip the velocity_x direction
+        ball->current_hits += 1;
+    }
+    // If `ball` hit the right player's racket
+    else if (ball->center.x + ball->radius >=
+             table_rect->x + table_rect->width) {
+        ball->center.x = table_rect->x + table_rect->width - ball->radius;
+        ball->velocity_x *= -1;  // Flip the velocity_x direction
+        ball->current_hits += 1;
+    }
+
+    if (ball->current_hits >= ball->hits_before_increase_velocity) {
+        // Increase `current_velocities_increase `
+        ball->current_velocities_increase += 1;
+
+        // Reset
+        ball->current_hits = 0;
+
+        // Increase speed
+        ball->velocity_x = (ball->velocity_x > 0)
+                               ? ball->velocity_x + ball->velocity_acceleration
+                               : ball->velocity_x - ball->velocity_acceleration;
+        ball->velocity_y = (ball->velocity_y > 0)
+                               ? ball->velocity_y + ball->velocity_acceleration
+                               : ball->velocity_y - ball->velocity_acceleration;
+
+        TraceLog(LOG_DEBUG,
+                 ">>> [ Ball_update ] - %u hits happens, increase velocity to "
+                 "(x: %.2f, y: %.2f), "
+                 "current_velocities_increase: %u",
+                 ball->hits_before_increase_velocity, ball->velocity_x,
+                 ball->velocity_y, ball->current_velocities_increase);
     }
 }
 
@@ -151,7 +210,7 @@ void Ball_update_lighting_tail(Ball *ball) {
     // disappears, active = false and it can be reused.
     //
     BallTailParticle *particles = ball->lighting_tail.particles;
-
+    ;
     for (int i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (!particles[i].active) {
             particles[i].active = true;

@@ -106,7 +106,7 @@ void Game_logic(Game *game) {
     if (game->state == GS_PLAYING) {
         Ball *ball = &game->ball;
         // Update ball
-        Ball_update_ball(ball, &game->table_rect);
+        Ball_update(ball, &game->table_rect);
 
         // Update lighting tail
         Ball_update_lighting_tail(ball);

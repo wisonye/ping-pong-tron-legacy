@@ -22,13 +22,6 @@ typedef enum {
 ///
 ///
 typedef struct {
-    Color ball_color;
-} BallUiSettings;
-
-///
-///
-///
-typedef struct {
     Color racket_color;
 } RacketUiSettings;
 
@@ -57,7 +50,6 @@ typedef struct {
     float padding;
     Color background_color;
     Color border_color;
-    BallUiSettings ball_ui;
     RacketUiSettings racket_ui;
     TableUiSettings table_ui;
 } UiSettings;

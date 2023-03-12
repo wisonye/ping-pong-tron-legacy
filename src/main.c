@@ -40,10 +40,6 @@
 #define GAME_UI_PADDING 10.0f
 #define GAME_UI_BACKGROUND_COLOR TRON_DARK
 #define GAME_UI_BORDER_COLOR TRON_LIGHT_BLUE
-#define GAME_UI_BALL_COLOR TRON_LIGHT_BLUE
-#define GAME_UI_BALL_RADIUS 20.0f
-#define GAME_UI_BALL_SPEED_X 400.0f
-#define GAME_UI_BALL_SPEED_Y 400.0f
 #define GAME_UI_RACKET_COLOR TRON_ORANGE
 
 //
@@ -62,11 +58,22 @@
 //
 // Ball UI settings
 //
+#define BALL_UI_BALL_COLOR TRON_LIGHT_BLUE
+#define BALL_UI_FIREBALL_COLOR TRON_ORANGE
+#define BALL_UI_BALL_RADIUS 20.0f
+#define BALL_UI_BALL_VELOCITY_X 400.0f
+#define BALL_UI_BALL_VELOCITY_Y 400.0f
 // Init `alpha` value, it affects how light the particle at the beginning
 #define BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA 0.8f
 // It affects how big the particle will be: how many percentage of the ball
 // size: 0.0 ~ 1.0 (0 ~ 100%)
 #define BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE 0.6f
+// How many hits before increasing the ball velocity
+#define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
+// How many velocities increase to enable a fireball
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL 4
+// Velocity acceleration
+#define BALL_UI_VELOCITY_ACCELERATION 100
 
 ///
 ///
@@ -107,10 +114,16 @@ int main(void) {
         .ball =
             (Ball){
                 .center = (Vector2){.x = -1.0f, .y = -1.0f},
-                .radius = GAME_UI_BALL_RADIUS,
-                .color = GAME_UI_BALL_COLOR,
-                .speed_x = GAME_UI_BALL_SPEED_X,
-                .speed_y = GAME_UI_BALL_SPEED_Y,
+                .radius = BALL_UI_BALL_RADIUS,
+                .color = BALL_UI_BALL_COLOR,
+                .fireball_color = BALL_UI_FIREBALL_COLOR,
+                .velocity_x = BALL_UI_BALL_VELOCITY_X,
+                .velocity_y = BALL_UI_BALL_VELOCITY_Y,
+                .hits_before_increase_velocity =
+                    BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
+                .velocities_increase_to_enable_fireball =
+                    BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL,
+                .velocity_acceleration = BALL_UI_VELOCITY_ACCELERATION,
 
                 .lighting_tail =
                     (BallLightingTail){
@@ -152,10 +165,6 @@ int main(void) {
                             TABLE_UI_START_PROMPT_CONTAINER_HORIZONTAL_PADDING,
                         .start_prompt_container_vertical_padding =
                             TABLE_UI_START_PROMPT_CONTAINER_VERTICAL_PADDING,
-                    },
-                .ball_ui =
-                    (BallUiSettings){
-                        .ball_color = GAME_UI_BALL_COLOR,
                     },
                 .racket_ui =
                     (RacketUiSettings){
