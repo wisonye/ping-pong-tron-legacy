@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ball.h"
 #include "game.h"
 
 //
@@ -58,6 +59,15 @@
 #define TABLE_UI_START_PROMPT_CONTAINER_HORIZONTAL_PADDING 20.0f
 #define TABLE_UI_START_PROMPT_CONTAINER_VERTICAL_PADDING 10.0f
 
+//
+// Ball UI settings
+//
+// Init `alpha` value, it affects how light the particle at the beginning
+#define BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA 0.8f
+// It affects how big the particle will be: how many percentage of the ball
+// size: 0.0 ~ 1.0 (0 ~ 100%)
+#define BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE 0.6f
+
 ///
 ///
 ///
@@ -101,6 +111,13 @@ int main(void) {
                 .color = GAME_UI_BALL_COLOR,
                 .speed_x = GAME_UI_BALL_SPEED_X,
                 .speed_y = GAME_UI_BALL_SPEED_Y,
+
+                .lighting_tail =
+                    (BallLightingTail){
+                        .particle_init_alpha =
+                            BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA,
+                        .particle_size = BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE,
+                    },
 
                 //
                 // `alpha_mask` is a black and white color image that uses for

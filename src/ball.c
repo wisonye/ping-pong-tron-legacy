@@ -3,20 +3,6 @@
 #include <raylib.h>
 #include <stdlib.h>
 
-#define PARTICLE_COUNT 50
-
-/// Init `alpha` value, it affects how light the particle at the beginning
-#define LIGHT_TRAIL_PRATICLE_INIT_ALPHA 0.8f
-
-/// It affects how big the particle will be: how many percentage of the ball
-/// size: 0.0 ~ 1.0 (0 ~ 100%)
-#define LIGHT_TRAIL_PRATICLE_SIZE 0.6f
-
-///
-/// The lighting tail that follows by the moving ball
-///
-BallTailParticle lighting_trail[PARTICLE_COUNT] = {0};
-
 ///
 ///
 ///
@@ -29,6 +15,7 @@ void Ball_redraw(const Ball *ball) {
 
     if (ball == NULL || ball->center.x == -1 || ball->center.y == -1) return;
 
+    //
     // // Color blending modes (pre-defined)
     // typedef enum {
     // BLEND_ALPHA = 0,         // Blend textures considering alpha (default)
@@ -43,13 +30,16 @@ void Ball_redraw(const Ball *ball) {
     //
     // Above is the supported `blend mode` which affects how blending works,
     // `BLEND_ADDTIVE` is the only effect I wanted.
+    //
     BeginBlendMode(BLEND_ADDITIVE);
 
     //
     // Draw lighting tail
     //
-    for (usize i = 0; i < PARTICLE_COUNT; i++) {
-        if (lighting_trail[i].active)
+    const BallTailParticle *particles = ball->lighting_tail.particles;
+
+    for (usize i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
+        if (ball->lighting_tail.particles[i].active)
             // TraceLog(LOG_DEBUG,
             //          ">>> [ Ball_redraw ] - draw lighting ball particle, "
             //          "index: {%u}",
@@ -58,15 +48,14 @@ void Ball_redraw(const Ball *ball) {
                 ball->alpha_mask,
                 (Rectangle){0.0f, 0.0f, (float)ball->alpha_mask.width,
                             (float)ball->alpha_mask.height},
-                (Rectangle){lighting_trail[i].position.x,
-                            lighting_trail[i].position.y,
-                            ball->alpha_mask.width * lighting_trail[i].size,
-                            ball->alpha_mask.height * lighting_trail[i].size},
-                (Vector2){(float)(ball->alpha_mask.width *
-                                  lighting_trail[i].size / 2.0f),
-                          (float)(ball->alpha_mask.height *
-                                  lighting_trail[i].size / 2.0f)},
-                0.0f, Fade(lighting_trail[i].color, lighting_trail[i].alpha));
+                (Rectangle){particles[i].position.x, particles[i].position.y,
+                            ball->alpha_mask.width * particles[i].size,
+                            ball->alpha_mask.height * particles[i].size},
+                (Vector2){
+                    (float)(ball->alpha_mask.width * particles[i].size / 2.0f),
+                    (float)(ball->alpha_mask.height * particles[i].size /
+                            2.0f)},
+                0.0f, Fade(particles[i].color, particles[i].alpha));
     }
     //
     // Draw solid circle
@@ -98,18 +87,20 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
         .y = table_rect->y + ((table_rect->height - ball->radius) / 2),
     };
 
-    for (int i = 0; i < PARTICLE_COUNT; i++) {
-        lighting_trail[i].position = (Vector2){0, 0};
-        lighting_trail[i].color = ball->color;
+    BallTailParticle *particles = ball->lighting_tail.particles;
+
+    for (int i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
+        particles[i].position = (Vector2){0, 0};
+        particles[i].color = ball->color;
 
         // Init `alpha` value, it affects how light the particle at the
         // beginning
-        lighting_trail[i].alpha = LIGHT_TRAIL_PRATICLE_INIT_ALPHA;
+        particles[i].alpha = ball->lighting_tail.particle_init_alpha;
 
         // It affects how big the particle will be: how many percentage of the
         // ball size: 0.0 ~ 1.0 (0 ~ 100%)
-        lighting_trail[i].size = LIGHT_TRAIL_PRATICLE_SIZE;
-        lighting_trail[i].active = false;
+        particles[i].size = ball->lighting_tail.particle_size;
+        particles[i].active = false;
     }
 }
 
@@ -159,22 +150,23 @@ void Ball_update_lighting_tail(Ball *ball) {
     // disappear after 2 seconds (alpha = 0) NOTE: When a particle
     // disappears, active = false and it can be reused.
     //
-    for (int i = 0; i < PARTICLE_COUNT; i++) {
-        if (!lighting_trail[i].active) {
-            lighting_trail[i].active = true;
-            lighting_trail[i].alpha = LIGHT_TRAIL_PRATICLE_INIT_ALPHA;
-            lighting_trail[i].position = ball->center;
-            i = PARTICLE_COUNT;
+    BallTailParticle *particles = ball->lighting_tail.particles;
+
+    for (int i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
+        if (!particles[i].active) {
+            particles[i].active = true;
+            particles[i].alpha = ball->lighting_tail.particle_init_alpha;
+            particles[i].position = ball->center;
+            i = BALL_LIGHTING_TAIL_PARTICLE_COUNT;
         }
     }
 
-    for (int i = 0; i < PARTICLE_COUNT; i++) {
-        if (lighting_trail[i].active) {
-            // lighting_trail[i].position.y += gravity / 2;
-            lighting_trail[i].alpha -= 0.05f;
+    for (int i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
+        if (particles[i].active) {
+            // particles[i].position.y += gravity / 2;
+            particles[i].alpha -= 0.05f;
 
-            if (lighting_trail[i].alpha <= 0.0f)
-                lighting_trail[i].active = false;
+            if (particles[i].alpha <= 0.0f) particles[i].active = false;
         }
     }
 }
