@@ -128,17 +128,17 @@ void Game_run(Game *game) {
 
     while (!WindowShouldClose())  // Detect window close button or ESC key
     {
+        //
+        // Update game logic
+        //
+        Game_logic(game);
+
         BeginDrawing();
 
         //
         // Clean last frame
         //
         ClearBackground(game->ui_settings.background_color);
-
-        //
-        // Game logic
-        //
-        Game_logic(game);
 
         //
         // Redraw the entire game
