@@ -39,10 +39,7 @@ void Ball_redraw(const Ball *ball) {
     const BallTailParticle *particles = ball->lighting_tail.particles;
 
     Color ball_and_lighting_tail_color =
-        ball->current_velocities_increase >=
-                ball->velocities_increase_to_enable_fireball
-            ? ball->fireball_color
-            : ball->color;
+        ball->enabled_fireball ? ball->fireball_color : ball->color;
 
     for (usize i = 0; i < BALL_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (ball->lighting_tail.particles[i].active)
@@ -96,6 +93,7 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
     };
     ball->current_hits = 0;
     ball->current_velocities_increase = 0;
+    ball->enabled_fireball = false;
 
     BallTailParticle *particles = ball->lighting_tail.particles;
 
@@ -195,6 +193,17 @@ void Ball_update(Ball *ball, Rectangle *table_rect) {
                  "current_velocities_increase: %u",
                  ball->hits_before_increase_velocity, ball->velocity_x,
                  ball->velocity_y, ball->current_velocities_increase);
+
+        //
+        // Enable fireball
+        //
+        if (!ball->enabled_fireball &&
+            ball->current_velocities_increase >=
+                ball->velocities_increase_to_enable_fireball) {
+            ball->enabled_fireball = true;
+            PlaySound(ball->enable_fireball_sound_effect);
+            TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Enabled fireball");
+        }
     }
 }
 

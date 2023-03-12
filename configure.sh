@@ -15,3 +15,8 @@ cmake -S ./ -B ./temp_build
 #
 mkdir build
 cp -rvf ./temp_build/compile_commands.json ./build
+
+#
+# Copy resources to `temp_build`
+#
+cp -rvf ./resources ./temp_build

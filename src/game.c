@@ -46,10 +46,15 @@ void Game_init(Game *game) {
     // Set our game FPS (frames-per-second)
     SetTargetFPS(game->misc_settings.game_fps);
 
+    // Initialize audio device
+    InitAudioDevice();
+
+    // Load sound effects
+    game->ball.enable_fireball_sound_effect =
+        LoadSound("resources/enable_fireball.wav");
+
     // Set tracing log level
     SetTraceLogLevel(LOG_DEBUG);
-
-    TraceLog(LOG_DEBUG, ">>> [ Game_init ] - Game initialization [ done ]");
 
     Game_print_debug_info(game);
 
@@ -79,6 +84,8 @@ void Game_init(Game *game) {
     Texture2D ball_texture = LoadTextureFromImage(ball_alpha_mask_image);
     UnloadImage(ball_alpha_mask_image);
     game->ball.alpha_mask = ball_texture;
+
+    TraceLog(LOG_DEBUG, ">>> [ Game_init ] - Game initialization [ done ]");
 }
 
 ///
@@ -192,6 +199,8 @@ void Game_run(Game *game) {
     TraceLog(LOG_DEBUG, ">>> [ Game_run ] - Exit the game loop");
 
     UnloadTexture(game->ball.alpha_mask);
+    UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
+    CloseAudioDevice();
 
     //
     // Close window and OpenGL context

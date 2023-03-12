@@ -42,7 +42,9 @@ typedef struct {
     usize current_velocities_increase;
     usize velocities_increase_to_enable_fireball;
     float velocity_acceleration;
+    bool enabled_fireball;
     Texture2D alpha_mask;
+    Sound enable_fireball_sound_effect;
     BallLightingTail lighting_tail;
 } Ball;
 

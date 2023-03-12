@@ -124,7 +124,7 @@ int main(void) {
                 .velocities_increase_to_enable_fireball =
                     BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL,
                 .velocity_acceleration = BALL_UI_VELOCITY_ACCELERATION,
-
+                .enabled_fireball = false,
                 .lighting_tail =
                     (BallLightingTail){
                         .particle_init_alpha =
