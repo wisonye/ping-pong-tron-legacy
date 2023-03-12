@@ -9,7 +9,29 @@
 #include "scoreboard.h"
 #include "table.h"
 
-GameState game_state = GS_UNINIT;
+bool IS_FULLSCREEN = false;
+
+///
+///
+///
+void toggle_fullscreen(Game *game) {
+    if (!IS_FULLSCREEN) {
+        int monitor = GetCurrentMonitor();
+        SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+        ToggleFullscreen();
+        IS_FULLSCREEN = true;
+    } else {
+        ToggleFullscreen();
+        SetWindowSize(game->ui_settings.init_screen_width,
+                      game->ui_settings.init_screen_height);
+        IS_FULLSCREEN = false;
+    }
+}
+
+///
+///
+///
+// void reset
 
 ///
 ///
@@ -17,6 +39,9 @@ GameState game_state = GS_UNINIT;
 void Game_init(Game *game) {
     InitWindow(game->ui_settings.init_screen_width,
                game->ui_settings.init_screen_height, "Ping pong tron legacy");
+
+    // Window states: No frame and buttons
+    SetWindowState(FLAG_WINDOW_UNDECORATED);
 
     // Set our game FPS (frames-per-second)
     SetTargetFPS(game->misc_settings.game_fps);
@@ -80,9 +105,14 @@ void Game_redraw(Game *game) {
     //
     // Update `game->table_rect` if changed
     //
-    if (table_rect.x != game->table_rect.x &&
-        table_rect.y != game->table_rect.y &&
-        table_rect.width != game->table_rect.width &&
+    // TraceLog(LOG_DEBUG,
+    //          ">>> [ Game_redraw ] - table_rect: {x: %.2f, y: %.2f, width: "
+    //          "%.2f, height: %.2f}",
+    //          table_rect.x, table_rect.y, table_rect.width,
+    //          table_rect.height);
+    if (table_rect.x != game->table_rect.x ||
+        table_rect.y != game->table_rect.y ||
+        table_rect.width != game->table_rect.width ||
         table_rect.height != game->table_rect.height) {
         game->table_rect = table_rect;
 
@@ -94,6 +124,17 @@ void Game_redraw(Game *game) {
 ///
 ///
 void Game_logic(Game *game) {
+    //
+    // Press 'ctrl+f' to toggle fullscreen
+    //
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_F)) {
+        toggle_fullscreen(game);
+        TraceLog(LOG_DEBUG,
+                 ">>> [ Game_logic ] - Toggle fullscreen, screen_width: %d, "
+                 "screen_height: %d",
+                 GetScreenWidth(), GetScreenHeight());
+    }
+
     //
     // Press 'space' to start game
     //
