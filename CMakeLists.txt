@@ -33,6 +33,11 @@ add_executable("${PROJECT_NAME}"
     "src/main.c")
 
 #
+# Export image pixels into C header file
+#
+add_executable("export_image_to_c_header_file" "src/export_image_to_c_header_file.c")
+
+#
 # Temporary testing code purpose
 #
 add_executable("${PROJECT_NAME}_test" "src/main_test.c")
@@ -42,6 +47,7 @@ add_executable("${PROJECT_NAME}_test" "src/main_test.c")
 #
 target_link_libraries("${PROJECT_NAME}" raylib)
 target_link_libraries("${PROJECT_NAME}_test" raylib)
+target_link_libraries("export_image_to_c_header_file" raylib)
 
 # target_compile_definitions("${PROJECT_NAME}" PRIVATE ENABLE_DEBUG_LOG)
 
