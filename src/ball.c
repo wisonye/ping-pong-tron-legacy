@@ -106,11 +106,11 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
 
         // Init `alpha` value, it affects how light the particle at the
         // beginning
-        particles[i].alpha = BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA;
+        particles[i].alpha = BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA;
 
         // It affects how big the particle will be: how many percentage of the
         // ball size: 0.0 ~ 1.0 (0 ~ 100%)
-        particles[i].size = BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE;
+        particles[i].size = BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE;
         particles[i].active = false;
     }
 }
@@ -233,7 +233,7 @@ void Ball_update_lighting_tail(Ball *ball) {
     for (int i = 0; i < BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (!particles[i].active) {
             particles[i].active = true;
-            particles[i].alpha = BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA;
+            particles[i].alpha = BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA;
             particles[i].position = ball->center;
             i = BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT;
         }
