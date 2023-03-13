@@ -48,13 +48,10 @@ int main(void) {
                 .center = (Vector2){.x = -1.0f, .y = -1.0f},
                 .velocity_x = BALL_UI_BALL_VELOCITY_X,
                 .velocity_y = BALL_UI_BALL_VELOCITY_Y,
+                .current_hits = 0,
+                .current_velocities_increase = 0,
                 .enabled_fireball = false,
-                .lighting_tail =
-                    (BallLightingTail){
-                        .particle_init_alpha =
-                            BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA,
-                        .particle_size = BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE,
-                    },
+                .lighting_tail = (BallLightingTail){0},
 
                 //
                 // `alpha_mask` is a black and white color image that uses for
@@ -63,40 +60,6 @@ int main(void) {
                 // `Game_init()`, not here!!!
                 //
                 // .alpha_mask = ball_texture,
-            },
-        .ui_settings =
-            (UiSettings){
-                .init_screen_width = GAME_UI_INIT_SCREEN_WIDTH,
-                .init_screen_height = GAME_UI_INIT_SCREEN_HEIGHT,
-                .padding = GAME_UI_PADDING,
-                .background_color = GAME_UI_BACKGROUND_COLOR,
-                .border_color = GAME_UI_BORDER_COLOR,
-                .table_ui =
-                    (TableUiSettings){
-                        .margin = GAME_UI_PADDING,
-                        .border_color = TABLE_UI_BORDER_COLOR,
-                        .border_thickness = TABLE_UI_BORDER_THICKNESS,
-                        .start_prompt_border_color =
-                            TABLE_UI_BEFORE_START_BORDER_COLOR,
-                        .start_prompt_text_color =
-                            TABLE_UI_BEFORE_START_TEXT_COLOR,
-                        .start_prompt_text = TABLE_UI_START_PROMPT_TEXT,
-                        .start_prompt_font_size =
-                            TABLE_UI_START_PROMPT_FONT_SIZE,
-                        .start_prompt_font_space =
-                            TABLE_UI_START_PROMPT_FONT_SPACE,
-                        .start_prompt_container_horizontal_padding =
-                            TABLE_UI_START_PROMPT_CONTAINER_HORIZONTAL_PADDING,
-                        .start_prompt_container_vertical_padding =
-                            TABLE_UI_START_PROMPT_CONTAINER_VERTICAL_PADDING,
-                    },
-                .racket_ui =
-                    (RacketUiSettings){
-                        .racket_color = GAME_UI_RACKET_COLOR,
-                    }},
-        .misc_settings =
-            (MiscSettings){
-                .game_fps = GAME_FPS,
             },
         .state = GS_INIT,
     };

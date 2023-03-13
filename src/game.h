@@ -22,42 +22,6 @@ typedef enum {
 ///
 ///
 typedef struct {
-    Color racket_color;
-} RacketUiSettings;
-
-///
-///
-///
-typedef struct {
-    float margin;
-    float border_thickness;
-    Color border_color;
-    Color start_prompt_border_color;
-    Color start_prompt_text_color;
-    const char *start_prompt_text;
-    float start_prompt_font_size;
-    float start_prompt_font_space;
-    float start_prompt_container_horizontal_padding;
-    float start_prompt_container_vertical_padding;
-} TableUiSettings;
-
-///
-///
-///
-typedef struct {
-    usize init_screen_width;
-    usize init_screen_height;
-    float padding;
-    Color background_color;
-    Color border_color;
-    RacketUiSettings racket_ui;
-    TableUiSettings table_ui;
-} UiSettings;
-
-///
-///
-///
-typedef struct {
     usize game_fps;
 } MiscSettings;
 
@@ -71,8 +35,6 @@ typedef struct {
     Rectangle table_rect;
     Ball ball;
     GameState state;
-    UiSettings ui_settings;
-    MiscSettings misc_settings;
 } Game;
 
 ///

@@ -18,8 +18,7 @@ typedef struct Scoreboard {
 ///
 ///
 ///
-Rectangle SB_redraw(const Scoreboard *sb, const float ui_padding,
-                    Color border_color);
+Rectangle SB_redraw(const Scoreboard *sb);
 
 ///
 ///

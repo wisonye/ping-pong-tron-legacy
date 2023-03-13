@@ -91,6 +91,9 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
         .x = table_rect->x + ((table_rect->width - BALL_UI_BALL_RADIUS) / 2),
         .y = table_rect->y + ((table_rect->height - BALL_UI_BALL_RADIUS) / 2),
     };
+
+    ball->velocity_x = BALL_UI_BALL_VELOCITY_X;
+    ball->velocity_y = BALL_UI_BALL_VELOCITY_Y;
     ball->current_hits = 0;
     ball->current_velocities_increase = 0;
     ball->enabled_fireball = false;
@@ -103,11 +106,11 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
 
         // Init `alpha` value, it affects how light the particle at the
         // beginning
-        particles[i].alpha = ball->lighting_tail.particle_init_alpha;
+        particles[i].alpha = BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA;
 
         // It affects how big the particle will be: how many percentage of the
         // ball size: 0.0 ~ 1.0 (0 ~ 100%)
-        particles[i].size = ball->lighting_tail.particle_size;
+        particles[i].size = BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE;
         particles[i].active = false;
     }
 }
@@ -230,7 +233,7 @@ void Ball_update_lighting_tail(Ball *ball) {
     for (int i = 0; i < BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (!particles[i].active) {
             particles[i].active = true;
-            particles[i].alpha = ball->lighting_tail.particle_init_alpha;
+            particles[i].alpha = BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA;
             particles[i].position = ball->center;
             i = BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT;
         }

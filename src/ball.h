@@ -22,8 +22,6 @@ typedef struct {
 ///
 typedef struct {
     BallTailParticle particles[BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT];
-    float particle_init_alpha;
-    float particle_size;
 } BallLightingTail;
 
 ///

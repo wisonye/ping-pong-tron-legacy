@@ -23,8 +23,7 @@ void toggle_fullscreen(Game *game) {
         IS_FULLSCREEN = true;
     } else {
         ToggleFullscreen();
-        SetWindowSize(game->ui_settings.init_screen_width,
-                      game->ui_settings.init_screen_height);
+        SetWindowSize(GAME_UI_INIT_SCREEN_WIDTH, GAME_UI_INIT_SCREEN_HEIGHT);
         IS_FULLSCREEN = false;
     }
 }
@@ -38,14 +37,14 @@ void toggle_fullscreen(Game *game) {
 ///
 ///
 void Game_init(Game *game) {
-    InitWindow(game->ui_settings.init_screen_width,
-               game->ui_settings.init_screen_height, "Ping pong tron legacy");
+    InitWindow(GAME_UI_INIT_SCREEN_WIDTH, GAME_UI_INIT_SCREEN_HEIGHT,
+               "Ping pong tron legacy");
 
     // Window states: No frame and buttons
     SetWindowState(FLAG_WINDOW_UNDECORATED);
 
     // Set our game FPS (frames-per-second)
-    SetTargetFPS(game->misc_settings.game_fps);
+    SetTargetFPS(GAME_FPS);
 
     // Initialize audio device
     InitAudioDevice();
@@ -98,8 +97,7 @@ void Game_redraw(Game *game) {
     //
     // Scoreboard
     //
-    Rectangle sb_rect = SB_redraw(&game->scoreboard, game->ui_settings.padding,
-                                  game->ui_settings.border_color);
+    Rectangle sb_rect = SB_redraw(&game->scoreboard);
 
     //
     // Table
@@ -189,7 +187,7 @@ void Game_run(Game *game) {
         //
         // Clean last frame
         //
-        ClearBackground(game->ui_settings.background_color);
+        ClearBackground(GAME_UI_BACKGROUND_COLOR);
 
         //
         // Redraw the entire game
