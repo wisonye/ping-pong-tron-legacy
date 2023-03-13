@@ -46,16 +46,8 @@ int main(void) {
         .ball =
             (Ball){
                 .center = (Vector2){.x = -1.0f, .y = -1.0f},
-                .radius = BALL_UI_BALL_RADIUS,
-                .color = BALL_UI_BALL_COLOR,
-                .fireball_color = BALL_UI_FIREBALL_COLOR,
                 .velocity_x = BALL_UI_BALL_VELOCITY_X,
                 .velocity_y = BALL_UI_BALL_VELOCITY_Y,
-                .hits_before_increase_velocity =
-                    BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
-                .velocities_increase_to_enable_fireball =
-                    BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL,
-                .velocity_acceleration = BALL_UI_VELOCITY_ACCELERATION,
                 .enabled_fireball = false,
                 .lighting_tail =
                     (BallLightingTail){

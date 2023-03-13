@@ -3,9 +3,8 @@
 
 #include <raylib.h>
 
+#include "config.h"
 #include "data_types.h"
-
-#define BALL_LIGHTING_TAIL_PARTICLE_COUNT 50
 
 ///
 /// Particle structure with basic data
@@ -22,7 +21,7 @@ typedef struct {
 /// The lighting tail that follows by the moving ball
 ///
 typedef struct {
-    BallTailParticle particles[BALL_LIGHTING_TAIL_PARTICLE_COUNT];
+    BallTailParticle particles[BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT];
     float particle_init_alpha;
     float particle_size;
 } BallLightingTail;
@@ -32,16 +31,10 @@ typedef struct {
 ///
 typedef struct {
     Vector2 center;
-    float radius;
-    Color color;
-    Color fireball_color;
     float velocity_x;
     float velocity_y;
     usize current_hits;
-    usize hits_before_increase_velocity;
     usize current_velocities_increase;
-    usize velocities_increase_to_enable_fireball;
-    float velocity_acceleration;
     bool enabled_fireball;
     Texture2D alpha_mask;
     Sound enable_fireball_sound_effect;

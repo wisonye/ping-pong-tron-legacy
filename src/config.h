@@ -52,18 +52,18 @@
 //
 #define BALL_UI_BALL_COLOR TRON_LIGHT_BLUE
 #define BALL_UI_FIREBALL_COLOR TRON_ORANGE
-#define BALL_UI_BALL_RADIUS 20.0f
+#define BALL_UI_BALL_RADIUS 30.f // 20.0f
 #define BALL_UI_BALL_VELOCITY_X 400.0f
 #define BALL_UI_BALL_VELOCITY_Y 400.0f
 // Init `alpha` value, it affects how light the particle at the beginning
 #define BALL_UI_LIGHT_TRAIL_PRATICLE_INIT_ALPHA 0.8f
 // It affects how big the particle will be: how many percentage of the ball
 // size: 0.0 ~ 1.0 (0 ~ 100%)
-#define BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE 0.6f
+#define BALL_UI_LIGHT_TRAIL_PRATICLE_SIZE 0.5f
 // How many hits before increasing the ball velocity
 #define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
 // How many velocities increase to enable a fireball
 #define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL 4
 // Velocity acceleration
 #define BALL_UI_VELOCITY_ACCELERATION 100
-
+#define BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT 50

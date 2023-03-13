@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "ball.h"
+#include "config.h"
 #include "player.h"
 #include "scoreboard.h"
 #include "table.h"
@@ -80,8 +81,9 @@ void Game_init(Game *game) {
     //   the ball to make it looks nicer.
     //
     float density = 0.5f;
-    Image ball_alpha_mask_image = GenImageGradientRadial(
-        game->ball.radius * 2, game->ball.radius * 2, density, WHITE, BLACK);
+    Image ball_alpha_mask_image =
+        GenImageGradientRadial(BALL_UI_BALL_RADIUS * 2, BALL_UI_BALL_RADIUS * 2,
+                               density, WHITE, BLACK);
     Texture2D ball_texture = LoadTextureFromImage(ball_alpha_mask_image);
     UnloadImage(ball_alpha_mask_image);
     game->ball.alpha_mask = ball_texture;
@@ -270,7 +272,7 @@ void Game_print_debug_info(Game *game) {
     snprintf(
         ball_str, sizeof(ball_str),
         "\tball: {\n\t\tcenter: { x: %.2f, y: %.2f }\n\t\tradius: %.2f\n\t}",
-        game->ball.center.x, game->ball.center.y, game->ball.radius);
+        game->ball.center.x, game->ball.center.y, BALL_UI_BALL_RADIUS);
 
     //
     // Debug info
