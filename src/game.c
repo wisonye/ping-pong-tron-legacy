@@ -184,7 +184,7 @@ void Game_logic(Game *game) {
     if (game->state == GS_PLAYING) {
         // Update ball
         Ball *ball = &game->ball;
-        Ball_update(ball, &game->table_rect);
+        Ball_update(ball, &game->table_rect, &game->player_1, &game->player_2);
 
         // Update lighting tail
         Ball_update_lighting_tail(ball);
@@ -198,16 +198,16 @@ void Game_logic(Game *game) {
         //
         // Update racket postion
         //
-        if (IsKeyDown(KEY_K)) {
+        if (IsKeyDown(KEY_I)) {
             Player_update_racket(&game->player_2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
-        } else if (IsKeyDown(KEY_J)) {
+        } else if (IsKeyDown(KEY_K)) {
             Player_update_racket(&game->player_2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
-        } else if (IsKeyDown(KEY_W)) {
+        } else if (IsKeyDown(KEY_E)) {
             Player_update_racket(&game->player_1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
-        } else if (IsKeyDown(KEY_S)) {
+        } else if (IsKeyDown(KEY_D)) {
             Player_update_racket(&game->player_1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
         }

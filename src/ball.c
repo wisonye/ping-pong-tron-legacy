@@ -118,7 +118,8 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
 ///
 ///
 ///
-void Ball_update(Ball *ball, Rectangle *table_rect) {
+void Ball_update(Ball *ball, Rectangle *table_rect, Player *player_1,
+                 Player *player_2) {
     //
     // Next ball position
     //
@@ -162,19 +163,27 @@ void Ball_update(Ball *ball, Rectangle *table_rect) {
     //
     // Hit player's racket to increase the velocity
     //
+    Vector2 ball_left_point = (Vector2){
+        .x = ball->center.x - BALL_UI_BALL_RADIUS, .y = ball->center.y};
+    Vector2 ball_right_point = (Vector2){
+        .x = ball->center.x + BALL_UI_BALL_RADIUS, .y = ball->center.y};
 
     // If `ball` hit the left player's racket
-    if (ball->center.x - BALL_UI_BALL_RADIUS <= table_rect->x) {
-        ball->center.x = table_rect->x + BALL_UI_BALL_RADIUS;
+    if (CheckCollisionPointRec(ball_left_point,
+                               player_1->default_racket.rect)) {
+        TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Hit player 1 racket");
+        ball->center.x = player_1->default_racket.rect.x +
+                         player_1->default_racket.rect.width +
+                         BALL_UI_BALL_RADIUS;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
         PlaySound(ball->hit_racket_sound_effect);
     }
     // If `ball` hit the right player's racket
-    else if (ball->center.x + BALL_UI_BALL_RADIUS >=
-             table_rect->x + table_rect->width) {
-        ball->center.x =
-            table_rect->x + table_rect->width - BALL_UI_BALL_RADIUS;
+    else if (CheckCollisionPointRec(ball_right_point,
+                                    player_2->default_racket.rect)) {
+        TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Hit player 2 racket");
+        ball->center.x = player_2->default_racket.rect.x - BALL_UI_BALL_RADIUS;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
         PlaySound(ball->hit_racket_sound_effect);

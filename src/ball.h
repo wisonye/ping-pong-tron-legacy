@@ -5,6 +5,7 @@
 
 #include "config.h"
 #include "data_types.h"
+#include "player.h"
 
 ///
 /// Particle structure with basic data
@@ -53,7 +54,8 @@ void Ball_restart(Ball *ball, Rectangle *table_rect);
 ///
 ///
 ///
-void Ball_update(Ball *ball, Rectangle *table_rect);
+void Ball_update(Ball *ball, Rectangle *table_rect, Player *player_1,
+                 Player *player_2);
 
 ///
 ///

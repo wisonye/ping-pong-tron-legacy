@@ -49,8 +49,8 @@ int main(void) {
                                  }},
         .scoreboard =
             (Scoreboard){
-                .player_1_score = 188,
-                .player_2_score = 288,
+                .player_1_score = 0,
+                .player_2_score = 0,
                 .player_1_name = player_1_name,
                 .player_2_name = player_2_name,
             },
