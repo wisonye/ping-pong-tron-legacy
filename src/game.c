@@ -9,6 +9,7 @@
 #include "player.h"
 #include "scoreboard.h"
 #include "table.h"
+#include "utils.h"
 
 bool IS_FULLSCREEN = false;
 
@@ -251,26 +252,51 @@ void Game_print_debug_info(Game *game) {
     // Player1
     //
     char player_1_str[100];
+    char player_1_type_str[10];
+    snprintf(player_1_type_str, sizeof(player_1_type_str), "%s",
+             game->player_1.type == PT_LEFT ? "LEFT" : "RIGHT");
     snprintf(player_1_str, sizeof(player_1_str),
-             "\tplayer1: {\n\t\tname: %s\n\t\tscore: %llu\n\t}",
-             game->player_1.name, game->player_1.score);
+             "\tplayer1: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: %llu\n\t}",
+             player_1_type_str, game->player_1.name, game->player_1.score);
 
     //
     // Player2
     //
     char player_2_str[100];
+    char player_2_type_str[10];
+    snprintf(player_2_type_str, sizeof(player_2_type_str), "%s",
+             game->player_2.type == PT_LEFT ? "LEFT" : "RIGHT");
     snprintf(player_2_str, sizeof(player_2_str),
-             "\tplayer2: {\n\t\tname: %s\n\t\tscore: %llu\n\t}",
-             game->player_2.name, game->player_2.score);
+             "\tplayer2: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: %llu\n\t}",
+             player_2_type_str, game->player_2.name, game->player_2.score);
 
     //
     // Ball
     //
-    char ball_str[200];
-    snprintf(
-        ball_str, sizeof(ball_str),
-        "\tball: {\n\t\tcenter: { x: %.2f, y: %.2f }\n\t\tradius: %.2f\n\t}",
-        game->ball.center.x, game->ball.center.y, BALL_UI_BALL_RADIUS);
+    char ball_str[1024];
+    char ball_color_str[10] = {0};
+    char fireball_color_str[10] = {0};
+    Utils_get_color_string(BALL_UI_BALL_COLOR, ball_color_str,
+                           sizeof(ball_color_str));
+    Utils_get_color_string(BALL_UI_FIREBALL_COLOR, fireball_color_str,
+                           sizeof(fireball_color_str));
+    snprintf(ball_str, sizeof(ball_str),
+             "\tball: {\n\t\tcenter: { x: %.2f, y: %.2f }\n\t\tradius: "
+             "%.2f\n\t\tcolor: 0x%s\n\t\tfireball color: 0x%s\n\t\tvelocity_x: "
+             "%.2f\n\t\tvelocity_y: %.2f\n\t\thits_before_increase_velocity: "
+             "%d\n\t\tvelocities_increase_to_enable_fireball: "
+             "%d\n\t\tvelocity_acceleration: "
+             "%d\n\t\tlighting_tail_particle_count: "
+             "%d\n\t\tlighting_tail_particle_init_alpha: "
+             "%.2f\n\t\tlighting_tail_particle_size: %.2f\n\t}",
+             game->ball.center.x, game->ball.center.y, BALL_UI_BALL_RADIUS,
+             ball_color_str, fireball_color_str, BALL_UI_BALL_VELOCITY_X,
+             BALL_UI_BALL_VELOCITY_Y, BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
+             BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL,
+             BALL_UI_VELOCITY_ACCELERATION,
+             BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT,
+             BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA,
+             BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE);
 
     //
     // Debug info
