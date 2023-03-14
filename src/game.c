@@ -199,9 +199,15 @@ void Game_logic(Game *game) {
         // Update racket postion
         //
         if (IsKeyDown(KEY_K)) {
-            Player_update_racket(&game->player_1, &game->table_rect,
+            Player_update_racket(&game->player_2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
         } else if (IsKeyDown(KEY_J)) {
+            Player_update_racket(&game->player_2, &game->table_rect,
+                                 game->is_fullscreen, RUT_MOVE_DOWN);
+        } else if (IsKeyDown(KEY_W)) {
+            Player_update_racket(&game->player_1, &game->table_rect,
+                                 game->is_fullscreen, RUT_MOVE_UP);
+        } else if (IsKeyDown(KEY_S)) {
             Player_update_racket(&game->player_1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
         }
