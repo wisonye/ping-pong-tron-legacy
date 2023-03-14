@@ -83,3 +83,11 @@
 // It affects how big the particle will be: how many percentage of the ball
 // size: 0.0 ~ 1.0 (0 ~ 100%)
 #define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE 0.5f
+
+//
+// Racket UI settings
+//
+#define RACKET_UI_MAX_RACKETS_PER_PLAYER 5
+#define RACKET_UI_MARGIN GAME_UI_PADDING
+#define RACKET_UI_COLOR TRON_YELLOW
+

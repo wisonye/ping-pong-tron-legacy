@@ -251,24 +251,16 @@ void Game_print_debug_info(Game *game) {
     //
     // Player1
     //
-    char player_1_str[100];
-    char player_1_type_str[10];
-    snprintf(player_1_type_str, sizeof(player_1_type_str), "%s",
-             game->player_1.type == PT_LEFT ? "LEFT" : "RIGHT");
-    snprintf(player_1_str, sizeof(player_1_str),
-             "\tplayer1: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: %llu\n\t}",
-             player_1_type_str, game->player_1.name, game->player_1.score);
+    char player_1_str[300];
+    Utils_get_player_string(&game->player_1, player_1_str,
+                            sizeof(player_1_str));
 
     //
     // Player2
     //
-    char player_2_str[100];
-    char player_2_type_str[10];
-    snprintf(player_2_type_str, sizeof(player_2_type_str), "%s",
-             game->player_2.type == PT_LEFT ? "LEFT" : "RIGHT");
-    snprintf(player_2_str, sizeof(player_2_str),
-             "\tplayer2: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: %llu\n\t}",
-             player_2_type_str, game->player_2.name, game->player_2.score);
+    char player_2_str[300];
+    Utils_get_player_string(&game->player_2, player_2_str,
+                            sizeof(player_2_str));
 
     //
     // Ball

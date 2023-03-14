@@ -27,8 +27,26 @@ int main(void) {
     // Create game instance
     //
     Game game = (Game){
-        .player_1 = (Player){.name = player_1_name, .score = 188},
-        .player_2 = (Player){.name = player_2_name, .score = 288},
+        .player_1 = (Player){.type = PT_LEFT,
+                             .name = player_1_name,
+                             .score = 0,
+                             .rackets = {0},
+                             .default_racket =
+                                 {
+                                     .color = RACKET_UI_COLOR,
+                                     .rect = {0},
+                                     .rect_texture = {0},
+                                 }},
+        .player_2 = (Player){.type = PT_RIGHT,
+                             .name = player_2_name,
+                             .score = 0,
+                             .rackets = {0},
+                             .default_racket =
+                                 {
+                                     .color = RACKET_UI_COLOR,
+                                     .rect = {0},
+                                     .rect_texture = {0},
+                                 }},
         .scoreboard =
             (Scoreboard){
                 .player_1_score = 188,
