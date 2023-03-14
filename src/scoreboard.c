@@ -54,6 +54,27 @@ void draw_player_name_and_score(const char *name, usize score, bool is_player_1,
 ///
 ///
 ///
+Rectangle SB_recalculate_rect(const Scoreboard *sb) {
+    int screen_width = GetScreenWidth();
+    int screen_height = GetScreenHeight();
+
+    //
+    // Outside border
+    //
+    Rectangle rect = (Rectangle){
+        .x = SCOREBOARD_UI_PADDING,
+        .y = SCOREBOARD_UI_PADDING,
+        .width = screen_width - 2 * SCOREBOARD_UI_PADDING,
+        .height = (float)screen_height *
+                  (SCOREBOARD_UI_BORDER_HEIGHT_PERCENT / (float)100),
+    };
+
+    return rect;
+}
+
+///
+///
+///
 Rectangle SB_redraw(const Scoreboard *sb) {
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();

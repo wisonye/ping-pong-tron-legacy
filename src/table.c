@@ -11,6 +11,27 @@
 ///
 ///
 ///
+Rectangle Table_recalculate_rect(const Game *game, const Rectangle *sb_rect) {
+    int screen_width = GetScreenWidth();
+    int screen_height = GetScreenHeight();
+
+    //
+    // Outside border
+    //
+    float sb_rect_bottom = sb_rect->y + sb_rect->height;
+    Rectangle rect = (Rectangle){
+        .x = TABLE_UI_MARGIN,
+        .y = sb_rect_bottom + TABLE_UI_MARGIN,
+        .width = screen_width - 2 * TABLE_UI_MARGIN,
+        .height = (float)screen_height - sb_rect_bottom - 2 * TABLE_UI_MARGIN,
+    };
+
+    return rect;
+}
+
+///
+///
+///
 Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect) {
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();

@@ -80,6 +80,7 @@ int main(void) {
                 // .alpha_mask = ball_texture,
             },
         .state = GS_INIT,
+        .is_fullscreen = false,
     };
 
     //

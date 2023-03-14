@@ -16,6 +16,11 @@
 ///
 ///
 ///
+Rectangle Table_recalculate_rect(const Game *game, const Rectangle *sb_rect);
+
+///
+///
+///
 Rectangle Table_redraw(const Game *game, const Rectangle *sb_rect);
 
 #endif

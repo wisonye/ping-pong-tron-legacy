@@ -23,6 +23,11 @@ Rectangle SB_redraw(const Scoreboard *sb);
 ///
 ///
 ///
+Rectangle SB_recalculate_rect(const Scoreboard *sb);
+
+///
+///
+///
 void SB_update_player_1_score(Scoreboard *sb, usize score);
 
 ///

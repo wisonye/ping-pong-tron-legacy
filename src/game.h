@@ -32,9 +32,11 @@ typedef struct {
     Player player_1;
     Player player_2;
     Scoreboard scoreboard;
+    Rectangle table_rect_before_screen_changed;
     Rectangle table_rect;
     Ball ball;
     GameState state;
+    bool is_fullscreen;
 } Game;
 
 ///

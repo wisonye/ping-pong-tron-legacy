@@ -26,7 +26,7 @@ find_package(raylib REQUIRED)
 add_executable("${PROJECT_NAME}"
     "src/utils.c"
     "src/ball.c"
-    "src/racket.c"
+    # "src/racket.c"
     "src/player.c"
     "src/scoreboard.c"
     "src/table.c"

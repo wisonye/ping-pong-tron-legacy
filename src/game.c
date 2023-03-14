@@ -11,21 +11,19 @@
 #include "table.h"
 #include "utils.h"
 
-bool IS_FULLSCREEN = false;
-
 ///
 ///
 ///
 void toggle_fullscreen(Game *game) {
-    if (!IS_FULLSCREEN) {
+    if (!game->is_fullscreen) {
         int monitor = GetCurrentMonitor();
         SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
         ToggleFullscreen();
-        IS_FULLSCREEN = true;
+        game->is_fullscreen = true;
     } else {
         ToggleFullscreen();
         SetWindowSize(GAME_UI_INIT_SCREEN_WIDTH, GAME_UI_INIT_SCREEN_HEIGHT);
-        IS_FULLSCREEN = false;
+        game->is_fullscreen = false;
     }
 }
 
@@ -106,6 +104,12 @@ void Game_redraw(Game *game) {
     Rectangle table_rect = Table_redraw(game, &sb_rect);
 
     //
+    // Player rackets
+    //
+    Player_racket_redraw(&game->player_1, &game->table_rect);
+    Player_racket_redraw(&game->player_2, &game->table_rect);
+
+    //
     // Ball
     //
     const Ball *ball = &game->ball;
@@ -137,11 +141,31 @@ void Game_logic(Game *game) {
     // Press 'ctrl+f' to toggle fullscreen
     //
     if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_F)) {
+        // Save the `table_rect` before toggling fullscreen
+        game->table_rect_before_screen_changed = game->table_rect;
+
+        //
         toggle_fullscreen(game);
         TraceLog(LOG_DEBUG,
                  ">>> [ Game_logic ] - Toggle fullscreen, screen_width: %d, "
                  "screen_height: %d",
                  GetScreenWidth(), GetScreenHeight());
+
+        //
+        // Update `game->table_rect`
+        //
+        Rectangle new_sb_rect = SB_recalculate_rect(&game->scoreboard);
+        game->table_rect = Table_recalculate_rect(game, &new_sb_rect);
+
+        //
+        // Sync racket position
+        //
+        Player_update_racket_after_screen_size_changed(
+            &game->player_1, &game->table_rect,
+            &game->table_rect_before_screen_changed);
+        Player_update_racket_after_screen_size_changed(
+            &game->player_2, &game->table_rect,
+            &game->table_rect_before_screen_changed);
     }
 
     //
@@ -150,12 +174,16 @@ void Game_logic(Game *game) {
     if (IsKeyPressed(KEY_SPACE) && game->state == GS_BEFORE_START) {
         game->state = GS_PLAYING;
         Ball_restart(&game->ball, &game->table_rect);
+        Player_update_racket(&game->player_1, &game->table_rect,
+                             game->is_fullscreen, RUT_RESET);
+        Player_update_racket(&game->player_2, &game->table_rect,
+                             game->is_fullscreen, RUT_RESET);
         Game_print_debug_info(game);
     }
 
     if (game->state == GS_PLAYING) {
-        Ball *ball = &game->ball;
         // Update ball
+        Ball *ball = &game->ball;
         Ball_update(ball, &game->table_rect);
 
         // Update lighting tail
@@ -166,6 +194,17 @@ void Game_logic(Game *game) {
         /*          "speed_x: %.2f, speed_Y: %.2f}", */
         /*          ball->center.x, ball->center.y, ball->speed_x,
          * ball->speed_y); */
+
+        //
+        // Update racket postion
+        //
+        if (IsKeyDown(KEY_K)) {
+            Player_update_racket(&game->player_1, &game->table_rect,
+                                 game->is_fullscreen, RUT_MOVE_UP);
+        } else if (IsKeyDown(KEY_J)) {
+            Player_update_racket(&game->player_1, &game->table_rect,
+                                 game->is_fullscreen, RUT_MOVE_DOWN);
+        }
     }
 }
 
