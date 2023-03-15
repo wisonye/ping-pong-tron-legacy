@@ -82,9 +82,19 @@ void Game_init(Game *game) {
     Image ball_alpha_mask_image =
         GenImageGradientRadial(BALL_UI_BALL_RADIUS * 2, BALL_UI_BALL_RADIUS * 2,
                                density, WHITE, BLACK);
-    Texture2D ball_texture = LoadTextureFromImage(ball_alpha_mask_image);
+    game->ball.alpha_mask = LoadTextureFromImage(ball_alpha_mask_image);
     UnloadImage(ball_alpha_mask_image);
-    game->ball.alpha_mask = ball_texture;
+
+    //
+    // Racket gradient texture
+    //
+    Image racket_image = LoadImage("resources/green_larser.png");
+    ImageResize(&racket_image, RACKET_UI_WIDTH, RACKET_UI_HEIGHT);
+    game->player_1.default_racket.rect_texture =
+        LoadTextureFromImage(racket_image);
+    game->player_2.default_racket.rect_texture =
+        LoadTextureFromImage(racket_image);
+    UnloadImage(racket_image);
 
     TraceLog(LOG_DEBUG, ">>> [ Game_init ] - Game initialization [ done ]");
 }
@@ -248,6 +258,8 @@ void Game_run(Game *game) {
     UnloadTexture(game->ball.alpha_mask);
     UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
     UnloadSound(game->ball.hit_racket_sound_effect);       // Unload sound data
+    UnloadTexture(game->player_1.default_racket.rect_texture);
+    UnloadTexture(game->player_2.default_racket.rect_texture);
     CloseAudioDevice();
 
     //

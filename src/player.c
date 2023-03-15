@@ -27,7 +27,28 @@ void Player_lose(Player *player) {
 void Player_racket_redraw(Player *player, Rectangle *container) {
     if (player == NULL) return;
 
-    DrawRectangleRec(player->default_racket.rect, player->default_racket.color);
+    Rectangle racket_rect = player->default_racket.rect;
+
+    // DrawRectangleRec(player->default_racket.rect,
+    // player->default_racket.color);
+
+    // BeginBlendMode(BLEND_ADDITIVE);
+    DrawTexturePro(player->default_racket.rect_texture,
+                   (Rectangle){.x = 0.0f,
+                               .y = 0.0f,
+                               .width = RACKET_UI_WIDTH,
+                               .height = RACKET_UI_HEIGHT},
+                   racket_rect,
+                   (Vector2){.x = (float)(RACKET_UI_WIDTH * 0.2f / 2),
+                             .y = (float)(RACKET_UI_HEIGHT * 0.2f / 2)},
+                   0.0f, RACKET_UI_COLOR);
+    // Fade(RACKET_UI_COLOR, 0.6f));
+    // EndBlendMode();
+
+    if (RACKET_UI_DRAW_DEBUG_BOUNDARY) {
+        DrawRectangleRec(player->default_racket.rect,
+                         player->default_racket.color);
+    }
 }
 
 ///
