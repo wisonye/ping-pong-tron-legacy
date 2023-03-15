@@ -8,7 +8,9 @@
 #
 # Run cmake to generate all files
 #
-cmake -S ./ -B ./temp_build
+LLVM_CLANG=$(which clang)
+cmake -S ./ -B ./temp_build \
+    -DCMAKE_C_COMPILER="${LLVM_CLANG}"
 
 #
 # Copy `compile_commands.json` to `build/compile_commands.json` for neovim LSP

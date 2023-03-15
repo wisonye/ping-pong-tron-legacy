@@ -11,7 +11,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 # Compiler flags
 #
 set(CMAKE_BUILD_TYPE "Debug")
-set(CMAKE_C_FLAGS "-pedantic-errors -std=gnu17")
+set(CMAKE_C_FLAGS "-pedantic-errors -std=gnu17 -fsanitize=address -O1 -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS "-pedantic-errors -Wc99-extensions -Wvla-extension -Wc11-extensions -Wc11-extensions -std=c++11")
 
 #
