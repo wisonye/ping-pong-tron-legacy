@@ -11,8 +11,8 @@
 void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size) {
     // RGBA each 2 bytes for HEX + '\0'
     usize memory_bytes_len = COLOR_STRUCT_BYTES * 2 + 1;
-    char memory_bytes[memory_bytes_len];
-    memset(memory_bytes, 0, memory_bytes_len);
+    u8 memory_bytes[memory_bytes_len];
+    memset(memory_bytes, '\0', memory_bytes_len);
 
     u8 memory_byte = 0x00;
     for (usize index = 0; index < COLOR_STRUCT_BYTES; index++) {
@@ -22,9 +22,14 @@ void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size) {
         // 3. Dereference that pointer offset value (in HEX format)
         memory_byte = *(((u8 *)&color) + index);
 
-        sprintf(memory_bytes + (index * 2), "%02X", memory_byte);
+        sprintf((char *)memory_bytes + (index * 2), "%02X", memory_byte);
+        // printf("\n>>> memory_bytes : %s", memory_bytes);
     }
-    memory_bytes[memory_bytes_len] = '\0';
+    // printf(
+    //     "\n>>> memory_bytes_len: %llu, memory_bytes[memory_bytes_len - 1] : "
+    //     "%02X\n",
+    //     memory_bytes_len, memory_bytes[memory_bytes_len - 1]);
+    memory_bytes[memory_bytes_len - 1] = '\0';
 
     snprintf(out_buffer, buffer_size, "%s", memory_bytes);
 }
@@ -38,10 +43,12 @@ void Utils_get_player_string(Player *player, char *out_buffer,
     snprintf(player_type_str, sizeof(player_type_str), "%s",
              player->type == PT_LEFT ? "LEFT" : "RIGHT");
 
-    char default_racket_color_str[10];
+    char default_racket_color_str[9];
     Utils_get_color_string(player->default_racket.color,
                            default_racket_color_str,
                            sizeof(default_racket_color_str));
+    printf("\n>>> default_racket_color_str len: %lu",
+           strlen(default_racket_color_str));
 
     snprintf(out_buffer, buffer_size,
              "\tplayer: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: "
