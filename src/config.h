@@ -107,7 +107,8 @@
 #define RACKET_UI_COLOR TRON_LIGHT_BLUE
 #define RACKET_UI_VELOCITY 600.f
 #define RACKET_UI_DRAW_DEBUG_BOUNDARY false
-#define RACKET_UI_LASER_RACKET_TEXTURE "resources/green_larser.png"
+// #define RACKET_UI_LASER_RACKET_TEXTURE "resources/green_laser.png"
+#define RACKET_UI_LASER_RACKET_TEXTURE "resources/blue_laser.png"
 
 //
 // Player settings
