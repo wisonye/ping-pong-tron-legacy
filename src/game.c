@@ -223,13 +223,16 @@ void Game_logic(Game *game) {
         if (IsKeyDown(PLAYER_2_UP_KEY)) {
             Player_update_racket(&game->player2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
-        } else if (IsKeyDown(PLAYER_2_DOWN_KEY)) {
+        }
+        if (IsKeyDown(PLAYER_2_DOWN_KEY)) {
             Player_update_racket(&game->player2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
-        } else if (IsKeyDown(PLAYER_1_UP_KEY)) {
+        }
+        if (IsKeyDown(PLAYER_1_UP_KEY)) {
             Player_update_racket(&game->player1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
-        } else if (IsKeyDown(PLAYER_1_DOWN_KEY)) {
+        }
+        if (IsKeyDown(PLAYER_1_DOWN_KEY)) {
             Player_update_racket(&game->player1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
         }
