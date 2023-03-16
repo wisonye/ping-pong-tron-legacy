@@ -84,7 +84,7 @@ void Ball_redraw(const Ball *ball) {
 ///
 /// Reset the ball and lighting tail
 ///
-void Ball_restart(Ball *ball, Rectangle *table_rect) {
+void Ball_restart(Ball *ball, const Rectangle *table_rect) {
     if (ball == NULL) return;
 
     ball->center = (Vector2){
@@ -118,8 +118,9 @@ void Ball_restart(Ball *ball, Rectangle *table_rect) {
 ///
 ///
 ///
-void Ball_update(Ball *ball, Rectangle *table_rect, Player *player_1,
-                 Player *player_2) {
+void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
+                 const Player *player2, bool *is_player1_win,
+                 bool *is_player2_win) {
     //
     // Next ball position
     //
@@ -148,17 +149,15 @@ void Ball_update(Ball *ball, Rectangle *table_rect, Player *player_1,
     //
 
     // If `ball` hit the left of `table_rect`
-    // if (ball->center.x - BALL_UI_BALL_RADIUS <= table_rect->x) {
-    //     ball->center.x = table_rect->x + BALL_UI_BALL_RADIUS;
-    //     ball->velocity_x *= -1;  // Flip the velocity_x direction
-    // }
-    // // If `ball` hit the right of `table_rect`
-    // else if (ball->center.x + BALL_UI_BALL_RADIUS >=
-    //          table_rect->x + table_rect->width) {
-    //     ball->center.x = table_rect->x + table_rect->width -
-    //     BALL_UI_BALL_RADIUS; ball->velocity_x *= -1;  // Flip the velocity_x
-    //     direction
-    // }
+    if (ball->center.x <= table_rect->x) {
+        *is_player2_win = true;
+        return;
+    }
+    // If `ball` hit the right of `table_rect`
+    else if (ball->center.x >= table_rect->x + table_rect->width) {
+        *is_player1_win = true;
+        return;
+    }
 
     //
     // Hit player's racket to increase the velocity
@@ -169,11 +168,10 @@ void Ball_update(Ball *ball, Rectangle *table_rect, Player *player_1,
         .x = ball->center.x + BALL_UI_BALL_RADIUS, .y = ball->center.y};
 
     // If `ball` hit the left player's racket
-    if (CheckCollisionPointRec(ball_left_point,
-                               player_1->default_racket.rect)) {
+    if (CheckCollisionPointRec(ball_left_point, player1->default_racket.rect)) {
         TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Hit player 1 racket");
-        ball->center.x = player_1->default_racket.rect.x +
-                         player_1->default_racket.rect.width +
+        ball->center.x = player1->default_racket.rect.x +
+                         player1->default_racket.rect.width +
                          BALL_UI_BALL_RADIUS;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
@@ -181,9 +179,9 @@ void Ball_update(Ball *ball, Rectangle *table_rect, Player *player_1,
     }
     // If `ball` hit the right player's racket
     else if (CheckCollisionPointRec(ball_right_point,
-                                    player_2->default_racket.rect)) {
+                                    player2->default_racket.rect)) {
         TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Hit player 2 racket");
-        ball->center.x = player_2->default_racket.rect.x - BALL_UI_BALL_RADIUS;
+        ball->center.x = player2->default_racket.rect.x - BALL_UI_BALL_RADIUS;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
         PlaySound(ball->hit_racket_sound_effect);

@@ -27,33 +27,26 @@ int main(void) {
     // Create game instance
     //
     Game game = (Game){
-        .player_1 = (Player){.type = PT_LEFT,
-                             .name = player_1_name,
-                             .score = 0,
-                             .rackets = {0},
-                             .default_racket =
-                                 {
-                                     .color = RACKET_UI_COLOR,
-                                     .rect = {0},
-                                     .rect_texture = {0},
-                                 }},
-        .player_2 = (Player){.type = PT_RIGHT,
-                             .name = player_2_name,
-                             .score = 0,
-                             .rackets = {0},
-                             .default_racket =
-                                 {
-                                     .color = RACKET_UI_COLOR,
-                                     .rect = {0},
-                                     .rect_texture = {0},
-                                 }},
-        .scoreboard =
-            (Scoreboard){
-                .player_1_score = 0,
-                .player_2_score = 0,
-                .player_1_name = player_1_name,
-                .player_2_name = player_2_name,
-            },
+        .player1 = (Player){.type = PT_LEFT,
+                            .name = player_1_name,
+                            .score = 999,
+                            .rackets = {0},
+                            .default_racket =
+                                {
+                                    .color = RACKET_UI_COLOR,
+                                    .rect = {0},
+                                    .rect_texture = {0},
+                                }},
+        .player2 = (Player){.type = PT_RIGHT,
+                            .name = player_2_name,
+                            .score = 7,
+                            .rackets = {0},
+                            .default_racket =
+                                {
+                                    .color = RACKET_UI_COLOR,
+                                    .rect = {0},
+                                    .rect_texture = {0},
+                                }},
         .table_rect =
             (Rectangle){
                 .x = -1,
@@ -81,7 +74,11 @@ int main(void) {
             },
         .state = GS_INIT,
         .is_fullscreen = false,
+        .is_player1_wins_last_round = false,
     };
+
+    game.scoreboard.player1 = &game.player1;
+    game.scoreboard.player2 = &game.player2;
 
     //
     // Init and run the game

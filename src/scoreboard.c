@@ -119,9 +119,9 @@ Rectangle SB_redraw(const Scoreboard *sb) {
     //
     // Player
     //
-    draw_player_name_and_score(sb->player_1_name, sb->player_1_score, true,
+    draw_player_name_and_score(sb->player1->name, sb->player1->score, true,
                                &font, &rect, SCOREBOARD_UI_BORDER_COLOR);
-    draw_player_name_and_score(sb->player_2_name, sb->player_2_score, false,
+    draw_player_name_and_score(sb->player2->name, sb->player2->score, false,
                                &font, &rect, SCOREBOARD_UI_BORDER_COLOR);
 
     return rect;

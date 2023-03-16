@@ -85,9 +85,9 @@ void Game_init(Game *game) {
     //
     Image racket_image = LoadImage("resources/green_larser.png");
     ImageResize(&racket_image, RACKET_UI_WIDTH, RACKET_UI_HEIGHT);
-    game->player_1.default_racket.rect_texture =
+    game->player1.default_racket.rect_texture =
         LoadTextureFromImage(racket_image);
-    game->player_2.default_racket.rect_texture =
+    game->player2.default_racket.rect_texture =
         LoadTextureFromImage(racket_image);
     UnloadImage(racket_image);
 
@@ -111,8 +111,8 @@ void Game_redraw(Game *game) {
     //
     // Player rackets
     //
-    Player_racket_redraw(&game->player_1, &game->table_rect);
-    Player_racket_redraw(&game->player_2, &game->table_rect);
+    Player_racket_redraw(&game->player1, &game->table_rect);
+    Player_racket_redraw(&game->player2, &game->table_rect);
 
     //
     // Ball
@@ -166,30 +166,48 @@ void Game_logic(Game *game) {
         // Sync racket position
         //
         Player_update_racket_after_screen_size_changed(
-            &game->player_1, &game->table_rect,
+            &game->player1, &game->table_rect,
             &game->table_rect_before_screen_changed);
         Player_update_racket_after_screen_size_changed(
-            &game->player_2, &game->table_rect,
+            &game->player2, &game->table_rect,
             &game->table_rect_before_screen_changed);
     }
 
     //
     // Press 'space' to start game
     //
-    if (IsKeyPressed(KEY_SPACE) && game->state == GS_BEFORE_START) {
+    if (IsKeyPressed(KEY_SPACE) &&
+        (game->state == GS_BEFORE_START || game->state == GS_PLAYER_WINS)) {
         game->state = GS_PLAYING;
         Ball_restart(&game->ball, &game->table_rect);
-        Player_update_racket(&game->player_1, &game->table_rect,
+        Player_update_racket(&game->player1, &game->table_rect,
                              game->is_fullscreen, RUT_RESET);
-        Player_update_racket(&game->player_2, &game->table_rect,
+        Player_update_racket(&game->player2, &game->table_rect,
                              game->is_fullscreen, RUT_RESET);
         Game_print_debug_info(game);
     }
 
+    //
+    // Game is playing, update all states
+    //
     if (game->state == GS_PLAYING) {
         // Update ball
         Ball *ball = &game->ball;
-        Ball_update(ball, &game->table_rect, &game->player_1, &game->player_2);
+        bool is_player1_win = false;
+        bool is_player2_win = false;
+        Ball_update(ball, &game->table_rect, &game->player1, &game->player2,
+                    &is_player1_win, &is_player2_win);
+        if (is_player1_win) {
+            game->player1.score += 1;
+            game->state = GS_PLAYER_WINS;
+            game->is_player1_wins_last_round = true;
+            return;
+        } else if (is_player2_win) {
+            game->player2.score += 1;
+            game->state = GS_PLAYER_WINS;
+            game->is_player1_wins_last_round = false;
+            return;
+        }
 
         // Update lighting tail
         Ball_update_lighting_tail(ball);
@@ -204,18 +222,24 @@ void Game_logic(Game *game) {
         // Update racket postion
         //
         if (IsKeyDown(PLAYER_2_UP_KEY)) {
-            Player_update_racket(&game->player_2, &game->table_rect,
+            Player_update_racket(&game->player2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
         } else if (IsKeyDown(PLAYER_2_DOWN_KEY)) {
-            Player_update_racket(&game->player_2, &game->table_rect,
+            Player_update_racket(&game->player2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
         } else if (IsKeyDown(PLAYER_1_UP_KEY)) {
-            Player_update_racket(&game->player_1, &game->table_rect,
+            Player_update_racket(&game->player1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
         } else if (IsKeyDown(PLAYER_1_DOWN_KEY)) {
-            Player_update_racket(&game->player_1, &game->table_rect,
+            Player_update_racket(&game->player1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
         }
+    }
+
+    //
+    // Player wins, update score
+    //
+    if (game->state == GS_PLAYING) {
     }
 }
 
@@ -253,8 +277,8 @@ void Game_run(Game *game) {
     UnloadTexture(game->ball.alpha_mask);
     UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
     UnloadSound(game->ball.hit_racket_sound_effect);       // Unload sound data
-    UnloadTexture(game->player_1.default_racket.rect_texture);
-    UnloadTexture(game->player_2.default_racket.rect_texture);
+    UnloadTexture(game->player1.default_racket.rect_texture);
+    UnloadTexture(game->player2.default_racket.rect_texture);
     CloseAudioDevice();
 
     //
@@ -304,15 +328,13 @@ void Game_print_debug_info(Game *game) {
     // Player1
     //
     char player_1_str[300];
-    Utils_get_player_string(&game->player_1, player_1_str,
-                            sizeof(player_1_str));
+    Utils_get_player_string(&game->player1, player_1_str, sizeof(player_1_str));
 
     //
     // Player2
     //
     char player_2_str[300];
-    Utils_get_player_string(&game->player_2, player_2_str,
-                            sizeof(player_2_str));
+    Utils_get_player_string(&game->player2, player_2_str, sizeof(player_2_str));
 
     //
     // Ball

@@ -4,15 +4,14 @@
 #include <raylib.h>
 
 #include "data_types.h"
+#include "player.h"
 
 ///
 ///
 ///
 typedef struct Scoreboard {
-    usize player_1_score;
-    usize player_2_score;
-    const char *player_1_name;
-    const char *player_2_name;
+    Player *player1;
+    Player *player2;
 } Scoreboard;
 
 ///

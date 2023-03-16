@@ -15,7 +15,8 @@ typedef enum {
     GS_INIT = 0x02,
     GS_BEFORE_START = 0x03,
     GS_PLAYING = 0x04,
-    GS_PAUSE = 0x05,
+    GS_PLAYER_WINS = 0x05,
+    GS_PAUSE = 0x06,
 } GameState;
 
 ///
@@ -29,14 +30,15 @@ typedef struct {
 ///
 ///
 typedef struct {
-    Player player_1;
-    Player player_2;
+    Player player1;
+    Player player2;
     Scoreboard scoreboard;
     Rectangle table_rect_before_screen_changed;
     Rectangle table_rect;
     Ball ball;
     GameState state;
     bool is_fullscreen;
+    bool is_player1_wins_last_round;
 } Game;
 
 ///
