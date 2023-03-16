@@ -12,7 +12,11 @@
 ## How to run
 
 ```bash
+# Custom player name and use stand ball radius (`30.0f`)
 PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
+
+# Use bigger ball for beginner level
+BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
 ```
 
 </br>
