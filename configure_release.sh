@@ -11,7 +11,7 @@
 LLVM_CLANG=$(which clang)
 cmake -S ./ -B ./temp_build \
     -DCMAKE_C_COMPILER="${LLVM_CLANG}" \
-    -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_BUILD_TYPE=Release
 
 #
 # Copy `compile_commands.json` to `build/compile_commands.json` for neovim LSP

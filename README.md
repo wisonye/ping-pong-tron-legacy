@@ -3,7 +3,11 @@
 ## How to configure
 
 ```bash
+# For debug build
 ./configure.sh
+
+# For release build
+./configure_release.sh
 ```
 
 </br>
