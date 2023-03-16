@@ -95,3 +95,10 @@
 #define RACKET_UI_VELOCITY 600.f
 #define RACKET_UI_DRAW_DEBUG_BOUNDARY false
 
+//
+// Player settings
+//
+#define PLAYER_1_UP_KEY KEY_E
+#define PLAYER_1_DOWN_KEY KEY_D
+#define PLAYER_2_UP_KEY KEY_K
+#define PLAYER_2_DOWN_KEY KEY_J

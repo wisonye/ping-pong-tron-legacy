@@ -30,11 +30,6 @@ void toggle_fullscreen(Game *game) {
 ///
 ///
 ///
-// void reset
-
-///
-///
-///
 void Game_init(Game *game) {
     InitWindow(GAME_UI_INIT_SCREEN_WIDTH, GAME_UI_INIT_SCREEN_HEIGHT,
                "Ping pong tron legacy");
@@ -208,16 +203,16 @@ void Game_logic(Game *game) {
         //
         // Update racket postion
         //
-        if (IsKeyDown(KEY_I)) {
+        if (IsKeyDown(PLAYER_2_UP_KEY)) {
             Player_update_racket(&game->player_2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
-        } else if (IsKeyDown(KEY_K)) {
+        } else if (IsKeyDown(PLAYER_2_DOWN_KEY)) {
             Player_update_racket(&game->player_2, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
-        } else if (IsKeyDown(KEY_E)) {
+        } else if (IsKeyDown(PLAYER_1_UP_KEY)) {
             Player_update_racket(&game->player_1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_UP);
-        } else if (IsKeyDown(KEY_D)) {
+        } else if (IsKeyDown(PLAYER_1_DOWN_KEY)) {
             Player_update_racket(&game->player_1, &game->table_rect,
                                  game->is_fullscreen, RUT_MOVE_DOWN);
         }
