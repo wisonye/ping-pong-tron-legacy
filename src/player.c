@@ -33,21 +33,23 @@ void Player_racket_redraw(Player *player, Rectangle *container) {
     // player->default_racket.color);
 
     // BeginBlendMode(BLEND_ADDITIVE);
-    DrawTexturePro(player->default_racket.rect_texture,
-                   (Rectangle){.x = 0.0f,
-                               .y = 0.0f,
-                               .width = RACKET_UI_WIDTH,
-                               .height = RACKET_UI_HEIGHT},
-                   racket_rect,
-                   (Vector2){.x = (float)(RACKET_UI_WIDTH * 0.2f / 2),
-                             .y = (float)(RACKET_UI_HEIGHT * 0.2f / 2)},
-                   0.0f, RACKET_UI_COLOR);
-    // Fade(RACKET_UI_COLOR, 0.6f));
+    DrawTexturePro(
+        player->default_racket.rect_texture,
+        // Texture rect to draw from
+        (Rectangle){.x = 0.0f,
+                    .y = 0.0f,
+                    .width = RACKET_UI_WIDTH,
+                    .height = RACKET_UI_HEIGHT},
+        // Target rect to draw (orgin is TopLeft by default!!!)
+        racket_rect,
+        // Origin offset of the target rect to draw (TopLeft by default)
+        (Vector2){.x = (float)(0.0f), .y = (float)(0.0f)}, 0.0f,
+        RACKET_UI_COLOR);
     // EndBlendMode();
 
     if (RACKET_UI_DRAW_DEBUG_BOUNDARY) {
         DrawRectangleRec(player->default_racket.rect,
-                         player->default_racket.color);
+                         Fade(player->default_racket.color, 0.5f));
     }
 }
 
@@ -94,14 +96,22 @@ void Player_update_racket(Player *player, Rectangle *container,
         //
         // Apply velocity to `y`
         //
-        case RUT_MOVE_UP:
-            player->default_racket.rect.y = player->default_racket.rect.y -
-                                            RACKET_UI_VELOCITY * GetFrameTime();
+        case RUT_MOVE_UP: {
+            float new_y = player->default_racket.rect.y -
+                          RACKET_UI_VELOCITY * GetFrameTime();
+            if (new_y >= container->y) {
+                player->default_racket.rect.y = new_y;
+            }
             break;
-        case RUT_MOVE_DOWN:
-            player->default_racket.rect.y = player->default_racket.rect.y +
-                                            RACKET_UI_VELOCITY * GetFrameTime();
+        }
+        case RUT_MOVE_DOWN: {
+            float new_y = player->default_racket.rect.y +
+                          RACKET_UI_VELOCITY * GetFrameTime();
+            if (new_y + RACKET_UI_HEIGHT <= container->y + container->height) {
+                player->default_racket.rect.y = new_y;
+            }
             break;
+        }
         default: {
         }
     }
