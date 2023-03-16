@@ -29,7 +29,7 @@ int main(void) {
     Game game = (Game){
         .player1 = (Player){.type = PT_LEFT,
                             .name = player_1_name,
-                            .score = 999,
+                            .score = 0,
                             .rackets = {0},
                             .default_racket =
                                 {
@@ -39,7 +39,7 @@ int main(void) {
                                 }},
         .player2 = (Player){.type = PT_RIGHT,
                             .name = player_2_name,
-                            .score = 7,
+                            .score = 0,
                             .rackets = {0},
                             .default_racket =
                                 {
