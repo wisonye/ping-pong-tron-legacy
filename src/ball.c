@@ -65,7 +65,7 @@ void Ball_redraw(const Ball *ball) {
     //
     // Draw solid circle
     //
-    // DrawCircleV(ball->center, BALL_UI_BALL_RADIUS, ball->color);
+    // DrawCircleV(ball->center, ball->radius, ball->color);
 
     //
     // Draw ball with alpha mask
@@ -88,8 +88,8 @@ void Ball_restart(Ball *ball, const Rectangle *table_rect) {
     if (ball == NULL) return;
 
     ball->center = (Vector2){
-        .x = table_rect->x + ((table_rect->width - BALL_UI_BALL_RADIUS) / 2),
-        .y = table_rect->y + ((table_rect->height - BALL_UI_BALL_RADIUS) / 2),
+        .x = table_rect->x + ((table_rect->width - ball->radius) / 2),
+        .y = table_rect->y + ((table_rect->height - ball->radius) / 2),
     };
 
     ball->velocity_x = BALL_UI_BALL_VELOCITY_X;
@@ -132,15 +132,14 @@ void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
     //
 
     // If `ball` hit the top of `table_rect`
-    if (ball->center.y - BALL_UI_BALL_RADIUS <= table_rect->y) {
-        ball->center.y = table_rect->y + BALL_UI_BALL_RADIUS;
+    if (ball->center.y - ball->radius <= table_rect->y) {
+        ball->center.y = table_rect->y + ball->radius;
         ball->velocity_y *= -1;  // Flip the velocity_y direction
     }
     // If `ball` hit the bottom of `table_rect`
-    else if (ball->center.y + BALL_UI_BALL_RADIUS >=
+    else if (ball->center.y + ball->radius >=
              table_rect->y + table_rect->height) {
-        ball->center.y =
-            table_rect->y + table_rect->height - BALL_UI_BALL_RADIUS;
+        ball->center.y = table_rect->y + table_rect->height - ball->radius;
         ball->velocity_y *= -1;  // Flip the velocity_y direction
     }
 
@@ -162,17 +161,16 @@ void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
     //
     // Hit player's racket to increase the velocity
     //
-    Vector2 ball_left_point = (Vector2){
-        .x = ball->center.x - BALL_UI_BALL_RADIUS, .y = ball->center.y};
-    Vector2 ball_right_point = (Vector2){
-        .x = ball->center.x + BALL_UI_BALL_RADIUS, .y = ball->center.y};
+    Vector2 ball_left_point =
+        (Vector2){.x = ball->center.x - ball->radius, .y = ball->center.y};
+    Vector2 ball_right_point =
+        (Vector2){.x = ball->center.x + ball->radius, .y = ball->center.y};
 
     // If `ball` hit the left player's racket
     if (CheckCollisionPointRec(ball_left_point, player1->default_racket.rect)) {
         TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Hit player 1 racket");
         ball->center.x = player1->default_racket.rect.x +
-                         player1->default_racket.rect.width +
-                         BALL_UI_BALL_RADIUS;
+                         player1->default_racket.rect.width + ball->radius;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
         PlaySound(ball->hit_racket_sound_effect);
@@ -181,7 +179,7 @@ void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
     else if (CheckCollisionPointRec(ball_right_point,
                                     player2->default_racket.rect)) {
         TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Hit player 2 racket");
-        ball->center.x = player2->default_racket.rect.x - BALL_UI_BALL_RADIUS;
+        ball->center.x = player2->default_racket.rect.x - ball->radius;
         ball->velocity_x *= -1;  // Flip the velocity_x direction
         ball->current_hits += 1;
         PlaySound(ball->hit_racket_sound_effect);

@@ -12,8 +12,7 @@
 ///
 int main(void) {
     //
-    // Try to get both 2 player names from env. If not exists, then use the
-    // default names.
+    // Try to get from env vars. If not exists, then use the default values.
     //
     const char *player_1_name = getenv("PLAYER_1_NAME") != NULL
                                     ? getenv("PLAYER_1_NAME")
@@ -23,6 +22,10 @@ int main(void) {
                                     ? getenv("PLAYER_2_NAME")
                                     : PLAYER_2_NAME;
 
+    float ball_radius = getenv("BALL_RADIUS") != NULL
+                            ? atof(getenv("BALL_RADIUS"))
+                            : BALL_UI_BALL_RADIUS;
+    printf("\n\n>>> ball_radisu: %f\n\n", ball_radius);
     //
     // Create game instance
     //
@@ -57,6 +60,7 @@ int main(void) {
         .ball =
             (Ball){
                 .center = (Vector2){.x = -1.0f, .y = -1.0f},
+                .radius = ball_radius,
                 .velocity_x = BALL_UI_BALL_VELOCITY_X,
                 .velocity_y = BALL_UI_BALL_VELOCITY_Y,
                 .current_hits = 0,

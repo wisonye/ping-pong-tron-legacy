@@ -27,7 +27,7 @@
 //
 // Game UI settings
 //
-#define GAME_UI_INIT_SCREEN_WIDTH 1024
+#define GAME_UI_INIT_SCREEN_WIDTH 1300
 #define GAME_UI_INIT_SCREEN_HEIGHT 768
 #define GAME_UI_PADDING 10.0f
 #define GAME_UI_BACKGROUND_COLOR TRON_DARK
@@ -81,9 +81,9 @@
 //
 #define BALL_UI_BALL_COLOR TRON_LIGHT_BLUE
 #define BALL_UI_FIREBALL_COLOR TRON_ORANGE
-#define BALL_UI_BALL_RADIUS 30.f  // 20.0f
-#define BALL_UI_BALL_VELOCITY_X 400.0f
-#define BALL_UI_BALL_VELOCITY_Y 400.0f
+#define BALL_UI_BALL_RADIUS 30.f  // 20.0f // 60.f
+#define BALL_UI_BALL_VELOCITY_X 500.0f
+#define BALL_UI_BALL_VELOCITY_Y 500.0f
 // How many hits before increasing the ball velocity
 #define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
 // How many velocities increase to enable a fireball

@@ -74,9 +74,8 @@ void Game_init(Game *game) {
     //   the ball to make it looks nicer.
     //
     float density = 0.5f;
-    Image ball_alpha_mask_image =
-        GenImageGradientRadial(BALL_UI_BALL_RADIUS * 2, BALL_UI_BALL_RADIUS * 2,
-                               density, WHITE, BLACK);
+    Image ball_alpha_mask_image = GenImageGradientRadial(
+        game->ball.radius * 2, game->ball.radius * 2, density, WHITE, BLACK);
     game->ball.alpha_mask = LoadTextureFromImage(ball_alpha_mask_image);
     UnloadImage(ball_alpha_mask_image);
 
@@ -355,7 +354,7 @@ void Game_print_debug_info(Game *game) {
              "%d\n\t\tlighting_tail_particle_count: "
              "%d\n\t\tlighting_tail_particle_init_alpha: "
              "%.2f\n\t\tlighting_tail_particle_size: %.2f\n\t}",
-             game->ball.center.x, game->ball.center.y, BALL_UI_BALL_RADIUS,
+             game->ball.center.x, game->ball.center.y, game->ball.radius,
              ball_color_str, fireball_color_str, BALL_UI_BALL_VELOCITY_X,
              BALL_UI_BALL_VELOCITY_Y, BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
              BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL,

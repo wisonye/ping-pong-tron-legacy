@@ -30,6 +30,7 @@ typedef struct {
 ///
 typedef struct {
     Vector2 center;
+    float radius;
     float velocity_x;
     float velocity_y;
     usize current_hits;
