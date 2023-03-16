@@ -39,6 +39,7 @@ typedef struct {
     GameState state;
     bool is_fullscreen;
     bool is_player1_wins_last_round;
+    Sound you_win_sound_effect;
 } Game;
 
 ///

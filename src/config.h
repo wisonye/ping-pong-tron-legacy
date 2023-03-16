@@ -107,6 +107,7 @@
 #define RACKET_UI_COLOR TRON_LIGHT_BLUE
 #define RACKET_UI_VELOCITY 600.f
 #define RACKET_UI_DRAW_DEBUG_BOUNDARY false
+#define RACKET_UI_LASER_RACKET_TEXTURE "resources/green_larser.png"
 
 //
 // Player settings
@@ -115,3 +116,12 @@
 #define PLAYER_1_DOWN_KEY KEY_D
 #define PLAYER_2_UP_KEY KEY_K
 #define PLAYER_2_DOWN_KEY KEY_J
+
+//
+// Sound effects
+//
+#define ENABLE_FIREBALL_SOUND_EFFECT "resources/enable_fireball.wav"
+#define ENABLE_LIGHTNING_BALL_SOUND_EFFECT "resources/enable_lightning_ball.wav"
+#define BALL_HIT_RACKET_SOUND_EFFECT "resources/hit_racket.wav"
+#define YOU_WIN_SOUND_EFFECT_1 "resources/you_win.wav"
+#define YOU_WIN_SOUND_EFFECT_2 "resources/you_win_2.wav"

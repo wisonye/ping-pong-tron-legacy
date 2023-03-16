@@ -43,10 +43,16 @@ void Game_init(Game *game) {
     // Initialize audio device
     InitAudioDevice();
 
+    //
     // Load sound effects
+    //
+    // game->you_win_sound_effect = LoadSound(YOU_WIN_SOUND_EFFECT_1);
+    game->you_win_sound_effect = LoadSound(YOU_WIN_SOUND_EFFECT_2);
     game->ball.enable_fireball_sound_effect =
-        LoadSound("resources/enable_fireball.wav");
-    game->ball.hit_racket_sound_effect = LoadSound("resources/hit_racket.wav");
+        LoadSound(ENABLE_FIREBALL_SOUND_EFFECT);
+    // LoadSound(ENABLE_LIGHTNING_BALL_SOUND_EFFECT);
+    game->ball.hit_racket_sound_effect =
+        LoadSound(BALL_HIT_RACKET_SOUND_EFFECT);
 
     // Set tracing log level
     SetTraceLogLevel(LOG_DEBUG);
@@ -82,7 +88,7 @@ void Game_init(Game *game) {
     //
     // Racket gradient texture
     //
-    Image racket_image = LoadImage("resources/green_larser.png");
+    Image racket_image = LoadImage(RACKET_UI_LASER_RACKET_TEXTURE);
     ImageResize(&racket_image, RACKET_UI_WIDTH, RACKET_UI_HEIGHT);
     game->player1.default_racket.rect_texture =
         LoadTextureFromImage(racket_image);
@@ -200,11 +206,13 @@ void Game_logic(Game *game) {
             game->player1.score += 1;
             game->state = GS_PLAYER_WINS;
             game->is_player1_wins_last_round = true;
+            PlaySound(game->you_win_sound_effect);
             return;
         } else if (is_player2_win) {
             game->player2.score += 1;
             game->state = GS_PLAYER_WINS;
             game->is_player1_wins_last_round = false;
+            PlaySound(game->you_win_sound_effect);
             return;
         }
 
@@ -277,6 +285,7 @@ void Game_run(Game *game) {
     TraceLog(LOG_DEBUG, ">>> [ Game_run ] - Exit the game loop");
 
     UnloadTexture(game->ball.alpha_mask);
+    UnloadSound(game->you_win_sound_effect);
     UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
     UnloadSound(game->ball.hit_racket_sound_effect);       // Unload sound data
     UnloadTexture(game->player1.default_racket.rect_texture);
