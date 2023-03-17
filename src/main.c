@@ -63,9 +63,11 @@ int main(void) {
                 .radius = ball_radius,
                 .velocity_x = BALL_UI_BALL_VELOCITY_X,
                 .velocity_y = BALL_UI_BALL_VELOCITY_Y,
+                .lightning_ball_rotation_angle = 0.0f,
                 .current_hits = 0,
                 .current_velocities_increase = 0,
                 .enabled_fireball = false,
+                .enabled_lightning_ball = false,
                 .lighting_tail = (BallLightingTail){0},
 
                 //

@@ -41,6 +41,10 @@ void Ball_redraw(const Ball *ball) {
     Color ball_and_lighting_tail_color =
         ball->enabled_fireball ? BALL_UI_FIREBALL_COLOR : BALL_UI_BALL_COLOR;
 
+    if (ball->enabled_lightning_ball) {
+        ball_and_lighting_tail_color = BALL_UI_LIGHTNING_BALL_COLOR;
+    }
+
     for (usize i = 0; i < BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (ball->lighting_tail.particles[i].active)
             // TraceLog(LOG_DEBUG,
@@ -62,6 +66,7 @@ void Ball_redraw(const Ball *ball) {
 
                 Fade(ball_and_lighting_tail_color, particles[i].alpha));
     }
+
     //
     // Draw solid circle
     //
@@ -78,7 +83,27 @@ void Ball_redraw(const Ball *ball) {
                    (Vector2){(float)(ball->alpha_mask.width / 2.0f),
                              (float)(ball->alpha_mask.height / 2.0f)},
                    0.0f, ball_and_lighting_tail_color);
+
     EndBlendMode();
+
+    //
+    // Draw lightning ball with texture png version
+    //
+    // if (ball->enabled_lightning_ball) {
+    //     BeginBlendMode(BLEND_ALPHA);
+
+    //     DrawTexturePro(
+    //         ball->lightning_ball,
+    //         (Rectangle){0.0f, 0.0f, (float)ball->lightning_ball.width,
+    //                     (float)ball->lightning_ball.height},
+    //         (Rectangle){ball->center.x, ball->center.y, 2 * ball->radius,
+    //                     2 * ball->radius},
+    //         (Vector2){(float)(ball->radius), (float)(ball->radius)},
+    //         ball->lightning_ball_rotation_angle,
+    //         (Color){.r = 0xFF, .g = 0xFF, .b = 0xFF, .a = 0xFF});
+
+    //     EndBlendMode();
+    // }
 }
 
 ///
@@ -97,6 +122,7 @@ void Ball_restart(Ball *ball, const Rectangle *table_rect) {
     ball->current_hits = 0;
     ball->current_velocities_increase = 0;
     ball->enabled_fireball = false;
+    ball->enabled_lightning_ball = false;
 
     BallTailParticle *particles = ball->lighting_tail.particles;
 
@@ -218,6 +244,39 @@ void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
             ball->enabled_fireball = true;
             PlaySound(ball->enable_fireball_sound_effect);
             TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Enabled fireball");
+        }
+
+        //
+        // Enable lightning ball
+        //
+        if (!ball->enabled_lightning_ball &&
+            ball->current_velocities_increase >=
+                BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_LIGHTNING_BALL) {
+            ball->enabled_lightning_ball = true;
+            PlaySound(ball->enable_lightning_ball_sound_effect);
+            TraceLog(LOG_DEBUG, ">>> [ Ball_update ] - Enabled lightning ball");
+
+            // Reduce ball radius
+            ball->radius = BALL_UI_LIGHTING_BALL_RADIUS;
+
+            // Reduce the tail particle size
+            BallTailParticle *particles = ball->lighting_tail.particles;
+            for (int i = 0; i < BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
+                // It affects how big the particle will be: how many percentage
+                // of the ball size: 0.0 ~ 1.0 (0 ~ 100%)
+                particles[i].size =
+                    BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE_FOR_LIGHTNING_BALL;
+            }
+        }
+    }
+
+    //
+    // Update lightning ball attriubtes
+    //
+    if (ball->enabled_lightning_ball) {
+        ball->lightning_ball_rotation_angle += 32.0f;
+        if (ball->lightning_ball_rotation_angle > 360) {
+            ball->lightning_ball_rotation_angle = 0;
         }
     }
 }

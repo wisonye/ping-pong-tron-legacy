@@ -81,13 +81,18 @@
 //
 #define BALL_UI_BALL_COLOR TRON_LIGHT_BLUE
 #define BALL_UI_FIREBALL_COLOR TRON_ORANGE
-#define BALL_UI_BALL_RADIUS 30.f  // 20.0f // 60.f
+#define BALL_UI_LIGHTNING_BALL_COLOR TRON_YELLOW
+#define BALL_UI_LIGHTNING_BALL "resources/lightning_ball.png"
+#define BALL_UI_BALL_RADIUS 30.f           // 20.0f // 60.f
+#define BALL_UI_LIGHTING_BALL_RADIUS 10.f  // 20.0f // 60.f
 #define BALL_UI_BALL_VELOCITY_X 500.0f
 #define BALL_UI_BALL_VELOCITY_Y 500.0f
 // How many hits before increasing the ball velocity
 #define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
 // How many velocities increase to enable a fireball
 #define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL 4
+// How many velocities increase to enable a lightning ball
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_LIGHTNING_BALL 6
 // Velocity acceleration
 #define BALL_UI_VELOCITY_ACCELERATION 100
 #define BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT 50
@@ -96,6 +101,7 @@
 // It affects how big the particle will be: how many percentage of the ball
 // size: 0.0 ~ 1.0 (0 ~ 100%)
 #define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE 0.5f
+#define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE_FOR_LIGHTNING_BALL 0.4f
 
 //
 // Racket UI settings

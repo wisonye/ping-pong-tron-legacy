@@ -33,11 +33,15 @@ typedef struct {
     float radius;
     float velocity_x;
     float velocity_y;
+    float lightning_ball_rotation_angle;
     usize current_hits;
     usize current_velocities_increase;
     bool enabled_fireball;
+    bool enabled_lightning_ball;
     Texture2D alpha_mask;
+    Texture2D lightning_ball;
     Sound enable_fireball_sound_effect;
+    Sound enable_lightning_ball_sound_effect;
     Sound hit_racket_sound_effect;
     BallLightingTail lighting_tail;
 } Ball;

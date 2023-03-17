@@ -50,7 +50,8 @@ void Game_init(Game *game) {
     game->you_win_sound_effect = LoadSound(YOU_WIN_SOUND_EFFECT_2);
     game->ball.enable_fireball_sound_effect =
         LoadSound(ENABLE_FIREBALL_SOUND_EFFECT);
-    // LoadSound(ENABLE_LIGHTNING_BALL_SOUND_EFFECT);
+    game->ball.enable_lightning_ball_sound_effect =
+        LoadSound(ENABLE_LIGHTNING_BALL_SOUND_EFFECT);
     game->ball.hit_racket_sound_effect =
         LoadSound(BALL_HIT_RACKET_SOUND_EFFECT);
 
@@ -84,6 +85,13 @@ void Game_init(Game *game) {
         game->ball.radius * 2, game->ball.radius * 2, density, WHITE, BLACK);
     game->ball.alpha_mask = LoadTextureFromImage(ball_alpha_mask_image);
     UnloadImage(ball_alpha_mask_image);
+
+    //
+    // Lightning ball
+    //
+    Image lightning_ball_image = LoadImage(BALL_UI_LIGHTNING_BALL);
+    game->ball.lightning_ball = LoadTextureFromImage(lightning_ball_image);
+    UnloadImage(lightning_ball_image);
 
     //
     // Racket gradient texture
@@ -122,7 +130,7 @@ void Game_redraw(Game *game) {
     //
     // Ball
     //
-    const Ball *ball = &game->ball;
+    Ball *ball = &game->ball;
     Ball_redraw(ball);
 
     //
@@ -285,9 +293,11 @@ void Game_run(Game *game) {
     TraceLog(LOG_DEBUG, ">>> [ Game_run ] - Exit the game loop");
 
     UnloadTexture(game->ball.alpha_mask);
+    UnloadTexture(game->ball.lightning_ball);
     UnloadSound(game->you_win_sound_effect);
     UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
-    UnloadSound(game->ball.hit_racket_sound_effect);       // Unload sound data
+    UnloadSound(game->ball.enable_lightning_ball_sound_effect);
+    UnloadSound(game->ball.hit_racket_sound_effect);  // Unload sound data
     UnloadTexture(game->player1.default_racket.rect_texture);
     UnloadTexture(game->player2.default_racket.rect_texture);
     CloseAudioDevice();
