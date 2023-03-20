@@ -12,7 +12,7 @@
 ///
 ///
 ///
-Rectangle Table_recalculate_rect(const Game *game, const Rectangle *sb_rect) {
+Rectangle Table_recalculate_rect(const Rectangle *sb_rect) {
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
 

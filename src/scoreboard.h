@@ -22,7 +22,7 @@ Rectangle SB_redraw(const Scoreboard *sb);
 ///
 ///
 ///
-Rectangle SB_recalculate_rect(const Scoreboard *sb);
+Rectangle SB_recalculate_rect(void);
 
 ///
 ///

@@ -16,7 +16,7 @@
 ///
 ///
 ///
-Rectangle Table_recalculate_rect(const Game *game, const Rectangle *sb_rect);
+Rectangle Table_recalculate_rect(const Rectangle *sb_rect);
 
 ///
 ///

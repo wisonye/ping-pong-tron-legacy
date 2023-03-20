@@ -60,12 +60,12 @@ void Game_run(Game *game);
 ///
 ///
 ///
-void Game_pause(Game *game);
+void Game_pause(void);
 
 ///
 ///
 ///
-void Game_resume(Game *game);
+void Game_resume(void);
 
 ///
 ///

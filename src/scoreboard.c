@@ -54,7 +54,7 @@ void draw_player_name_and_score(const char *name, usize score, bool is_player_1,
 ///
 ///
 ///
-Rectangle SB_recalculate_rect(const Scoreboard *sb) {
+Rectangle SB_recalculate_rect(void) {
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
 

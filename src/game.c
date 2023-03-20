@@ -124,8 +124,8 @@ void Game_redraw(Game *game) {
     //
     // Player rackets
     //
-    Player_racket_redraw(&game->player1, &game->table_rect);
-    Player_racket_redraw(&game->player2, &game->table_rect);
+    Player_racket_redraw(&game->player1);
+    Player_racket_redraw(&game->player2);
 
     //
     // Ball
@@ -172,8 +172,8 @@ void Game_logic(Game *game) {
         //
         // Update `game->table_rect`
         //
-        Rectangle new_sb_rect = SB_recalculate_rect(&game->scoreboard);
-        game->table_rect = Table_recalculate_rect(game, &new_sb_rect);
+        Rectangle new_sb_rect = SB_recalculate_rect();
+        game->table_rect = Table_recalculate_rect(&new_sb_rect);
 
         //
         // Sync racket position
@@ -193,10 +193,8 @@ void Game_logic(Game *game) {
         (game->state == GS_BEFORE_START || game->state == GS_PLAYER_WINS)) {
         game->state = GS_PLAYING;
         Ball_restart(&game->ball, &game->table_rect);
-        Player_update_racket(&game->player1, &game->table_rect,
-                             game->is_fullscreen, RUT_RESET);
-        Player_update_racket(&game->player2, &game->table_rect,
-                             game->is_fullscreen, RUT_RESET);
+        Player_update_racket(&game->player1, &game->table_rect, RUT_RESET);
+        Player_update_racket(&game->player2, &game->table_rect, RUT_RESET);
         Game_print_debug_info(game);
     }
 
@@ -238,19 +236,19 @@ void Game_logic(Game *game) {
         //
         if (IsKeyDown(PLAYER_2_UP_KEY)) {
             Player_update_racket(&game->player2, &game->table_rect,
-                                 game->is_fullscreen, RUT_MOVE_UP);
+                                 RUT_MOVE_UP);
         }
         if (IsKeyDown(PLAYER_2_DOWN_KEY)) {
             Player_update_racket(&game->player2, &game->table_rect,
-                                 game->is_fullscreen, RUT_MOVE_DOWN);
+                                 RUT_MOVE_DOWN);
         }
         if (IsKeyDown(PLAYER_1_UP_KEY)) {
             Player_update_racket(&game->player1, &game->table_rect,
-                                 game->is_fullscreen, RUT_MOVE_UP);
+                                 RUT_MOVE_UP);
         }
         if (IsKeyDown(PLAYER_1_DOWN_KEY)) {
             Player_update_racket(&game->player1, &game->table_rect,
-                                 game->is_fullscreen, RUT_MOVE_DOWN);
+                                 RUT_MOVE_DOWN);
         }
     }
 
@@ -311,12 +309,12 @@ void Game_run(Game *game) {
 ///
 ///
 ///
-void Game_pause(Game *game) {}
+void Game_pause(void) {}
 
 ///
 ///
 ///
-void Game_resume(Game *game) {}
+void Game_resume(void) {}
 
 ///
 ///

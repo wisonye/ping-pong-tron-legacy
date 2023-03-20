@@ -24,7 +24,7 @@ void Player_lose(Player *player) {
 ///
 ///
 ///
-void Player_racket_redraw(Player *player, Rectangle *container) {
+void Player_racket_redraw(Player *player) {
     if (player == NULL) return;
 
     Rectangle racket_rect = player->default_racket.rect;
@@ -73,7 +73,7 @@ void Player_update_racket_after_screen_size_changed(Player *player,
 ///
 ///
 void Player_update_racket(Player *player, Rectangle *container,
-                          bool is_fullscreen, RacketUpdateType rut) {
+                          RacketUpdateType rut) {
     if (player == NULL) return;
 
     switch (rut) {
