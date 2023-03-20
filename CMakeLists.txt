@@ -10,8 +10,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 #
 # Compiler flags
 #
-set(CMAKE_C_FLAGS "-pedantic-errors -std=gnu17 -fsanitize=address -O1 -fno-omit-frame-pointer")
+set(CMAKE_C_FLAGS "-pedantic-errors -Wall -Wextra -Werror -std=gnu11 -fsanitize=address -O1 -fno-omit-frame-pointer")
 set(CMAKE_CXX_FLAGS "-pedantic-errors -Wc99-extensions -Wvla-extension -Wc11-extensions -Wc11-extensions -std=c++11")
+
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(">>> Enabled Release buid, disable sanitizer C flags")
+    set(CMAKE_C_FLAGS "-pedantic-errors -Wall -Wextra -Werror -std=gnu11")
+endif()
 
 #
 # Find installed libraries as compilation dependencies
