@@ -81,3 +81,101 @@ You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
 </br>
 
 
+## What if you want to use pure `C compiler` without `CMake`
+
+- Dynamic link to `raylib`
+
+    ```bash
+    clang -I/opt/homebrew/Cellar/raylib/4.5.0/include \
+        -L/opt/homebrew/Cellar/raylib/4.5.0/lib \
+        -lraylib \
+        -o temp_build/my-game \
+        src/utils.c \
+        src/table.c \
+        src/scoreboard.c \
+        src/player.c \
+        src/game.c \
+        src/ball.c \
+        src/main.c
+    ```
+
+    Confirm that's a dynamic link:
+
+    ```bash
+    otool -L temp_build/my-game
+
+    # temp_build/my-game:
+    #         /opt/homebrew/opt/raylib/lib/libraylib.420.dylib (compatibility version 420.0.0, current version 4.2.0)
+    #         /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1319.0.0)
+    ```
+
+    </br>
+
+
+- Static link to `raylib`
+
+    First thing first, you have to delete the dynamic lib, as `-lraylib` will
+    link to dynamic lib even if the static `libraylib.a` exists!!!
+
+    ```bash
+    rm -rf /opt/homebrew/Cellar/raylib/4.5.0/lib/libraylib.420.dylib
+    rm -rf /opt/homebrew/Cellar/raylib/4.5.0/lib/libraylib.dylib
+    ```
+
+    So, it should look like this (only static library exists):
+
+    ```bash
+    ls -lht /opt/homebrew/opt/raylib/lib/
+
+    # pkgconfig/
+    # cmake/
+    # libraylib.a
+
+    ls -lht /opt/homebrew/Cellar/raylib/4.5.0/lib
+
+    # pkgconfig/
+    # cmake/
+    # libraylib.a
+    ```
+
+    </br>
+
+    Now, `clang` will link to `libraylib.a`:
+
+    ```bash
+    clang -I/opt/homebrew/Cellar/raylib/4.5.0/include \
+        -L/opt/homebrew/Cellar/raylib/4.5.0/lib \
+        -lraylib \
+        -framework Cocoa \
+        -framework OpenGL \
+        -framework IOKit \
+        -o temp_build/my-game-static \
+        src/utils.c \
+        src/table.c \
+        src/scoreboard.c \
+        src/player.c \
+        src/game.c \
+        src/ball.c \
+        src/main.c
+    ```
+
+    After that, run `otool` again to confirm that NO any link to `raylib`
+
+    ```bash
+    otool -L temp_build/my-game-static
+
+    # temp_build/my-game:
+    #     /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa (compatibility version 1.0.0, current version 23.0.0)
+    #     /System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL (compatibility version 1.0.0, current version 1.0.0)
+    #     /System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)
+    #     /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1319.0.0)
+    #     /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit (compatibility version 45.0.0, current version 2299.30.112)
+    #     /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 1953.255.0)
+    #     /System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics (compatibility version 64.0.0, current version 1690.3.3)
+    #     /System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1228.0.0)
+    #     /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 1953.255.0)
+    #     /usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
+    ```
+
+    </br>
+
