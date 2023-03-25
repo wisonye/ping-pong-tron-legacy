@@ -22,7 +22,7 @@ void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size) {
         // 3. Dereference that pointer offset value (in HEX format)
         memory_byte = *(((u8 *)&color) + index);
 
-        sprintf((char *)memory_bytes + (index * 2), "%02X", memory_byte);
+        snprintf((char *)memory_bytes + (index * 2), 3, "%02X", memory_byte);
         // printf("\n>>> memory_bytes : %s", memory_bytes);
     }
     // printf(
