@@ -34,7 +34,11 @@ PLAYER_2_NAME=Player 2
 
 </br>
 
+**Make sure to enable the audio to feel the amazing sound effects:)**
+
 https://user-images.githubusercontent.com/3477321/228088346-1d4179e2-a3f7-4826-9c7b-abb443675c45.mov
+
+</br>
 
 ## How to run test code
 
