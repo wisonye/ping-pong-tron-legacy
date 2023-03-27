@@ -34,7 +34,9 @@ PLAYER_2_NAME=Player 2
 
 </br>
 
-![](./readme_images/demo.mov)
+<video width="640" height="480" controls>
+  <source src="./readme_images/demo.mov" type="video/mp4">
+</video>
 
 </br>
 
