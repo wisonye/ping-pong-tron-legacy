@@ -34,11 +34,7 @@ PLAYER_2_NAME=Player 2
 
 </br>
 
-<video width="640" height="480" controls>
-  <source src="./readme_images/demo.mov" type="video/mp4">
-</video>
-
-</br>
+https://user-images.githubusercontent.com/3477321/228088346-1d4179e2-a3f7-4826-9c7b-abb443675c45.mov
 
 ## How to run test code
 
