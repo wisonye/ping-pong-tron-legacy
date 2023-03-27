@@ -34,6 +34,10 @@ PLAYER_2_NAME=Player 2
 
 </br>
 
+![](./readme_images/demo.mov)
+
+</br>
+
 ## How to run test code
 
 If you got a new idea and you want to test it, try it in `./src/main_test.c`
@@ -86,8 +90,9 @@ You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
 - Dynamic link to `raylib`
 
     ```bash
-    clang -I/opt/homebrew/Cellar/raylib/4.5.0/include \
-        -L/opt/homebrew/Cellar/raylib/4.5.0/lib \
+    # (pkg-config --libs --cflags raylib)
+    clang -I/usr/local/Cellar/raylib/4.2.0/include \
+        -L/usr/local/Cellar/raylib/4.2.0/lib \
         -lraylib \
         -o temp_build/my-game \
         src/utils.c \
