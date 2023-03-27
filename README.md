@@ -1,38 +1,7 @@
 # Ping pong game TronLegacy version
 
-## How to configure
-
-```bash
-# For debug build
-./configure.sh
-
-# For release build
-./configure_release.sh
-```
-
-</br>
-
-
-## How to run
-
-```bash
-# Custom player name and use stand ball radius (`30.0f`)
-PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
-
-# Use bigger ball for beginner level
-BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
-```
-
-</br>
-
-If you don't provide the above env vars, it uses the default settings:
-
-```bash
-PLAYER_1_NAME=Player 1
-PLAYER_2_NAME=Player 2
-```
-
-</br>
+Use `raylib` to reimplement my childhood favorite game, play with my kids, they
+love it:)
 
 **Make sure to enable the audio to feel the amazing sound effects:)**
 
@@ -67,6 +36,56 @@ Some settings you might care about when playing the game:
 ```
 
 </br>
+
+## How to configure
+
+Make sure you have C compile, `cmake` and [`raylib`](https://www.raylib.com/)
+installed and run:
+
+```bash
+# For debug build
+./configure.sh
+
+# For release build
+./configure_release.sh
+```
+
+</br>
+
+How to install `raylib` ?
+
+[MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+
+[Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
+
+[Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
+
+Or visit their [`WIKI`](https://github.com/raysan5/raylib/wiki)
+
+</br>
+
+
+## How to run
+
+```bash
+# Custom player name and use stand ball radius (`30.0f`)
+PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
+
+# Use bigger ball for beginner level
+BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
+```
+
+</br>
+
+If you don't provide the above env vars, it uses the default settings:
+
+```bash
+PLAYER_1_NAME=Player 1
+PLAYER_2_NAME=Player 2
+```
+
+</br>
+
 
 
 ## How to run test code
