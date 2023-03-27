@@ -40,6 +40,35 @@ https://user-images.githubusercontent.com/3477321/228088346-1d4179e2-a3f7-4826-9
 
 </br>
 
+Free feel to change the default settings in [`src/config.h`](src/config.h).
+
+Some settings you might care about when playing the game:
+
+```c
+//
+// Player settings
+//
+#define PLAYER_1_UP_KEY KEY_E
+#define PLAYER_1_DOWN_KEY KEY_D
+#define PLAYER_2_UP_KEY KEY_K
+#define PLAYER_2_DOWN_KEY KEY_J
+
+//
+// Ball UI settings
+//
+// How many hits before increasing the ball velocity
+#define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
+// How many velocities increase to enable a fireball
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL 4
+// How many velocities increase to enable a lightning ball
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_LIGHTNING_BALL 6
+// Velocity acceleration
+#define BALL_UI_VELOCITY_ACCELERATION 100
+```
+
+</br>
+
+
 ## How to run test code
 
 If you got a new idea and you want to test it, try it in `./src/main_test.c`
