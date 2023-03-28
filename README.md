@@ -44,8 +44,6 @@ building system, that's why you don't need any extra stuff like `make/gmake/cmak
 
 You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://www.raylib.com/).
 
-</br>
-
 - How to install `raylib` ?
 
     [MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
@@ -63,8 +61,12 @@ You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://
 
 - Open `cbuild.c` and replace `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` settings
 
-    Run the following commands to print out the compile C flags and linking
-    settings:
+    The default setting is for installing `raylib` over `brew install raylib` on `MacOS`.
+    You need to change to yours if you're running on a different OS or use a different
+    way to install `raylib`.
+    
+    For example, if you use `brew` and you got `pkg-config` installed, then you should
+    run the following commands to print out the compile C flags and linking settings:
 
     ```bash
     # Settings for`EXTRA_COMPILE_FLAGS`
@@ -76,10 +78,13 @@ You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://
     # -L/opt/homebrew/Cellar/raylib/4.5.0/lib -lraylib
     ```
 
-    </br>
-
     Use the above printout value to replace the default settings of
-    `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` if that's not the same.
+    `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` if that's not the same:
+    
+    ```c
+    #define EXTRA_COMPILE_FLAGS "-I/opt/homebrew/Cellar/raylib/4.5.0/include"
+    #define EXTRA_LINK_FLAGS "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib"
+    ```
 
     </br>
 
