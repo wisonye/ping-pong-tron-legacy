@@ -86,20 +86,6 @@ PLAYER_2_NAME=Player 2
 
 </br>
 
-
-
-## How to run test code
-
-If you got a new idea and you want to test it, try it in `./src/main_test.c`
-and then run the following script to test it:
-
-```bash
-./run_test.sh
-```
-
-</br>
-
-
 ## Export image data into C header file
 
 If you want to build a single executable that includes all image data without
@@ -135,12 +121,14 @@ You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
 </br>
 
 
-## What if you want to use pure `C compiler` without `CMake`
+## Pure `C compiler` without `CMake`
 
 - Dynamic link to `raylib`
 
     ```bash
-    # (pkg-config --libs --cflags raylib)
+    #
+    # Use `(pkg-config --libs --cflags raylib)` to print out the C flags
+    #
     clang -I/usr/local/Cellar/raylib/4.2.0/include \
         -L/usr/local/Cellar/raylib/4.2.0/lib \
         -lraylib \
