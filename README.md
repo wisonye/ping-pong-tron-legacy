@@ -1,6 +1,46 @@
 # Ping pong game TronLegacy version
 
+Use `raylib` to reimplement my childhood favorite game, play with my kids, they
+love it:)
+
+**Make sure to enable the audio to feel the amazing sound effects:)**
+
+https://user-images.githubusercontent.com/3477321/228088346-1d4179e2-a3f7-4826-9c7b-abb443675c45.mov
+
+</br>
+
+Free feel to change the default settings in [`src/config.h`](src/config.h).
+
+Some settings you might care about when playing the game:
+
+```c
+//
+// Player settings
+//
+#define PLAYER_1_UP_KEY KEY_E
+#define PLAYER_1_DOWN_KEY KEY_D
+#define PLAYER_2_UP_KEY KEY_K
+#define PLAYER_2_DOWN_KEY KEY_J
+
+//
+// Ball UI settings
+//
+// How many hits before increasing the ball velocity
+#define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
+// How many velocities increase to enable a fireball
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL 4
+// How many velocities increase to enable a lightning ball
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_LIGHTNING_BALL 6
+// Velocity acceleration
+#define BALL_UI_VELOCITY_ACCELERATION 100
+```
+
+</br>
+
 ## How to configure
+
+Make sure you have C compile, `cmake` and [`raylib`](https://www.raylib.com/)
+installed and run:
 
 ```bash
 # For debug build
@@ -9,6 +49,18 @@
 # For release build
 ./configure_release.sh
 ```
+
+</br>
+
+How to install `raylib` ?
+
+[MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+
+[Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
+
+[Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
+
+Or visit their [`WIKI`](https://github.com/raysan5/raylib/wiki)
 
 </br>
 
@@ -33,18 +85,6 @@ PLAYER_2_NAME=Player 2
 ```
 
 </br>
-
-## How to run test code
-
-If you got a new idea and you want to test it, try it in `./src/main_test.c`
-and then run the following script to test it:
-
-```bash
-./run_test.sh
-```
-
-</br>
-
 
 ## Export image data into C header file
 
@@ -81,13 +121,16 @@ You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
 </br>
 
 
-## What if you want to use pure `C compiler` without `CMake`
+## Pure `C compiler` without `CMake`
 
 - Dynamic link to `raylib`
 
     ```bash
-    clang -I/opt/homebrew/Cellar/raylib/4.5.0/include \
-        -L/opt/homebrew/Cellar/raylib/4.5.0/lib \
+    #
+    # Use `(pkg-config --libs --cflags raylib)` to print out the C flags
+    #
+    clang -I/usr/local/Cellar/raylib/4.2.0/include \
+        -L/usr/local/Cellar/raylib/4.2.0/lib \
         -lraylib \
         -o temp_build/my-game \
         src/utils.c \
