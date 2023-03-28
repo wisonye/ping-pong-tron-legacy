@@ -2,3 +2,5 @@ build
 .cache
 temp_build
 clangd.core
+cbuild.dSYM
+cbuild
