@@ -1,13 +1,14 @@
 #include <stdio.h>
 
 #define EXTRA_COMPILE_FLAGS "-I/opt/homebrew/Cellar/raylib/4.5.0/include"
-// #define EXTRA_LINK_FLAGS "-L/opt/homebrew/Cellar/raylib/4.5.0/lib",
-// "-lraylib"
+#define EXTRA_LINK_FLAGS "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib"
 
-// Static link version
-#define EXTRA_LINK_FLAGS                                                 \
-    "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib", "-framework", \
-        "Cocoa", "-framework", "OpenGL", "-framework", "IOKit"
+//
+// Static link for MacOS
+//
+// #define EXTRA_LINK_FLAGS                                                 \
+//     "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib", "-framework", \
+//         "Cocoa", "-framework", "OpenGL", "-framework", "IOKit"
 
 #define C_BUILD_IMPLEMENTATION
 

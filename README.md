@@ -39,52 +39,75 @@ Some settings you might care about when playing the game:
 
 ## How to configure
 
-Make sure you have C compile, `cmake` and [`raylib`](https://www.raylib.com/)
-installed and run:
+This project uses my [`cbuild`](https://github.com/wisonye/cbuild) as simple
+building system, that's why you don't need any extra stuff like `make/gmake/cmake`.
 
-```bash
-# For debug build
-./configure.sh
-
-# For release build
-./configure_release.sh
-```
+You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://www.raylib.com/).
 
 </br>
 
-How to install `raylib` ?
+- How to install `raylib` ?
 
-[MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+    [MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
 
-[Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
+    [Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
 
-[Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
+    [Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
 
-Or visit their [`WIKI`](https://github.com/raysan5/raylib/wiki)
+    Or visit their [`WIKI`](https://github.com/raysan5/raylib/wiki)
 
-</br>
+    </br>
 
 
-## How to run
+## How to build and run
 
-```bash
-# Custom player name and use stand ball radius (`30.0f`)
-PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
+- Open `cbuild.c` and replace `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` settings
 
-# Use bigger ball for beginner level
-BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
-```
+    Run the following commands to print out the compile C flags and linking
+    settings:
 
-</br>
+    ```bash
+    # Settings for`EXTRA_COMPILE_FLAGS`
+    pkg-config --cflags raylib
+    # -I/opt/homebrew/Cellar/raylib/4.5.0/include
 
-If you don't provide the above env vars, it uses the default settings:
+    # Settings for `EXTRA_LINK_FLAGS`
+    pkg-config --libs raylib
+    # -L/opt/homebrew/Cellar/raylib/4.5.0/lib -lraylib
+    ```
 
-```bash
-PLAYER_1_NAME=Player 1
-PLAYER_2_NAME=Player 2
-```
+    </br>
 
-</br>
+    Use the above printout value to replace the default settings of
+    `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` if that's not the same.
+
+    </br>
+
+- Then build and run it
+
+    ```bash
+    # Custom player name and use stand ball radius (`30.0f`)
+    PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
+
+    # Use bigger ball for beginner level
+    BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
+    ```
+
+    </br>
+
+    If you don't provide the above env vars, it uses the default settings:
+
+    ```bash
+    PLAYER_1_NAME=Player 1
+    PLAYER_2_NAME=Player 2
+    ```
+
+    </br>
+
+    ![cuild](./readme_images/cbuild-log.png)
+
+    </br>
+
 
 ## Export image data into C header file
 
@@ -121,7 +144,7 @@ You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
 </br>
 
 
-## Pure `C compiler` without `CMake`
+## Pure `C compiler` without `cbuild`
 
 - Dynamic link to `raylib`
 
