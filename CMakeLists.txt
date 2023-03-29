@@ -48,6 +48,13 @@ add_executable("export_image_to_c_header_file" "src/export_image_to_c_header_fil
 target_link_libraries("${PROJECT_NAME}" raylib)
 target_link_libraries("export_image_to_c_header_file" raylib)
 
+# Checks if OSX and links appropriate frameworks (only required on MacOS)
+if (APPLE)
+    target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+    target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+    target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+endif()
+
 # target_compile_definitions("${PROJECT_NAME}" PRIVATE ENABLE_DEBUG_LOG)
 
 #
