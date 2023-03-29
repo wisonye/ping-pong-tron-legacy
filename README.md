@@ -217,10 +217,24 @@ You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://
 
 ## How to build and run WASM version
 
+- Install `Emscripten`
+
+    - MacOS
+
+        ```bash
+        brew install emscripten
+        ```
+
+    - Other OS
+
+    [`Emscripten download and install`](https://emscripten.org/docs/getting_started/downloads.html)
+
+    </br>
+
 - Build WASM version
 
     ```bash
-    ./build_wasm.sh 
+    ./build_wasm.sh
     ```
 
     ![wasm_build](./readme_images/wasm_build.png)
