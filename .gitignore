@@ -2,8 +2,8 @@ build
 .cache
 temp_build
 clangd.core
-cbuild.dSYM
 cbuild
-cbuild_wasm.dSYM
+cbuild.dSYM
 cbuild_wasm
+cbuild_wasm.dSYM
 wasm_build
