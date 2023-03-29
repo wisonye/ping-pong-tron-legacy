@@ -39,89 +39,81 @@ Some settings you might care about when playing the game:
 
 ## How to configure
 
-Make sure you have C compile, `cmake` and [`raylib`](https://www.raylib.com/)
-installed and run:
+This project uses my [`cbuild`](https://github.com/wisonye/cbuild) as simple
+building system, that's why you don't need any extra stuff like `make/gmake/cmake`.
 
-```bash
-# For debug build
-./configure.sh
+You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://www.raylib.com/).
 
-# For release build
-./configure_release.sh
-```
+- How to install `raylib` ?
 
-</br>
+    [MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
 
-How to install `raylib` ?
+    [Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
 
-[MacOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
+    [Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
 
-[Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
+    Or visit their [`WIKI`](https://github.com/raysan5/raylib/wiki)
 
-[Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
-
-Or visit their [`WIKI`](https://github.com/raysan5/raylib/wiki)
-
-</br>
+    </br>
 
 
-## How to run
+## How to build and run desktop version
 
-```bash
-# Custom player name and use stand ball radius (`30.0f`)
-PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
+- Open `cbuild.c` and replace `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` settings
 
-# Use bigger ball for beginner level
-BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
-```
+    The default setting is for installing `raylib` over `brew install raylib` on `MacOS`.
+    You need to change to yours if you're running on a different OS or use a different
+    way to install `raylib`.
 
-</br>
+    For example, if you use `brew` and you got `pkg-config` installed, then you should
+    run the following commands to print out the compile C flags and linking settings:
 
-If you don't provide the above env vars, it uses the default settings:
+    ```bash
+    # Settings for`EXTRA_COMPILE_FLAGS`
+    pkg-config --cflags raylib
+    # -I/opt/homebrew/Cellar/raylib/4.5.0/include
 
-```bash
-PLAYER_1_NAME=Player 1
-PLAYER_2_NAME=Player 2
-```
+    # Settings for `EXTRA_LINK_FLAGS`
+    pkg-config --libs raylib
+    # -L/opt/homebrew/Cellar/raylib/4.5.0/lib -lraylib
+    ```
 
-</br>
+    Use the above printout value to replace the default settings of
+    `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` if that's not the same:
 
-## Export image data into C header file
+    ```c
+    #define EXTRA_COMPILE_FLAGS "-I/opt/homebrew/Cellar/raylib/4.5.0/include"
+    #define EXTRA_LINK_FLAGS "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib"
+    ```
 
-If you want to build a single executable that includes all image data without
-loading them from a file, this is what you want:)
+    </br>
 
-```bash
-./run_export_image_to_c_header_file.sh IMAGE_FILENAME C_HEADER_FILENAME
-```
+- Then build and run it
 
-After that, load the included C header file (raw image pixels) to generate the
-image instance:
+    ```bash
+    # Custom player name and use stand ball radius (`30.0f`)
+    PLAYER_1_NAME=Dad PLAYER_2_NAME=Mom ./run.sh
 
-```c
-#include "YOUR_EXPORTED_HERADER_FILE.h"
+    # Use bigger ball for beginner level
+    BALL_RADIUS=60.0 PLAYER_1_NAME='Ball game killer' PLAYER_2_NAME='Blow your mind' ./run.sh
+    ```
 
-//
-// Load pixels data into an image structure and create texture
-//
-Image temp_image = {
-    .data = XXXX_DATA,
-    .width = XXXX_WIDTH,
-    .height = XXXX_HEIGHT,
-    .format = XXXX_FORMAT,
-    .mipmaps = 1
-};
+    </br>
 
-Texture2D temp_texture = LoadTextureFromImage(temp_image);
-UnloadImage(temp_image);
-```
+    If you don't provide the above env vars, it uses the default settings:
 
-You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
+    ```bash
+    PLAYER_1_NAME=Player 1
+    PLAYER_2_NAME=Player 2
+    ```
 
-</br>
+    </br>
 
+    ![cuild](./readme_images/cbuild-log.png)
 
-## Pure `C compiler` without `CMake`
+    </br>
+
+## How to build desktop version not using `cbuild`
 
 - Dynamic link to `raylib`
 
@@ -219,6 +211,72 @@ You can find the `XXXX` in `YOUR_EXPORTED_HERADER_FILE.h`.
     #     /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 1953.255.0)
     #     /usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
     ```
+
+    </br>
+
+
+## How to build and run WASM version
+
+- Build WASM version
+
+    ```bash
+    ./build_wasm.sh 
+    ```
+
+    ![wasm_build](./readme_images/wasm_build.png)
+
+    </br>
+
+- How to run wasm version
+
+    If you gointo the `wasm_build` folder, it should contain the following files:
+
+    ```bash
+     92K Mar 29 16:38 game.html
+    192K Mar 29 16:38 game.js
+    388K Mar 29 16:38 game.wasm*
+    2.5M Mar 29 16:38 game.data
+    ```
+
+    </br>
+
+    You can install any `HTTP server` program to serve that folder, for example:
+
+    ```bash
+    # For MacOS
+    brew install http-server
+    ```
+
+    Then serve the folder:
+
+    ```bash
+    http-server ./
+
+    # Starting up http-server, serving ./
+
+    # http-server version: 14.1.1
+
+    # http-server settings:
+    # CORS: disabled
+    # Cache: 3600 seconds
+    # Connection Timeout: 120 seconds
+    # Directory Listings: visible
+    # AutoIndex: visible
+    # Serve GZIP Files: false
+    # Serve Brotli Files: false
+    # Default File Extension: none
+
+    # Available on:
+    #   http://127.0.0.1:8080
+    #   http://192.168.1.188:8080
+    # Hit CTRL-C to stop the server
+    ```
+
+    </br>
+
+    Open that url in browser then you're good to go:)
+
+    ![wasm_ru](./readme_images/wasm_run.png)
 
     </br>
 
