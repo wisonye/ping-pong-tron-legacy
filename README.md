@@ -80,7 +80,7 @@ You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://
 
     Use the above printout value to replace the default settings of
     `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` if that's not the same:
-    
+
     ```c
     #define EXTRA_COMPILE_FLAGS "-I/opt/homebrew/Cellar/raylib/4.5.0/include"
     #define EXTRA_LINK_FLAGS "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib"

@@ -50,12 +50,14 @@ void CB_create_folder(const char *folder);
 ///
 bool CB_exec(const char *cmd, const char *args[]);
 // bool CB_exec2(const char *cmd, ...);
+void join_args(char *out_buffer, size_t buffer_size, ...);
 
 ///
 /// Setup related
 ///
-void CB_setup_builder_folder(void);
+void CB_setup_build_folder(void);
 void CB_setup_compiler(void);
+const char *CB_get_static_build_folder(void);
 
 ///
 /// Compile the give source files, file list have to end with `NULL`!!!
@@ -442,6 +444,8 @@ void CB_setup_build_folder(void) {
                 BUILD_FOLDER);
     }
 }
+
+const char *CB_get_static_build_folder(void) { return BUILD_FOLDER; }
 
 ///
 ///
