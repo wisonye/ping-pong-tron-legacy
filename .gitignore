@@ -4,3 +4,6 @@ temp_build
 clangd.core
 cbuild.dSYM
 cbuild
+cbuild_wasm.dSYM
+cbuild_wasm
+wasm_build
