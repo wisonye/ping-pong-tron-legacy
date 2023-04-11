@@ -1,5 +1,6 @@
 #include "utils.h"
 
+#include <inttypes.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -26,7 +27,7 @@ void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size) {
         // printf("\n>>> memory_bytes : %s", memory_bytes);
     }
     // printf(
-    //     "\n>>> memory_bytes_len: %llu, memory_bytes[memory_bytes_len - 1] : "
+    //     "\n>>> memory_bytes_len: %"PRIu64", memory_bytes[memory_bytes_len - 1] : "
     //     "%02X\n",
     //     memory_bytes_len, memory_bytes[memory_bytes_len - 1]);
     memory_bytes[memory_bytes_len - 1] = '\0';
@@ -52,7 +53,7 @@ void Utils_get_player_string(Player *player, char *out_buffer,
 
     snprintf(out_buffer, buffer_size,
              "\tplayer: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: "
-             "%llu\n\t\tdefault_racket: {\n\t\t\tcolor: 0x%s\n\t\t\tvelocity: "
+             "%"PRIu64"\n\t\tdefault_racket: {\n\t\t\tcolor: 0x%s\n\t\t\tvelocity: "
              "%.2f\n\t\t}\n\t}",
              player_type_str, player->name, player->score,
              default_racket_color_str, RACKET_UI_VELOCITY);

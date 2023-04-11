@@ -1,5 +1,5 @@
 #include "scoreboard.h"
-
+#include <inttypes.h>
 #include <raylib.h>
 #include <stdio.h>
 
@@ -32,7 +32,7 @@ void draw_player_name_and_score(const char *name, usize score, bool is_player_1,
     // Score (double digits)
     //
     char score_str[5];
-    snprintf(score_str, sizeof(score_str), score < 10 ? "0%llu" : "%llu",
+    snprintf(score_str, sizeof(score_str), score < 10 ? "0%"PRIu64"" : "%"PRIu64"",
              score);
 
     Vector2 score_font_size =
