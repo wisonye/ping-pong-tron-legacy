@@ -1,7 +1,9 @@
 #include "utils.h"
 
 #include <inttypes.h>
+#include <raylib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define COLOR_STRUCT_BYTES 4
@@ -27,7 +29,8 @@ void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size) {
         // printf("\n>>> memory_bytes : %s", memory_bytes);
     }
     // printf(
-    //     "\n>>> memory_bytes_len: %"PRIu64", memory_bytes[memory_bytes_len - 1] : "
+    //     "\n>>> memory_bytes_len: %"PRIu64", memory_bytes[memory_bytes_len -
+    //     1] : "
     //     "%02X\n",
     //     memory_bytes_len, memory_bytes[memory_bytes_len - 1]);
     memory_bytes[memory_bytes_len - 1] = '\0';
@@ -53,8 +56,50 @@ void Utils_get_player_string(Player *player, char *out_buffer,
 
     snprintf(out_buffer, buffer_size,
              "\tplayer: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: "
-             "%"PRIu64"\n\t\tdefault_racket: {\n\t\t\tcolor: 0x%s\n\t\t\tvelocity: "
+             "%" PRIu64
+             "\n\t\tdefault_racket: {\n\t\t\tcolor: 0x%s\n\t\t\tvelocity: "
              "%.2f\n\t\t}\n\t}",
              player_type_str, player->name, player->score,
              default_racket_color_str, RACKET_UI_VELOCITY);
+}
+
+///
+///
+///
+Sound Utils_load_sound(char *sound_file) {
+    Sound sound = LoadSound(sound_file);
+    if (sound.frameCount <= 0) {
+        TraceLog(LOG_ERROR,
+                 ">>> [ Utils_load_sound ] - failed to load sound: %s",
+                 sound_file);
+        exit(EXIT_FAILURE);
+    }
+    return sound;
+}
+
+///
+///
+///
+Texture2D Utils_load_texture(char *texture_file) {
+    Texture2D texture = LoadTexture(texture_file);
+    if (texture.id <= 0) {
+        TraceLog(LOG_ERROR,
+                 ">>> [ Utils_load_texture ] - failed to texture: %s",
+                 texture_file);
+        exit(EXIT_FAILURE);
+    }
+    return texture;
+}
+
+///
+///
+///
+Image Utils_load_image(char *image_file) {
+    Image image = LoadImage(image_file);
+    if (image.data == NULL) {
+        TraceLog(LOG_ERROR, ">>> [ Utils_load_image ] - failed to image: %s",
+                 image_file);
+        exit(EXIT_FAILURE);
+    }
+    return image;
 }

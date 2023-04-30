@@ -43,20 +43,20 @@ void Game_init(Game *game) {
     // Initialize audio device
     InitAudioDevice();
 
+    // Set tracing log level
+    SetTraceLogLevel(LOG_DEBUG);
+
     //
     // Load sound effects
     //
-    // game->you_win_sound_effect = LoadSound(YOU_WIN_SOUND_EFFECT_1);
-    game->you_win_sound_effect = LoadSound(YOU_WIN_SOUND_EFFECT_2);
+    // game->you_win_sound_effect = Utils_load_sound(YOU_WIN_SOUND_EFFECT_1);
+    game->you_win_sound_effect = Utils_load_sound(YOU_WIN_SOUND_EFFECT_2);
     game->ball.enable_fireball_sound_effect =
-        LoadSound(ENABLE_FIREBALL_SOUND_EFFECT);
+        Utils_load_sound(ENABLE_FIREBALL_SOUND_EFFECT);
     game->ball.enable_lightning_ball_sound_effect =
-        LoadSound(ENABLE_LIGHTNING_BALL_SOUND_EFFECT);
+        Utils_load_sound(ENABLE_LIGHTNING_BALL_SOUND_EFFECT);
     game->ball.hit_racket_sound_effect =
-        LoadSound(BALL_HIT_RACKET_SOUND_EFFECT);
-
-    // Set tracing log level
-    SetTraceLogLevel(LOG_DEBUG);
+        Utils_load_sound(BALL_HIT_RACKET_SOUND_EFFECT);
 
     Game_print_debug_info(game);
 
@@ -89,14 +89,12 @@ void Game_init(Game *game) {
     //
     // Lightning ball
     //
-    Image lightning_ball_image = LoadImage(BALL_UI_LIGHTNING_BALL);
-    game->ball.lightning_ball = LoadTextureFromImage(lightning_ball_image);
-    UnloadImage(lightning_ball_image);
+    game->ball.lightning_ball = Utils_load_texture(BALL_UI_LIGHTNING_BALL);
 
     //
     // Racket gradient texture
     //
-    Image racket_image = LoadImage(RACKET_UI_LASER_RACKET_TEXTURE);
+    Image racket_image = Utils_load_image(RACKET_UI_LASER_RACKET_TEXTURE);
     ImageResize(&racket_image, RACKET_UI_WIDTH, RACKET_UI_HEIGHT);
     game->player1.default_racket.rect_texture =
         LoadTextureFromImage(racket_image);
