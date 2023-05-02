@@ -82,8 +82,17 @@ You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://
     `EXTRA_COMPILE_FLAGS` and `EXTRA_LINK_FLAGS` if that's not the same:
 
     ```c
+    // MacOS
     #define EXTRA_COMPILE_FLAGS "-I/opt/homebrew/Cellar/raylib/4.5.0/include"
     #define EXTRA_LINK_FLAGS "-L/opt/homebrew/Cellar/raylib/4.5.0/lib", "-lraylib"
+
+    // Arch Linux
+    // #define EXTRA_COMPILE_FLAGS "-I/usr/local/Cellar/raylib/4.2.0/include"
+    // #define EXTRA_LINK_FLAGS "-L/usr/local/Cellar/raylib/4.2.0/lib", "-lraylib"
+
+    // FreeBSD
+    // #define EXTRA_COMPILE_FLAGS "-I/usr/local/include", "-D_THREAD_SAFE", "-pthread"
+    // #define EXTRA_LINK_FLAGS "-L/usr/local/lib", "-lraylib"
     ```
 
     </br>
