@@ -13,6 +13,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#ifdef __FreeBSD__
+#include <sys/wait.h>
+#endif
+
 ///
 /// Log related
 ///
