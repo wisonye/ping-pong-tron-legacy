@@ -9,3 +9,5 @@ cbuild_wasm
 cbuild_wasm.dSYM
 wasm_build
 zig_build
+zig-cache
+zig-out

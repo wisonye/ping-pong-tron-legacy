@@ -303,3 +303,14 @@ You just need the C compile (e.g. `cc/gcc/clang/zig cc`) and [`raylib`](https://
 
     </br>
 
+## How to build desktop version with `zig`
+
+This project has already included a `build.zig` file, if you have `Zig` install,
+then just run:
+
+```bassh
+zig build run
+```
+
+</br>
+
