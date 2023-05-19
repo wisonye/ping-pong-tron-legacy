@@ -13,6 +13,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#ifdef __linux__
+#include <wait.h>
+#endif
+
 #ifdef __FreeBSD__
 #include <sys/wait.h>
 #endif
