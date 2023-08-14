@@ -24,16 +24,17 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    const cflags = [_][]const u8{
+    exe.addCSourceFiles(&[_][]const u8{
+        "src/ball.c",
+        "src/game.c",
+        "src/player.c",
+        "src/scoreboard.c",
+        "src/table.c",
+        "src/utils.c",
+        "src/main.c",
+    }, &[_][]const u8{
         "-pedantic-errors", "-Wall", "-Werror", "-Wextra", "-std=c11", "-g",
-    };
-    exe.addCSourceFile("src/ball.c", &cflags);
-    exe.addCSourceFile("src/game.c", &cflags);
-    exe.addCSourceFile("src/player.c", &cflags);
-    exe.addCSourceFile("src/scoreboard.c", &cflags);
-    exe.addCSourceFile("src/table.c", &cflags);
-    exe.addCSourceFile("src/utils.c", &cflags);
-    exe.addCSourceFile("src/main.c", &cflags);
+    });
     exe.linkLibC();
     exe.linkSystemLibrary("raylib");
 
