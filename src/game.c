@@ -31,7 +31,8 @@ void toggle_fullscreen(Game *game) {
 ///
 ///
 void Game_init(Game *game) {
-    InitWindow(GAME_UI_INIT_SCREEN_WIDTH, GAME_UI_INIT_SCREEN_HEIGHT,
+    InitWindow(GAME_UI_INIT_SCREEN_WIDTH,
+               GAME_UI_INIT_SCREEN_HEIGHT,
                "Ping pong tron legacy");
 
     // Window states: No frame and buttons
@@ -80,10 +81,13 @@ void Game_init(Game *game) {
     //   has the init alpha value and size, and the size should be smaller than
     //   the ball to make it looks nicer.
     //
-    float density = 0.5f;
-    Image ball_alpha_mask_image = GenImageGradientRadial(
-        game->ball.radius * 2, game->ball.radius * 2, density, WHITE, BLACK);
-    game->ball.alpha_mask = LoadTextureFromImage(ball_alpha_mask_image);
+    float density               = 0.5f;
+    Image ball_alpha_mask_image = GenImageGradientRadial(game->ball.radius * 2,
+                                                         game->ball.radius * 2,
+                                                         density,
+                                                         WHITE,
+                                                         BLACK);
+    game->ball.alpha_mask       = LoadTextureFromImage(ball_alpha_mask_image);
     UnloadImage(ball_alpha_mask_image);
 
     //
@@ -165,22 +169,25 @@ void Game_logic(Game *game) {
         TraceLog(LOG_DEBUG,
                  ">>> [ Game_logic ] - Toggle fullscreen, screen_width: %d, "
                  "screen_height: %d",
-                 GetScreenWidth(), GetScreenHeight());
+                 GetScreenWidth(),
+                 GetScreenHeight());
 
         //
         // Update `game->table_rect`
         //
         Rectangle new_sb_rect = SB_recalculate_rect();
-        game->table_rect = Table_recalculate_rect(&new_sb_rect);
+        game->table_rect      = Table_recalculate_rect(&new_sb_rect);
 
         //
         // Sync racket position
         //
         Player_update_racket_after_screen_size_changed(
-            &game->player1, &game->table_rect,
+            &game->player1,
+            &game->table_rect,
             &game->table_rect_before_screen_changed);
         Player_update_racket_after_screen_size_changed(
-            &game->player2, &game->table_rect,
+            &game->player2,
+            &game->table_rect,
             &game->table_rect_before_screen_changed);
     }
 
@@ -201,20 +208,24 @@ void Game_logic(Game *game) {
     //
     if (game->state == GS_PLAYING) {
         // Update ball
-        Ball *ball = &game->ball;
+        Ball *ball          = &game->ball;
         bool is_player1_win = false;
         bool is_player2_win = false;
-        Ball_update(ball, &game->table_rect, &game->player1, &game->player2,
-                    &is_player1_win, &is_player2_win);
+        Ball_update(ball,
+                    &game->table_rect,
+                    &game->player1,
+                    &game->player2,
+                    &is_player1_win,
+                    &is_player2_win);
         if (is_player1_win) {
             game->player1.score += 1;
-            game->state = GS_PLAYER_WINS;
+            game->state                      = GS_PLAYER_WINS;
             game->is_player1_wins_last_round = true;
             PlaySound(game->you_win_sound_effect);
             return;
         } else if (is_player2_win) {
             game->player2.score += 1;
-            game->state = GS_PLAYER_WINS;
+            game->state                      = GS_PLAYER_WINS;
             game->is_player1_wins_last_round = false;
             PlaySound(game->you_win_sound_effect);
             return;
@@ -233,19 +244,23 @@ void Game_logic(Game *game) {
         // Update racket postion
         //
         if (IsKeyDown(PLAYER_2_UP_KEY)) {
-            Player_update_racket(&game->player2, &game->table_rect,
+            Player_update_racket(&game->player2,
+                                 &game->table_rect,
                                  RUT_MOVE_UP);
         }
         if (IsKeyDown(PLAYER_2_DOWN_KEY)) {
-            Player_update_racket(&game->player2, &game->table_rect,
+            Player_update_racket(&game->player2,
+                                 &game->table_rect,
                                  RUT_MOVE_DOWN);
         }
         if (IsKeyDown(PLAYER_1_UP_KEY)) {
-            Player_update_racket(&game->player1, &game->table_rect,
+            Player_update_racket(&game->player1,
+                                 &game->table_rect,
                                  RUT_MOVE_UP);
         }
         if (IsKeyDown(PLAYER_1_DOWN_KEY)) {
-            Player_update_racket(&game->player1, &game->table_rect,
+            Player_update_racket(&game->player1,
+                                 &game->table_rect,
                                  RUT_MOVE_DOWN);
         }
     }
@@ -293,7 +308,7 @@ void Game_run(Game *game) {
     UnloadSound(game->you_win_sound_effect);
     UnloadSound(game->ball.enable_fireball_sound_effect);  // Unload sound data
     UnloadSound(game->ball.enable_lightning_ball_sound_effect);
-    UnloadSound(game->ball.hit_racket_sound_effect);  // Unload sound data
+    UnloadSound(game->ball.hit_racket_sound_effect);       // Unload sound data
     UnloadTexture(game->player1.default_racket.rect_texture);
     UnloadTexture(game->player2.default_racket.rect_texture);
     CloseAudioDevice();
@@ -325,20 +340,15 @@ void Game_print_debug_info(Game *game) {
     //
     char state_str[20] = {0};
     switch (game->state) {
-        case GS_INIT:
-            strncpy(state_str, "GS_INIT", sizeof(state_str));
-            break;
+        case GS_INIT: strncpy(state_str, "GS_INIT", sizeof(state_str)); break;
         case GS_BEFORE_START:
             strncpy(state_str, "GS_BEFORE_START", sizeof(state_str));
             break;
         case GS_PLAYING:
             strncpy(state_str, "GS_PLAYING", sizeof(state_str));
             break;
-        case GS_PAUSE:
-            strncpy(state_str, "GS_PAUSE", sizeof(state_str));
-            break;
-        default:
-            strncpy(state_str, "GS_UNINIT", sizeof(state_str));
+        case GS_PAUSE: strncpy(state_str, "GS_PAUSE", sizeof(state_str)); break;
+        default: strncpy(state_str, "GS_UNINIT", sizeof(state_str));
     }
 
     //
@@ -357,13 +367,16 @@ void Game_print_debug_info(Game *game) {
     // Ball
     //
     char ball_str[1024];
-    char ball_color_str[10] = {0};
+    char ball_color_str[10]     = {0};
     char fireball_color_str[10] = {0};
-    Utils_get_color_string(BALL_UI_BALL_COLOR, ball_color_str,
+    Utils_get_color_string(BALL_UI_BALL_COLOR,
+                           ball_color_str,
                            sizeof(ball_color_str));
-    Utils_get_color_string(BALL_UI_FIREBALL_COLOR, fireball_color_str,
+    Utils_get_color_string(BALL_UI_FIREBALL_COLOR,
+                           fireball_color_str,
                            sizeof(fireball_color_str));
-    snprintf(ball_str, sizeof(ball_str),
+    snprintf(ball_str,
+             sizeof(ball_str),
              "\tball: {\n\t\tcenter: { x: %.2f, y: %.2f }\n\t\tradius: "
              "%.2f\n\t\tcolor: 0x%s\n\t\tfireball color: 0x%s\n\t\tvelocity_x: "
              "%.2f\n\t\tvelocity_y: %.2f\n\t\thits_before_increase_velocity: "
@@ -372,9 +385,14 @@ void Game_print_debug_info(Game *game) {
              "%d\n\t\tlighting_tail_particle_count: "
              "%d\n\t\tlighting_tail_particle_init_alpha: "
              "%.2f\n\t\tlighting_tail_particle_size: %.2f\n\t}",
-             game->ball.center.x, game->ball.center.y, game->ball.radius,
-             ball_color_str, fireball_color_str, BALL_UI_BALL_VELOCITY_X,
-             BALL_UI_BALL_VELOCITY_Y, BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
+             game->ball.center.x,
+             game->ball.center.y,
+             game->ball.radius,
+             ball_color_str,
+             fireball_color_str,
+             BALL_UI_BALL_VELOCITY_X,
+             BALL_UI_BALL_VELOCITY_Y,
+             BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
              BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL,
              BALL_UI_VELOCITY_ACCELERATION,
              BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT,
@@ -384,8 +402,13 @@ void Game_print_debug_info(Game *game) {
     //
     // Debug info
     //
-    snprintf(debug_info, sizeof(debug_info), "\n{\n\tstate: %s\n%s\n%s\n%s\n}",
-             state_str, player_1_str, player_2_str, ball_str);
+    snprintf(debug_info,
+             sizeof(debug_info),
+             "\n{\n\tstate: %s\n%s\n%s\n%s\n}",
+             state_str,
+             player_1_str,
+             player_2_str,
+             ball_str);
 
     TraceLog(LOG_DEBUG, ">>> [ Game_Print_debug_info ] - %s", debug_info);
 }

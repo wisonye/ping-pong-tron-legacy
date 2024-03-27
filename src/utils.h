@@ -14,7 +14,8 @@ void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size);
 ///
 ///
 ///
-void Utils_get_player_string(Player *player, char *out_buffer,
+void Utils_get_player_string(Player *player,
+                             char *out_buffer,
                              usize buffer_size);
 
 ///

@@ -6,129 +6,141 @@
 //
 // Color theme
 //
-#define TRON_DARK \
-    (Color) { .r = 0x23, .g = 0x21, .b = 0x1B, .a = 0xFF }
-#define TRON_LIGHT_BLUE \
-    (Color) { .r = 0xAC, .g = 0xE6, .b = 0xFE, .a = 0xFF }
-#define TRON_BLUE \
-    (Color) { .r = 0x6F, .g = 0xC3, .b = 0xDF, .a = 0xFF }
-#define TRON_YELLOW \
-    (Color) { .r = 0xFF, .g = 0xE6, .b = 0x4D, .a = 0xFF }
-#define TRON_ORANGE \
-    (Color) { .r = 0xFF, .g = 0x9F, .b = 0x1C, .a = 0xFF }
-#define TRON_RED \
-    (Color) { .r = 0xF4, .g = 0x47, .b = 0x47, .a = 0xFF }
+#define TRON_DARK                                                              \
+    (Color) {                                                                  \
+        .r = 0x23, .g = 0x21, .b = 0x1B, .a = 0xFF                             \
+    }
+#define TRON_LIGHT_BLUE                                                        \
+    (Color) {                                                                  \
+        .r = 0xAC, .g = 0xE6, .b = 0xFE, .a = 0xFF                             \
+    }
+#define TRON_BLUE                                                              \
+    (Color) {                                                                  \
+        .r = 0x6F, .g = 0xC3, .b = 0xDF, .a = 0xFF                             \
+    }
+#define TRON_YELLOW                                                            \
+    (Color) {                                                                  \
+        .r = 0xFF, .g = 0xE6, .b = 0x4D, .a = 0xFF                             \
+    }
+#define TRON_ORANGE                                                            \
+    (Color) {                                                                  \
+        .r = 0xFF, .g = 0x9F, .b = 0x1C, .a = 0xFF                             \
+    }
+#define TRON_RED                                                               \
+    (Color) {                                                                  \
+        .r = 0xF4, .g = 0x47, .b = 0x47, .a = 0xFF                             \
+    }
 
 //
 // Game misc settings
 //
-#define GAME_FPS 60
+#define GAME_FPS                                                  60
 
 //
 // Game UI settings
 //
-#define GAME_UI_INIT_SCREEN_WIDTH 1300
-#define GAME_UI_INIT_SCREEN_HEIGHT 768
-#define GAME_UI_PADDING 10.0f
-#define GAME_UI_BACKGROUND_COLOR TRON_DARK
-#define GAME_UI_BORDER_COLOR TRON_LIGHT_BLUE
-#define GAME_UI_RACKET_COLOR TRON_ORANGE
+#define GAME_UI_INIT_SCREEN_WIDTH                                 1300
+#define GAME_UI_INIT_SCREEN_HEIGHT                                768
+#define GAME_UI_PADDING                                           10.0f
+#define GAME_UI_BACKGROUND_COLOR                                  TRON_DARK
+#define GAME_UI_BORDER_COLOR                                      TRON_LIGHT_BLUE
+#define GAME_UI_RACKET_COLOR                                      TRON_ORANGE
 
 //
 // Scoreboard UI settings
 //
-#define SCOREBOARD_UI_PADDING GAME_UI_PADDING
-#define SCOREBOARD_UI_BORDER_COLOR TRON_LIGHT_BLUE
-#define SCOREBOARD_UI_BORDER_HEIGHT_PERCENT 10
-#define SCOREBOARD_UI_BORDER_THICKNESS 2.0f
-#define SCOREBOARD_UI_VS_FONT_SIZE 30.f
-#define SCOREBOARD_UI_VS_FONT_SPACE 10.0f
-#define SCOREBOARD_UI_PLAYER_FONT_SPACE 5.0f
-#define SCOREBOARD_UI_PLAYER_NAME_FONT_SIZE 30.f
-#define SCOREBOARD_UI_PLAYER_SCORE_FONT_SIZE 50.f
-#define SCOREBOARD_UI_SPACE_BETWEEN_NAME_AND_BORDER 50.f
-#define SCOREBOARD_UI_SPACE_BETWEEN_NAME_AND_SCORE 50.f
+#define SCOREBOARD_UI_PADDING                                     GAME_UI_PADDING
+#define SCOREBOARD_UI_BORDER_COLOR                                TRON_LIGHT_BLUE
+#define SCOREBOARD_UI_BORDER_HEIGHT_PERCENT                       10
+#define SCOREBOARD_UI_BORDER_THICKNESS                            2.0f
+#define SCOREBOARD_UI_VS_FONT_SIZE                                30.f
+#define SCOREBOARD_UI_VS_FONT_SPACE                               10.0f
+#define SCOREBOARD_UI_PLAYER_FONT_SPACE                           5.0f
+#define SCOREBOARD_UI_PLAYER_NAME_FONT_SIZE                       30.f
+#define SCOREBOARD_UI_PLAYER_SCORE_FONT_SIZE                      50.f
+#define SCOREBOARD_UI_SPACE_BETWEEN_NAME_AND_BORDER               50.f
+#define SCOREBOARD_UI_SPACE_BETWEEN_NAME_AND_SCORE                50.f
 
 //
 // Table UI settings
 //
-#define TABLE_UI_MARGIN GAME_UI_PADDING
-#define TABLE_UI_BORDER_COLOR TRON_LIGHT_BLUE
-#define TABLE_UI_BORDER_THICKNESS 2.0f
-#define TABLE_UI_FIRST_START_PROMPT_BORDER_COLOR TRON_ORANGE
-#define TABLE_UI_FIRST_START_PROMPT_TEXT_COLOR TRON_ORANGE
-#define TABLE_UI_FIRST_START_PROMPT_TEXT "Press 'Space' to start the game"
-#define TABLE_UI_FIRST_START_PROMPT_FONT_SIZE 40.0f
-#define TABLE_UI_FIRST_START_PROMPT_FONT_SPACE 5.0f
-#define TABLE_UI_FIRST_START_PROMPT_CONTAINER_HORIZONTAL_PADDING 50.0f
-#define TABLE_UI_FIRST_START_PROMPT_CONTAINER_VERTICAL_PADDING 20.0f
-#define TABLE_UI_PLAYER_WINS_PROMPT_BORDER_COLOR TRON_ORANGE
-#define TABLE_UI_PLAYER_WINS_PROMPT_TEXT_COLOR TRON_ORANGE
-#define TABLE_UI_PLAYER_WINS_PROMPT_TEXT " Wins!!!"
-#define TABLE_UI_PLAYER_WINS_PROMPT_FONT_SIZE 60.0f
-#define TABLE_UI_PLAYER_WINS_PROMPT_FONT_SPACE 5.0f
-#define TABLE_UI_PLAYER_WINS_PROMPT_CONTAINER_HORIZONTAL_PADDING 60.0f
-#define TABLE_UI_PLAYER_WINS_PROMPT_CONTAINER_VERTICAL_PADDING 50.0f
-#define TABLE_UI_PLAYER_WINS_RESTART_TEXT_COLOR TRON_ORANGE
-#define TABLE_UI_PLAYER_WINS_RESTART_TEXT "Press 'Space' to start the game"
-#define TABLE_UI_PLAYER_WINS_RESTART_FONT_SIZE 20.0f
-#define TABLE_UI_PLAYER_WINS_RESTART_FONT_SPACE 2.5f
+#define TABLE_UI_MARGIN                                           GAME_UI_PADDING
+#define TABLE_UI_BORDER_COLOR                                     TRON_LIGHT_BLUE
+#define TABLE_UI_BORDER_THICKNESS                                 2.0f
+#define TABLE_UI_FIRST_START_PROMPT_BORDER_COLOR                  TRON_ORANGE
+#define TABLE_UI_FIRST_START_PROMPT_TEXT_COLOR                    TRON_ORANGE
+#define TABLE_UI_FIRST_START_PROMPT_TEXT                          "Press 'Space' to start the game"
+#define TABLE_UI_FIRST_START_PROMPT_FONT_SIZE                     40.0f
+#define TABLE_UI_FIRST_START_PROMPT_FONT_SPACE                    5.0f
+#define TABLE_UI_FIRST_START_PROMPT_CONTAINER_HORIZONTAL_PADDING  50.0f
+#define TABLE_UI_FIRST_START_PROMPT_CONTAINER_VERTICAL_PADDING    20.0f
+#define TABLE_UI_PLAYER_WINS_PROMPT_BORDER_COLOR                  TRON_ORANGE
+#define TABLE_UI_PLAYER_WINS_PROMPT_TEXT_COLOR                    TRON_ORANGE
+#define TABLE_UI_PLAYER_WINS_PROMPT_TEXT                          " Wins!!!"
+#define TABLE_UI_PLAYER_WINS_PROMPT_FONT_SIZE                     60.0f
+#define TABLE_UI_PLAYER_WINS_PROMPT_FONT_SPACE                    5.0f
+#define TABLE_UI_PLAYER_WINS_PROMPT_CONTAINER_HORIZONTAL_PADDING  60.0f
+#define TABLE_UI_PLAYER_WINS_PROMPT_CONTAINER_VERTICAL_PADDING    50.0f
+#define TABLE_UI_PLAYER_WINS_RESTART_TEXT_COLOR                   TRON_ORANGE
+#define TABLE_UI_PLAYER_WINS_RESTART_TEXT                         "Press 'Space' to start the game"
+#define TABLE_UI_PLAYER_WINS_RESTART_FONT_SIZE                    20.0f
+#define TABLE_UI_PLAYER_WINS_RESTART_FONT_SPACE                   2.5f
 #define TABLE_UI_PLAYER_WINS_RESTART_CONTAINER_HORIZONTAL_PADDING 30.0f
-#define TABLE_UI_PLAYER_WINS_RESTART_CONTAINER_VERTICAL_PADDING 10.0f
+#define TABLE_UI_PLAYER_WINS_RESTART_CONTAINER_VERTICAL_PADDING   10.0f
 
 //
 // Ball UI settings
 //
-#define BALL_UI_BALL_COLOR TRON_LIGHT_BLUE
-#define BALL_UI_FIREBALL_COLOR TRON_ORANGE
-#define BALL_UI_LIGHTNING_BALL_COLOR TRON_YELLOW
-#define BALL_UI_LIGHTNING_BALL "resources/lightning_ball.png"
-#define BALL_UI_BALL_RADIUS 30.f           // 20.0f // 60.f
-#define BALL_UI_LIGHTING_BALL_RADIUS 10.f  // 20.0f // 60.f
-#define BALL_UI_BALL_VELOCITY_X 500.0f
-#define BALL_UI_BALL_VELOCITY_Y 500.0f
+#define BALL_UI_BALL_COLOR                                        TRON_LIGHT_BLUE
+#define BALL_UI_FIREBALL_COLOR                                    TRON_ORANGE
+#define BALL_UI_LIGHTNING_BALL_COLOR                              TRON_YELLOW
+#define BALL_UI_LIGHTNING_BALL                                    "resources/lightning_ball.png"
+#define BALL_UI_BALL_RADIUS                                       30.f  // 20.0f // 60.f
+#define BALL_UI_LIGHTING_BALL_RADIUS                              10.f  // 20.0f // 60.f
+#define BALL_UI_BALL_VELOCITY_X                                   500.0f
+#define BALL_UI_BALL_VELOCITY_Y                                   500.0f
 // How many hits before increasing the ball velocity
-#define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY 2
+#define BALL_UI_HITS_BEFORE_INCREASE_VELOCITY                     2
 // How many velocities increase to enable a fireball
-#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL 4
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_FIREBALL            4
 // How many velocities increase to enable a lightning ball
-#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_LIGHTNING_BALL 6
+#define BALL_UI_VELOCITIES_INCREASE_TO_ENABLE_LIGHTNING_BALL      6
 // Velocity acceleration
-#define BALL_UI_VELOCITY_ACCELERATION 100
-#define BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT 50
+#define BALL_UI_VELOCITY_ACCELERATION                             100
+#define BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT                      50
 // Init `alpha` value, it affects how light the particle at the beginning
-#define BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA 0.8f
+#define BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA                 0.8f
 // It affects how big the particle will be: how many percentage of the ball
 // size: 0.0 ~ 1.0 (0 ~ 100%)
-#define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE 0.5f
-#define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE_FOR_LIGHTNING_BALL 0.4f
+#define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE                       0.5f
+#define BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE_FOR_LIGHTNING_BALL    0.4f
 
 //
 // Racket UI settings
 //
-#define RACKET_UI_MAX_RACKETS_PER_PLAYER 5
-#define RACKET_UI_MARGIN 20.f
-#define RACKET_UI_WIDTH 40.f
-#define RACKET_UI_HEIGHT 200.f
-#define RACKET_UI_COLOR TRON_LIGHT_BLUE
-#define RACKET_UI_VELOCITY 600.f
-#define RACKET_UI_DRAW_DEBUG_BOUNDARY false
+#define RACKET_UI_MAX_RACKETS_PER_PLAYER                          5
+#define RACKET_UI_MARGIN                                          20.f
+#define RACKET_UI_WIDTH                                           40.f
+#define RACKET_UI_HEIGHT                                          200.f
+#define RACKET_UI_COLOR                                           TRON_LIGHT_BLUE
+#define RACKET_UI_VELOCITY                                        600.f
+#define RACKET_UI_DRAW_DEBUG_BOUNDARY                             false
 // #define RACKET_UI_LASER_RACKET_TEXTURE "resources/green_laser.png"
-#define RACKET_UI_LASER_RACKET_TEXTURE "resources/blue_laser.png"
+#define RACKET_UI_LASER_RACKET_TEXTURE                            "resources/blue_laser.png"
 
 //
 // Player settings
 //
-#define PLAYER_1_UP_KEY KEY_E
-#define PLAYER_1_DOWN_KEY KEY_D
-#define PLAYER_2_UP_KEY KEY_K
-#define PLAYER_2_DOWN_KEY KEY_J
+#define PLAYER_1_UP_KEY                                           KEY_E
+#define PLAYER_1_DOWN_KEY                                         KEY_D
+#define PLAYER_2_UP_KEY                                           KEY_K
+#define PLAYER_2_DOWN_KEY                                         KEY_J
 
 //
 // Sound effects
 //
-#define ENABLE_FIREBALL_SOUND_EFFECT "resources/enable_fireball.wav"
-#define ENABLE_LIGHTNING_BALL_SOUND_EFFECT "resources/enable_lightning_ball.wav"
-#define BALL_HIT_RACKET_SOUND_EFFECT "resources/hit_racket.wav"
-#define YOU_WIN_SOUND_EFFECT_1 "resources/you_win.wav"
-#define YOU_WIN_SOUND_EFFECT_2 "resources/you_win_2.wav"
+#define ENABLE_FIREBALL_SOUND_EFFECT                              "resources/enable_fireball.wav"
+#define ENABLE_LIGHTNING_BALL_SOUND_EFFECT                        "resources/enable_lightning_ball.wav"
+#define BALL_HIT_RACKET_SOUND_EFFECT                              "resources/hit_racket.wav"
+#define YOU_WIN_SOUND_EFFECT_1                                    "resources/you_win.wav"
+#define YOU_WIN_SOUND_EFFECT_2                                    "resources/you_win_2.wav"

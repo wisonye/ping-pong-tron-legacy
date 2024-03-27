@@ -41,10 +41,13 @@ void Utils_get_color_string(Color color, char *out_buffer, usize buffer_size) {
 ///
 ///
 ///
-void Utils_get_player_string(Player *player, char *out_buffer,
+void Utils_get_player_string(Player *player,
+                             char *out_buffer,
                              usize buffer_size) {
     char player_type_str[10];
-    snprintf(player_type_str, sizeof(player_type_str), "%s",
+    snprintf(player_type_str,
+             sizeof(player_type_str),
+             "%s",
              player->type == PT_LEFT ? "LEFT" : "RIGHT");
 
     char default_racket_color_str[9];
@@ -54,13 +57,17 @@ void Utils_get_player_string(Player *player, char *out_buffer,
     printf("\n>>> default_racket_color_str len: %lu",
            strlen(default_racket_color_str));
 
-    snprintf(out_buffer, buffer_size,
+    snprintf(out_buffer,
+             buffer_size,
              "\tplayer: {\n\t\ttype: %s\n\t\tname: %s\n\t\tscore: "
              "%" PRIu64
              "\n\t\tdefault_racket: {\n\t\t\tcolor: 0x%s\n\t\t\tvelocity: "
              "%.2f\n\t\t}\n\t}",
-             player_type_str, player->name, player->score,
-             default_racket_color_str, RACKET_UI_VELOCITY);
+             player_type_str,
+             player->name,
+             player->score,
+             default_racket_color_str,
+             RACKET_UI_VELOCITY);
 }
 
 ///
@@ -97,7 +104,8 @@ Texture2D Utils_load_texture(char *texture_file) {
 Image Utils_load_image(char *image_file) {
     Image image = LoadImage(image_file);
     if (image.data == NULL) {
-        TraceLog(LOG_ERROR, ">>> [ Utils_load_image ] - failed to image: %s",
+        TraceLog(LOG_ERROR,
+                 ">>> [ Utils_load_image ] - failed to image: %s",
                  image_file);
         exit(EXIT_FAILURE);
     }

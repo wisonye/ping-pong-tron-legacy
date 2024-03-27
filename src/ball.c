@@ -53,9 +53,12 @@ void Ball_redraw(const Ball *ball) {
             //          i);
             DrawTexturePro(
                 ball->alpha_mask,
-                (Rectangle){0.0f, 0.0f, (float)ball->alpha_mask.width,
+                (Rectangle){0.0f,
+                            0.0f,
+                            (float)ball->alpha_mask.width,
                             (float)ball->alpha_mask.height},
-                (Rectangle){particles[i].position.x, particles[i].position.y,
+                (Rectangle){particles[i].position.x,
+                            particles[i].position.y,
                             ball->alpha_mask.width * particles[i].size,
                             ball->alpha_mask.height * particles[i].size},
                 (Vector2){
@@ -76,13 +79,18 @@ void Ball_redraw(const Ball *ball) {
     // Draw ball with alpha mask
     //
     DrawTexturePro(ball->alpha_mask,
-                   (Rectangle){0.0f, 0.0f, (float)ball->alpha_mask.width,
+                   (Rectangle){0.0f,
+                               0.0f,
+                               (float)ball->alpha_mask.width,
                                (float)ball->alpha_mask.height},
-                   (Rectangle){ball->center.x, ball->center.y,
-                               ball->alpha_mask.width, ball->alpha_mask.height},
+                   (Rectangle){ball->center.x,
+                               ball->center.y,
+                               ball->alpha_mask.width,
+                               ball->alpha_mask.height},
                    (Vector2){(float)(ball->alpha_mask.width / 2.0f),
                              (float)(ball->alpha_mask.height / 2.0f)},
-                   0.0f, ball_and_lighting_tail_color);
+                   0.0f,
+                   ball_and_lighting_tail_color);
 
     EndBlendMode();
 
@@ -117,12 +125,12 @@ void Ball_restart(Ball *ball, const Rectangle *table_rect) {
         .y = table_rect->y + ((table_rect->height - ball->radius) / 2),
     };
 
-    ball->velocity_x = BALL_UI_BALL_VELOCITY_X;
-    ball->velocity_y = BALL_UI_BALL_VELOCITY_Y;
-    ball->current_hits = 0;
+    ball->velocity_x                  = BALL_UI_BALL_VELOCITY_X;
+    ball->velocity_y                  = BALL_UI_BALL_VELOCITY_Y;
+    ball->current_hits                = 0;
     ball->current_velocities_increase = 0;
-    ball->enabled_fireball = false;
-    ball->enabled_lightning_ball = false;
+    ball->enabled_fireball            = false;
+    ball->enabled_lightning_ball      = false;
 
     BallTailParticle *particles = ball->lighting_tail.particles;
 
@@ -136,7 +144,7 @@ void Ball_restart(Ball *ball, const Rectangle *table_rect) {
 
         // It affects how big the particle will be: how many percentage of the
         // ball size: 0.0 ~ 1.0 (0 ~ 100%)
-        particles[i].size = BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE;
+        particles[i].size   = BALL_UI_LIGHTING_TAIL_PRATICLE_SIZE;
         particles[i].active = false;
     }
 }
@@ -144,8 +152,11 @@ void Ball_restart(Ball *ball, const Rectangle *table_rect) {
 ///
 ///
 ///
-void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
-                 const Player *player2, bool *is_player1_win,
+void Ball_update(Ball *ball,
+                 const Rectangle *table_rect,
+                 const Player *player1,
+                 const Player *player2,
+                 bool *is_player1_win,
                  bool *is_player2_win) {
     //
     // Next ball position
@@ -232,8 +243,10 @@ void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
                  ">>> [ Ball_update ] - %u hits happens, increase velocity to "
                  "(x: %.2f, y: %.2f), "
                  "current_velocities_increase: %u",
-                 BALL_UI_HITS_BEFORE_INCREASE_VELOCITY, ball->velocity_x,
-                 ball->velocity_y, ball->current_velocities_increase);
+                 BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
+                 ball->velocity_x,
+                 ball->velocity_y,
+                 ball->current_velocities_increase);
 
         //
         // Enable fireball
@@ -296,10 +309,10 @@ void Ball_update_lighting_tail(Ball *ball) {
     ;
     for (int i = 0; i < BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT; i++) {
         if (!particles[i].active) {
-            particles[i].active = true;
-            particles[i].alpha = BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA;
+            particles[i].active   = true;
+            particles[i].alpha    = BALL_UI_LIGHTING_TAIL_PRATICLE_INIT_ALPHA;
             particles[i].position = ball->center;
-            i = BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT;
+            i                     = BALL_UI_LIGHTING_TAIL_PARTICLE_COUNT;
         }
     }
 

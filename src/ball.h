@@ -59,8 +59,11 @@ void Ball_restart(Ball *ball, const Rectangle *table_rect);
 ///
 ///
 ///
-void Ball_update(Ball *ball, const Rectangle *table_rect, const Player *player1,
-                 const Player *player2, bool *is_player1_win,
+void Ball_update(Ball *ball,
+                 const Rectangle *table_rect,
+                 const Player *player1,
+                 const Player *player2,
+                 bool *is_player1_win,
                  bool *is_player2_win);
 
 ///

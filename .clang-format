@@ -20,5 +20,64 @@
 #
 # `GNU` A style complying with the GNU coding standards
 BasedOnStyle: Google
-IndentWidth: 4
 ColumnLimit: 80
+IndentWidth: 4
+PPIndentWidth: 4
+
+#
+# Macro alignment rleated
+#
+IndentPPDirectives: BeforeHash
+# IndentPPDirectives: AfterHash
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+AlignEscapedNewlines: Right
+
+#
+# Operrands alignment related
+#
+AlignOperands: Align
+
+#
+# Trailing comments alignment related
+#
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1
+
+#
+# String alignment related
+#
+AlwaysBreakBeforeMultilineStrings: false
+
+#
+# Varialbe assignment alignment related
+#
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+
+# AlignConsecutiveDeclarations:
+#   Enabled: true
+#   AcrossEmptyLines: true
+#   AcrossComments: false
+
+#
+# Function signature and call alignment related
+#
+AlignAfterOpenBracket: Align
+# AlignAfterOpenBracket: AlwaysBreak
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: Inline
+BinPackArguments: false
+BinPackParameters: false
+
+
+#
+# Switch case alignment related
+#
+AllowShortCaseLabelsOnASingleLine: true

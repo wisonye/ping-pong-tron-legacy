@@ -71,7 +71,8 @@ void Player_update_racket_after_screen_size_changed(Player *player,
 ///
 ///
 ///
-void Player_update_racket(Player *player, Rectangle *container,
+void Player_update_racket(Player *player,
+                          Rectangle *container,
                           RacketUpdateType rut);
 
 #endif

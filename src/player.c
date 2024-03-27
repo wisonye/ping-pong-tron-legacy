@@ -36,14 +36,15 @@ void Player_racket_redraw(Player *player) {
     DrawTexturePro(
         player->default_racket.rect_texture,
         // Texture rect to draw from
-        (Rectangle){.x = 0.0f,
-                    .y = 0.0f,
-                    .width = RACKET_UI_WIDTH,
+        (Rectangle){.x      = 0.0f,
+                    .y      = 0.0f,
+                    .width  = RACKET_UI_WIDTH,
                     .height = RACKET_UI_HEIGHT},
         // Target rect to draw (orgin is TopLeft by default!!!)
         racket_rect,
         // Origin offset of the target rect to draw (TopLeft by default)
-        (Vector2){.x = (float)(0.0f), .y = (float)(0.0f)}, 0.0f,
+        (Vector2){.x = (float)(0.0f), .y = (float)(0.0f)},
+        0.0f,
         RACKET_UI_COLOR);
     // EndBlendMode();
 
@@ -59,7 +60,7 @@ void Player_racket_redraw(Player *player) {
 void Player_update_racket_after_screen_size_changed(Player *player,
                                                     Rectangle *container,
                                                     Rectangle *old_container) {
-    float old_y = player->default_racket.rect.y;
+    float old_y   = player->default_racket.rect.y;
     float ratio_y = old_y / old_container->height;
 
     player->default_racket.rect.x =
@@ -72,7 +73,8 @@ void Player_update_racket_after_screen_size_changed(Player *player,
 ///
 ///
 ///
-void Player_update_racket(Player *player, Rectangle *container,
+void Player_update_racket(Player *player,
+                          Rectangle *container,
                           RacketUpdateType rut) {
     if (player == NULL) return;
 
@@ -88,7 +90,7 @@ void Player_update_racket(Player *player, Rectangle *container,
                                RACKET_UI_WIDTH,
                 .y =
                     container->y + ((container->height - RACKET_UI_HEIGHT) / 2),
-                .width = RACKET_UI_WIDTH,
+                .width  = RACKET_UI_WIDTH,
                 .height = RACKET_UI_HEIGHT,
             };
             TraceLog(LOG_DEBUG, "[ Player_update_racket ] - RUT_RESET");

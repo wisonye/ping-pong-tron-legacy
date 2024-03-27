@@ -30,45 +30,45 @@ int main(void) {
     // Create game instance
     //
     Game game = (Game){
-        .player1 = (Player){.type = PT_LEFT,
-                            .name = player_1_name,
-                            .score = 0,
+        .player1 = (Player){.type    = PT_LEFT,
+                            .name    = player_1_name,
+                            .score   = 0,
                             .rackets = {0},
                             .default_racket =
                                 {
-                                    .color = RACKET_UI_COLOR,
-                                    .rect = {0},
+                                    .color        = RACKET_UI_COLOR,
+                                    .rect         = {0},
                                     .rect_texture = {0},
                                 }},
-        .player2 = (Player){.type = PT_RIGHT,
-                            .name = player_2_name,
-                            .score = 0,
+        .player2 = (Player){.type    = PT_RIGHT,
+                            .name    = player_2_name,
+                            .score   = 0,
                             .rackets = {0},
                             .default_racket =
                                 {
-                                    .color = RACKET_UI_COLOR,
-                                    .rect = {0},
+                                    .color        = RACKET_UI_COLOR,
+                                    .rect         = {0},
                                     .rect_texture = {0},
                                 }},
         .table_rect =
             (Rectangle){
-                .x = -1,
-                .y = -1,
-                .width = -1,
+                .x      = -1,
+                .y      = -1,
+                .width  = -1,
                 .height = -1,
             },
         .ball =
             (Ball){
-                .center = (Vector2){.x = -1.0f, .y = -1.0f},
-                .radius = ball_radius,
+                .center     = (Vector2){.x = -1.0f, .y = -1.0f},
+                .radius     = ball_radius,
                 .velocity_x = BALL_UI_BALL_VELOCITY_X,
                 .velocity_y = BALL_UI_BALL_VELOCITY_Y,
                 .lightning_ball_rotation_angle = 0.0f,
-                .current_hits = 0,
-                .current_velocities_increase = 0,
-                .enabled_fireball = false,
-                .enabled_lightning_ball = false,
-                .lighting_tail = (BallLightingTail){0},
+                .current_hits                  = 0,
+                .current_velocities_increase   = 0,
+                .enabled_fireball              = false,
+                .enabled_lightning_ball        = false,
+                .lighting_tail                 = (BallLightingTail){0},
 
                 //
                 // `alpha_mask` is a black and white color image that uses for
@@ -78,8 +78,8 @@ int main(void) {
                 //
                 // .alpha_mask = ball_texture,
             },
-        .state = GS_INIT,
-        .is_fullscreen = false,
+        .state                      = GS_INIT,
+        .is_fullscreen              = false,
         .is_player1_wins_last_round = false,
     };
 
